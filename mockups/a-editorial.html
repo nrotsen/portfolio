@@ -349,7 +349,9 @@ figcaption, .caption { font-family: var(--mono); font-size: 12px; color: var(--i
 .subhead { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); padding-bottom: 12px; }
 .arch-fig { margin: 0; }
 .arch-scroll { overflow-x: auto; border: 1px solid var(--rule); background: #FBFAF6; padding: 16px; }
-.arch-scroll svg { display: block; width: 100%; min-width: 520px; height: auto; }
+.arch-scroll svg { display: block; width: 100%; height: auto; }
+@media (max-width: 640px) { .arch-scroll svg { min-width: 520px; } }
+.arch-svg .grp { font-size: 10px; letter-spacing: .08em; fill: var(--accent); }
 .arch-svg text { font-family: var(--mono); font-size: 12px; fill: var(--ink); }
 .arch-svg .sm { font-size: 10.5px; fill: var(--ink-soft); }
 .arch-svg .box { fill: #fff; stroke: var(--ink); stroke-width: 1; }
@@ -671,12 +673,12 @@ figcaption, .caption { font-family: var(--mono); font-size: 12px; color: var(--i
       <figure class="arch-fig">
         <div class="arch-scroll">
           <svg class="arch-svg" viewBox="0 0 560 400" role="img" aria-labelledby="arch-t">
-            <title id="arch-t">WhatsApp to Meta Cloud API to API Gateway to the webhook Lambda, which invokes the agent runner Lambda asynchronously; the runner talks to Claude, DynamoDB and Google Sheets, and reads Secrets Manager on cold start.</title>
+            <title id="arch-t">WhatsApp to Meta Cloud API to API Gateway to the webhook Lambda, which invokes the agent runner Lambda asynchronously. The runner talks to Claude, keeps conversation state in DynamoDB through ConversationStore, and reaches the user's data only through the DataAdapter interface: Google Sheets in production, DynamoDB planned, in-memory in tests. Secrets Manager is read on cold start.</title>
             <defs>
               <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1A1915"/></marker>
               <marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F5B47"/></marker>
             </defs>
-            <!-- Row 1: ingress -->
+            <!-- Ingress -->
             <rect class="box" x="0" y="10" width="120" height="40"/><text x="60" y="35" text-anchor="middle">WhatsApp</text>
             <rect class="box" x="0" y="80" width="120" height="40"/><text x="60" y="105" text-anchor="middle">Meta Cloud API</text>
             <rect class="box" x="0" y="150" width="120" height="40"/><text x="60" y="175" text-anchor="middle">API Gateway</text>
@@ -684,43 +686,59 @@ figcaption, .caption { font-family: var(--mono); font-size: 12px; color: var(--i
             <path class="ln" d="M60 120V148" marker-end="url(#ah)"/>
             <path class="ln" d="M60 190V228" marker-end="url(#ah)"/>
             <!-- Webhook -->
-            <rect class="box" x="0" y="230" width="150" height="54"/>
+            <rect class="box" x="0" y="230" width="140" height="54"/>
             <text x="12" y="252">Lambda</text><text x="12" y="272" style="font-weight:500">webhook</text>
-            <text class="sm" x="0" y="304" lang="en">HMAC · allowlist · &lt;1s</text>
-            <text class="sm" x="0" y="304" lang="es">HMAC · allowlist · &lt;1s</text>
-            <!-- async -->
-            <path class="ln-dash" d="M150 257H218" marker-end="url(#ah)"/>
-            <text class="sm" x="154" y="248" lang="en">async</text>
-            <text class="sm" x="154" y="248" lang="es">async</text>
+            <text class="sm" x="0" y="304">HMAC · allowlist · &lt;1s</text>
+            <path class="ln-dash" d="M140 257H198" marker-end="url(#ah)"/>
+            <text class="sm" x="150" y="248">async</text>
             <!-- Runner -->
-            <rect class="box-accent" x="220" y="222" width="150" height="70"/>
-            <text x="232" y="248">Lambda</text><text x="232" y="268" style="font-weight:500">agent runner</text>
-            <text class="sm" x="232" y="284" lang="en">bounded loop</text>
-            <text class="sm" x="232" y="284" lang="es">loop acotado</text>
-            <!-- Targets -->
-            <rect class="box" x="420" y="120" width="140" height="44"/><text x="432" y="140">Claude</text><text class="sm" x="432" y="155">tool use</text>
-            <rect class="box" x="420" y="236" width="140" height="44"/><text x="432" y="256">DynamoDB</text>
-            <text class="sm" x="432" y="271" lang="en">history · TTL 24h</text>
-            <text class="sm" x="432" y="271" lang="es">historial · TTL 24h</text>
-            <rect class="box" x="420" y="340" width="140" height="44"/><text x="432" y="360">Google Sheets</text>
-            <text class="sm" x="432" y="375" lang="en">DataAdapter</text>
-            <text class="sm" x="432" y="375" lang="es">DataAdapter</text>
-            <path class="ln-accent" d="M372 240L418 150" marker-start="url(#ahg)" marker-end="url(#ahg)"/>
-            <path class="ln-accent" d="M372 258H418" marker-start="url(#ahg)" marker-end="url(#ahg)"/>
-            <path class="ln-accent" d="M372 276L418 356" marker-start="url(#ahg)" marker-end="url(#ahg)"/>
+            <rect class="box-accent" x="200" y="222" width="140" height="70"/>
+            <text x="212" y="248">Lambda</text><text x="212" y="268" style="font-weight:500">agent runner</text>
+            <text class="sm" x="212" y="284" lang="en">bounded loop</text>
+            <text class="sm" x="212" y="284" lang="es">loop acotado</text>
             <!-- Secrets -->
-            <rect class="box-dash" x="220" y="340" width="150" height="44"/><text x="232" y="360">Secrets Manager</text>
-            <text class="sm" x="232" y="375" lang="en">on cold start</text>
-            <text class="sm" x="232" y="375" lang="es">en cold start</text>
-            <path class="ln-dash" d="M295 338V294" marker-end="url(#ah)"/>
+            <rect class="box-dash" x="200" y="340" width="140" height="44"/><text x="212" y="360">Secrets Manager</text>
+            <text class="sm" x="212" y="375" lang="en">on cold start</text>
+            <text class="sm" x="212" y="375" lang="es">en cold start</text>
+            <path class="ln-dash" d="M270 338V294" marker-end="url(#ah)"/>
+            <!-- LLM -->
+            <rect class="box" x="390" y="10" width="170" height="40"/><text x="402" y="28">Claude</text><text class="sm" x="402" y="42">tool use</text>
+            <path class="ln-accent" d="M342 232L390 44" marker-start="url(#ahg)" marker-end="url(#ahg)"/>
+            <!-- Runtime state -->
+            <text class="grp" x="390" y="74" lang="en">RUNTIME STATE</text>
+            <text class="grp" x="390" y="74" lang="es">ESTADO DEL RUNTIME</text>
+            <rect class="box" x="390" y="80" width="170" height="40"/><text x="402" y="98">ConversationStore</text>
+            <text class="sm" x="402" y="112" lang="en">history · idempotency</text>
+            <text class="sm" x="402" y="112" lang="es">historial · idempotencia</text>
+            <rect class="box" x="410" y="134" width="150" height="36"/><text x="422" y="150">DynamoDB</text><text class="sm" x="422" y="164">chat · TTL 24h</text>
+            <path class="ln" d="M400 120V152H408" marker-end="url(#ah)"/>
+            <path class="ln-accent" d="M342 244L388 106" marker-start="url(#ahg)" marker-end="url(#ahg)"/>
+            <!-- User data -->
+            <text class="grp" x="390" y="196" lang="en">USER DATA</text>
+            <text class="grp" x="390" y="196" lang="es">DATOS DEL USUARIO</text>
+            <rect class="box-accent" x="390" y="202" width="170" height="40"/><text x="402" y="220" style="font-weight:500">DataAdapter</text>
+            <text class="sm" x="402" y="234" lang="en">interface · 15 tools</text>
+            <text class="sm" x="402" y="234" lang="es">interfaz · 15 tools</text>
+            <path class="ln-accent" d="M342 258L388 226" marker-start="url(#ahg)" marker-end="url(#ahg)"/>
+            <rect class="box" x="410" y="258" width="150" height="34"/><text x="422" y="273">Google Sheets</text>
+            <text class="sm" x="422" y="286" lang="en">in production</text>
+            <text class="sm" x="422" y="286" lang="es">en producción</text>
+            <rect class="box-dash" x="410" y="302" width="150" height="34"/><text x="422" y="317">DynamoDB</text>
+            <text class="sm" x="422" y="330" lang="en">phase 2</text>
+            <text class="sm" x="422" y="330" lang="es">fase 2</text>
+            <rect class="box-dash" x="410" y="346" width="150" height="34"/><text x="422" y="361" lang="en">In-memory</text><text x="422" y="361" lang="es">En memoria</text>
+            <text class="sm" x="422" y="374">tests</text>
+            <path class="ln" d="M400 242V275H408" marker-end="url(#ah)"/>
+            <path class="ln-dash" d="M400 275V319H408" marker-end="url(#ah)"/>
+            <path class="ln-dash" d="M400 319V363H408" marker-end="url(#ah)"/>
             <!-- Legend -->
-            <text class="sm" x="220" y="40" lang="en">— sync   - - async / cold start</text>
-            <text class="sm" x="220" y="40" lang="es">— sync   - - async / cold start</text>
-            <text class="sm" x="220" y="58" lang="en">⇄ tool calls from the runner</text>
-            <text class="sm" x="220" y="58" lang="es">⇄ llamadas desde el runner</text>
+            <text class="sm" x="150" y="30" lang="en">— sync  - - async / planned / tests</text>
+            <text class="sm" x="150" y="30" lang="es">— sync  - - async / planif. / tests</text>
+            <text class="sm" x="150" y="48" lang="en">⇄ calls from the runner</text>
+            <text class="sm" x="150" y="48" lang="es">⇄ llamadas desde el runner</text>
           </svg>
         </div>
-        <figcaption><span lang="en">WhatsApp → Meta → API Gateway → webhook ⇢ agent runner ⇄ Claude · DynamoDB · Sheets.</span><span lang="es">WhatsApp → Meta → API Gateway → webhook ⇢ agent runner ⇄ Claude · DynamoDB · Sheets.</span></figcaption>
+        <figcaption><span lang="en">Conversation state and user data are kept apart: the tools only ever see the <code>DataAdapter</code>.</span><span lang="es">El estado de la conversación y los datos del usuario van separados: las tools solo ven el <code>DataAdapter</code>.</span></figcaption>
       </figure>
 
       <div class="war">

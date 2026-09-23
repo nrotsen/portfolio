@@ -467,6 +467,9 @@
   .d-flow { stroke: var(--accent-2); stroke-width: 1.6; fill: none; stroke-dasharray: 5 5; }
   .d-lbl { font-family: var(--f-mono); font-size: 10.5px; fill: var(--accent-2); }
   .d-lbl.soft { fill: var(--text-faint); }
+  .d-node.plan rect { fill: transparent; stroke: var(--border-strong); stroke-dasharray: 4 3; }
+  .d-edge.plan { stroke-dasharray: 3 3; }
+  .d-grp { font-family: var(--f-mono); font-size: 10.5px; fill: var(--accent); }
   @keyframes dash { to { stroke-dashoffset: -20; } }
   @media (prefers-reduced-motion: no-preference) { .d-flow { animation: dash 1s linear infinite; } }
 
@@ -816,14 +819,14 @@
           </h3>
 
           <div class="diagram">
-            <svg viewBox="0 0 660 262" role="img" aria-labelledby="arch-svg-t arch-svg-d">
+            <svg viewBox="0 0 660 372" role="img" aria-labelledby="arch-svg-t arch-svg-d">
               <title id="arch-svg-t">finanzas-agent architecture</title>
-              <desc id="arch-svg-d">WhatsApp to Meta Cloud API to API Gateway to the webhook Lambda, which invokes the agent runner Lambda asynchronously. The runner talks to Claude with tool use, to DynamoDB for 24-hour history and to Google Sheets; it reads Secrets Manager on cold start.</desc>
+              <desc id="arch-svg-d">WhatsApp to Meta Cloud API to API Gateway to the webhook Lambda, which invokes the agent runner Lambda asynchronously. The runner talks to Claude with tool use and reads Secrets Manager on cold start. Conversation state goes through ConversationStore to DynamoDB with a 24-hour TTL. The user data goes only through the DataAdapter interface: Google Sheets in production, DynamoDB planned, in-memory in tests.</desc>
               <defs>
                 <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 8 4 0 8z" fill="#3A4B78"/></marker>
                 <marker id="ah2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 8 4 0 8z" fill="#F5B86B"/></marker>
               </defs>
-              <!-- edges row 1 -->
+              <!-- ingress -->
               <path class="d-edge" d="M112 38 H144" marker-end="url(#ah)"/>
               <path class="d-edge" d="M272 38 H304" marker-end="url(#ah)"/>
               <path class="d-edge" d="M424 38 H466" marker-end="url(#ah)"/>
@@ -834,24 +837,45 @@
               <!-- runner <-> claude -->
               <path class="d-edge" d="M466 184 H430" marker-start="url(#ah)" marker-end="url(#ah)"/>
               <text class="d-lbl soft" x="448" y="158" text-anchor="middle">tool use</text>
-              <!-- runner <-> dynamo / sheets (curved underneath) -->
-              <path class="d-edge" d="M500 204 C500 246, 240 246, 240 212" marker-start="url(#ah)" marker-end="url(#ah)"/>
-              <path class="d-edge" d="M520 204 C520 256, 72 256, 72 212" marker-start="url(#ah)" marker-end="url(#ah)"/>
               <!-- secrets -->
               <path class="d-edge" d="M390 116 C450 116, 480 140, 490 162" stroke-dasharray="2 3" marker-end="url(#ah)"/>
               <text class="d-lbl soft" x="436" y="110">cold start</text>
+              <!-- runner -> conversation store / data adapter -->
+              <path class="d-edge" d="M476 204 V224 H93 V248" marker-start="url(#ah)" marker-end="url(#ah)"/>
+              <path class="d-edge" d="M496 204 V248" marker-start="url(#ah)" marker-end="url(#ah)"/>
+              <!-- conversation store -> dynamo -->
+              <path class="d-edge" d="M93 290 V318" marker-end="url(#ah)"/>
+              <!-- data adapter -> implementations -->
+              <path class="d-edge" d="M422 290 V304 H280 V318" marker-end="url(#ah)"/>
+              <path class="d-edge plan" d="M422 304 V318" marker-end="url(#ah)"/>
+              <path class="d-edge plan" d="M422 304 H564 V318" marker-end="url(#ah)"/>
 
               <g class="d-node ext"><rect x="8" y="18" width="104" height="40" rx="8"/><text x="60" y="42" text-anchor="middle">WhatsApp</text></g>
               <g class="d-node"><rect x="144" y="18" width="128" height="40" rx="8"/><text x="208" y="42" text-anchor="middle">Meta Cloud API</text></g>
               <g class="d-node"><rect x="304" y="18" width="120" height="40" rx="8"/><text x="364" y="42" text-anchor="middle">API Gateway</text></g>
               <g class="d-node key"><rect x="466" y="18" width="164" height="40" rx="8"/><text x="548" y="36" text-anchor="middle">λ webhook</text><text class="sub" x="548" y="50" text-anchor="middle">HMAC · allowlist · &lt;1s</text></g>
-
               <g class="d-node"><rect x="280" y="96" width="110" height="40" rx="8"/><text x="335" y="120" text-anchor="middle">Secrets Mgr</text></g>
-
               <g class="d-node ext"><rect x="330" y="164" width="100" height="40" rx="8"/><text x="380" y="188" text-anchor="middle">Claude</text></g>
-              <g class="d-node key"><rect x="466" y="164" width="164" height="40" rx="8"/><text x="548" y="182" text-anchor="middle">λ agent runner</text><text class="sub" x="548" y="196" text-anchor="middle">15 tools · bounded loop</text></g>
-              <g class="d-node"><rect x="176" y="172" width="128" height="40" rx="8"/><text x="240" y="190" text-anchor="middle">DynamoDB</text><text class="sub" x="240" y="204" text-anchor="middle">history · TTL 24h</text></g>
-              <g class="d-node"><rect x="8" y="172" width="128" height="40" rx="8"/><text x="72" y="196" text-anchor="middle">Google Sheets</text></g>
+              <g class="d-node key"><rect x="466" y="164" width="164" height="40" rx="8"/><text x="548" y="182" text-anchor="middle">λ agent runner</text><text class="sub" x="548" y="196" text-anchor="middle">bounded tool-use loop</text></g>
+
+              <!-- runtime state -->
+              <text class="d-grp" x="8" y="244" lang="en">// runtime state</text>
+              <text class="d-grp" x="8" y="244" lang="es">// estado del runtime</text>
+              <g class="d-node"><rect x="8" y="250" width="170" height="40" rx="8"/><text x="93" y="268" text-anchor="middle">ConversationStore</text>
+                <text class="sub" x="93" y="282" text-anchor="middle" lang="en">history · idempotency</text><text class="sub" x="93" y="282" text-anchor="middle" lang="es">historial · idempotencia</text></g>
+              <g class="d-node"><rect x="8" y="320" width="170" height="40" rx="8"/><text x="93" y="338" text-anchor="middle">DynamoDB</text><text class="sub" x="93" y="352" text-anchor="middle">chat · TTL 24h</text></g>
+
+              <!-- user data -->
+              <text class="d-grp" x="337" y="244" lang="en">// user data</text>
+              <text class="d-grp" x="337" y="244" lang="es">// datos del usuario</text>
+              <g class="d-node key"><rect x="337" y="250" width="170" height="40" rx="8"/><text x="422" y="268" text-anchor="middle">DataAdapter</text>
+                <text class="sub" x="422" y="282" text-anchor="middle" lang="en">interface · 15 tools</text><text class="sub" x="422" y="282" text-anchor="middle" lang="es">interfaz · 15 tools</text></g>
+              <g class="d-node"><rect x="214" y="320" width="132" height="40" rx="8"/><text x="280" y="338" text-anchor="middle">Google Sheets</text>
+                <text class="sub" x="280" y="352" text-anchor="middle" lang="en">in production</text><text class="sub" x="280" y="352" text-anchor="middle" lang="es">en producción</text></g>
+              <g class="d-node plan"><rect x="356" y="320" width="132" height="40" rx="8"/><text x="422" y="338" text-anchor="middle">DynamoDB</text>
+                <text class="sub" x="422" y="352" text-anchor="middle" lang="en">phase 2</text><text class="sub" x="422" y="352" text-anchor="middle" lang="es">fase 2</text></g>
+              <g class="d-node plan"><rect x="498" y="320" width="132" height="40" rx="8"/><text x="564" y="338" text-anchor="middle" lang="en">In-memory</text><text x="564" y="338" text-anchor="middle" lang="es">En memoria</text>
+                <text class="sub" x="564" y="352" text-anchor="middle">tests</text></g>
             </svg>
           </div>
 

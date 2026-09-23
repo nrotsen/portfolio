@@ -633,8 +633,8 @@
           <figure class="arch rv">
             <h4 class="subhead"><span lang="en">Architecture</span><span lang="es">Arquitectura</span></h4>
             <div class="arch-scroll">
-              <svg viewBox="0 0 760 330" role="img" aria-labelledby="arch-t">
-                <title id="arch-t">WhatsApp → Meta Cloud API → API Gateway → Lambda webhook, async invoke → Lambda agent runner, which talks to Claude, DynamoDB and Google Sheets; Secrets Manager on cold start.</title>
+              <svg viewBox="0 0 760 420" role="img" aria-labelledby="arch-t">
+                <title id="arch-t">WhatsApp → Meta Cloud API → API Gateway → Lambda webhook, async invoke → Lambda agent runner, which talks to Claude and reads Secrets Manager on cold start. Conversation state goes through ConversationStore to DynamoDB; the user data goes only through the DataAdapter: Google Sheets in production, DynamoDB planned, in-memory in tests.</title>
                 <defs>
                   <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#111214"/></marker>
                   <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2B44E8"/></marker>
@@ -643,13 +643,19 @@
                 <g fill="none" stroke="#DCDCD7" stroke-width="1">
                   <line x1="0" y1="110" x2="760" y2="110" stroke-dasharray="2 4"/>
                   <line x1="0" y1="222" x2="760" y2="222" stroke-dasharray="2 4"/>
+                  <line x1="380" y1="232" x2="380" y2="410" stroke-dasharray="2 4"/>
                 </g>
                 <g font-size="10" fill="#55585F" letter-spacing=".06em">
                   <text x="0" y="12">EDGE</text>
                   <text x="0" y="128">COMPUTE</text>
-                  <text x="0" y="240">DATA · MODEL</text>
+                  <text x="0" y="240" lang="en">RUNTIME STATE</text>
+                  <text x="0" y="240" lang="es">ESTADO DEL RUNTIME</text>
                 </g>
-                <!-- row 1 -->
+                <g font-size="10" fill="#2B44E8" letter-spacing=".06em">
+                  <text x="400" y="240" lang="en">USER DATA</text>
+                  <text x="400" y="240" lang="es">DATOS DEL USUARIO</text>
+                </g>
+                <!-- edge row -->
                 <g stroke="#111214" stroke-width="1" fill="#FAFAF8">
                   <rect x="0" y="30" width="160" height="50"/>
                   <rect x="200" y="30" width="160" height="50"/>
@@ -672,38 +678,57 @@
                 <path d="M680 80 V 164 H 562" fill="none" stroke="#2B44E8" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ahb)"/>
                 <rect x="604" y="126" width="104" height="20" fill="#E9ECFF"/>
                 <text x="612" y="140" font-size="11" fill="#2B44E8" font-weight="600">async invoke</text>
-                <!-- row 2 -->
+                <!-- compute row -->
                 <rect x="400" y="140" width="160" height="50" fill="#111214"/>
                 <text x="414" y="162" font-size="13" fill="#fff" font-weight="600">λ agent runner</text>
-                <text x="414" y="180" font-size="10.5" fill="#B9C2FF">15 tools · bounded loop</text>
-                <rect x="0" y="140" width="160" height="50" fill="#FAFAF8" stroke="#111214"/>
+                <text x="414" y="180" font-size="10.5" fill="#B9C2FF">bounded tool-use loop</text>
+                <rect x="200" y="140" width="160" height="50" fill="#FAFAF8" stroke="#111214"/>
+                <text x="214" y="162" font-size="13" fill="#111214" font-weight="600">Claude</text>
+                <text x="214" y="180" font-size="10.5" fill="#55585F">tool use</text>
+                <line x1="362" y1="165" x2="398" y2="165" stroke="#111214" marker-start="url(#ah)" marker-end="url(#ah)"/>
+                <rect x="0" y="140" width="160" height="50" fill="#FAFAF8" stroke="#55585F" stroke-dasharray="3 3"/>
                 <text x="14" y="170" font-size="13" fill="#111214">Secrets Manager</text>
-                <line x1="162" y1="165" x2="398" y2="165" stroke="#55585F" stroke-dasharray="3 3" marker-start="url(#ahg)"/>
-                <text x="208" y="158" font-size="10.5" fill="#55585F">cold start</text>
-                <!-- row 3 connectors -->
+                <path d="M80 140 V 124 H 440 V 138" fill="none" stroke="#55585F" stroke-dasharray="3 3" marker-end="url(#ahg)"/>
+                <text x="210" y="120" font-size="10.5" fill="#55585F">cold start</text>
+                <!-- runner -> state / data -->
                 <g stroke="#111214" stroke-width="1" fill="none">
-                  <line x1="480" y1="190" x2="480" y2="215"/>
-                  <line x1="280" y1="215" x2="680" y2="215"/>
-                  <line x1="280" y1="215" x2="280" y2="258" marker-end="url(#ah)" marker-start="url(#ah)"/>
-                  <line x1="480" y1="215" x2="480" y2="258" marker-end="url(#ah)"/>
-                  <line x1="680" y1="215" x2="680" y2="258" marker-end="url(#ah)"/>
+                  <path d="M440 190 V 212 H 145 V 258" marker-start="url(#ah)" marker-end="url(#ah)"/>
+                  <line x1="500" y1="190" x2="500" y2="258" marker-start="url(#ah)" marker-end="url(#ah)"/>
                 </g>
-                <g stroke="#111214" stroke-width="1" fill="#FAFAF8">
-                  <rect x="200" y="260" width="160" height="50"/>
-                  <rect x="400" y="260" width="160" height="50"/>
-                  <rect x="600" y="260" width="160" height="50"/>
+                <!-- runtime state -->
+                <rect x="0" y="260" width="180" height="50" fill="#FAFAF8" stroke="#111214"/>
+                <text x="14" y="282" font-size="13" fill="#111214" font-weight="600">ConversationStore</text>
+                <text x="14" y="300" font-size="10.5" fill="#55585F" lang="en">history · idempotency</text>
+                <text x="14" y="300" font-size="10.5" fill="#55585F" lang="es">historial · idempotencia</text>
+                <line x1="80" y1="310" x2="80" y2="348" stroke="#111214" marker-end="url(#ah)"/>
+                <rect x="0" y="350" width="160" height="50" fill="#FAFAF8" stroke="#111214"/>
+                <text x="14" y="372" font-size="13" fill="#111214" font-weight="600">DynamoDB</text>
+                <text x="14" y="390" font-size="10.5" fill="#55585F">chat · TTL 24h</text>
+                <!-- user data -->
+                <rect x="420" y="260" width="160" height="50" fill="#E9ECFF" stroke="#2B44E8"/>
+                <text x="434" y="282" font-size="13" fill="#111214" font-weight="600">DataAdapter</text>
+                <text x="434" y="300" font-size="10.5" fill="#2B44E8" lang="en">interface · 15 tools</text>
+                <text x="434" y="300" font-size="10.5" fill="#2B44E8" lang="es">interfaz · 15 tools</text>
+                <g fill="none" stroke-width="1">
+                  <path d="M500 310 V 328 H 470 V 348" stroke="#111214" marker-end="url(#ah)"/>
+                  <path d="M500 328 H 590 V 348" stroke="#55585F" stroke-dasharray="3 3" marker-end="url(#ahg)"/>
+                  <path d="M590 328 H 700 V 348" stroke="#55585F" stroke-dasharray="3 3" marker-end="url(#ahg)"/>
                 </g>
-                <g font-size="13" fill="#111214">
-                  <text x="214" y="282" font-weight="600">Claude</text>
-                  <text x="214" y="300" font-size="10.5" fill="#55585F">tool use</text>
-                  <text x="414" y="282" font-weight="600">DynamoDB</text>
-                  <text x="414" y="300" font-size="10.5" fill="#55585F">history · TTL 24h</text>
-                  <text x="614" y="282" font-weight="600">Google Sheets</text>
-                  <text x="614" y="300" font-size="10.5" fill="#55585F">DataAdapter</text>
-                </g>
+                <rect x="400" y="350" width="140" height="50" fill="#FAFAF8" stroke="#111214"/>
+                <text x="412" y="372" font-size="12.5" fill="#111214" font-weight="600">Google Sheets</text>
+                <text x="412" y="390" font-size="10.5" fill="#55585F" lang="en">in production</text>
+                <text x="412" y="390" font-size="10.5" fill="#55585F" lang="es">en producción</text>
+                <rect x="545" y="350" width="100" height="50" fill="none" stroke="#55585F" stroke-dasharray="3 3"/>
+                <text x="555" y="372" font-size="12.5" fill="#111214" font-weight="600">DynamoDB</text>
+                <text x="555" y="390" font-size="10.5" fill="#55585F" lang="en">phase 2</text>
+                <text x="555" y="390" font-size="10.5" fill="#55585F" lang="es">fase 2</text>
+                <rect x="650" y="350" width="110" height="50" fill="none" stroke="#55585F" stroke-dasharray="3 3"/>
+                <text x="660" y="372" font-size="12.5" fill="#111214" font-weight="600" lang="en">In-memory</text>
+                <text x="660" y="372" font-size="12.5" fill="#111214" font-weight="600" lang="es">En memoria</text>
+                <text x="660" y="390" font-size="10.5" fill="#55585F">tests</text>
               </svg>
             </div>
-            <figcaption class="arch-cap"><span lang="en">Blue = the async hand-off that lets the webhook answer Meta in under a second.</span><span lang="es">Azul = el traspaso asíncrono que permite al webhook responderle a Meta en menos de un segundo.</span></figcaption>
+            <figcaption class="arch-cap"><span lang="en">Blue = the async hand-off that lets the webhook answer Meta in under a second. Conversation state and user data are kept apart: the tools only see the DataAdapter; dashed = planned or test-only.</span><span lang="es">Azul = el traspaso asíncrono que permite al webhook responderle a Meta en menos de un segundo. El estado de la conversación y los datos del usuario van separados: las tools solo ven el DataAdapter; punteado = planificado o solo tests.</span></figcaption>
           </figure>
 
           <div class="decisions rv">
