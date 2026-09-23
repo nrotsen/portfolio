@@ -1,0 +1,1058 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nestor Berlanga — Product engineer · full-stack</title>
+<meta name="description" content="Nestor Berlanga — product engineer, full-stack. Buen Inventario, finanzas-agent, software-engineering-drills.">
+<script>
+  /* Set language before first paint to avoid a flash of the wrong copy. */
+  (function () {
+    var l = null;
+    try { l = localStorage.getItem('nb-lang'); } catch (e) {}
+    if (l !== 'en' && l !== 'es') {
+      l = /^es\b/i.test((navigator.language || '')) ? 'es' : 'en';
+    }
+    document.documentElement.setAttribute('data-lang', l);
+    document.documentElement.lang = l;
+    document.documentElement.className += ' js';
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@300..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   Tokens
+   ========================================================= */
+:root {
+  --paper: #F6F3EC;
+  --paper-2: #EFEBE1;
+  --ink: #1A1915;
+  --ink-soft: #5C5A52;
+  --rule: #D9D4C7;
+  --accent: #1F5B47;
+  --accent-soft: #E3EDE7;
+  --terra: #B5533C;
+
+  --serif: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "Geist Mono", ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  --gutter: clamp(16px, 4.5vw, 64px);
+  --col-gap: clamp(16px, 2.2vw, 32px);
+  --maxw: 1400px;
+  --nav-h: 64px;
+
+  --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+/* =========================================================
+   Base
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+  font-feature-settings: "ss01";
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+}
+img, svg { max-width: 100%; }
+a { color: var(--accent); text-underline-offset: .18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+code { font-family: var(--mono); font-size: .86em; background: var(--accent-soft); color: var(--accent); padding: .08em .35em; border-radius: 3px; }
+h1, h2, h3 { margin: 0; font-weight: 400; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+/* Language switching: hide the inactive language (scoped inside body). */
+html[data-lang="en"] body [lang="es"],
+html[data-lang="es"] body [lang="en"] { display: none !important; }
+
+.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
+.grid > * { grid-column: 1 / -1; min-width: 0; }
+
+.mono { font-family: var(--mono); }
+.kicker {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.num { font-variant-numeric: tabular-nums lining-nums; }
+
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--ink); color: var(--paper); padding: 8px 12px; z-index: 100; }
+.skip:focus { left: 8px; }
+
+/* =========================================================
+   Nav
+   ========================================================= */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--paper);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  -webkit-backdrop-filter: saturate(1.2) blur(6px);
+  backdrop-filter: saturate(1.2) blur(6px);
+  border-bottom: 1px solid var(--rule);
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.nav .wrap { display: flex; align-items: center; gap: 24px; min-height: var(--nav-h); flex-wrap: wrap; }
+.mark { display: flex; align-items: baseline; gap: 10px; color: var(--ink); text-decoration: none; margin-right: auto; }
+.mark b { font-family: var(--mono); font-weight: 500; font-size: 12px; border: 1px solid var(--ink); padding: 2px 5px; letter-spacing: .06em; transform: translateY(-2px); }
+.mark span { font-family: var(--serif); font-size: 24px; line-height: 1; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-family: var(--mono); font-size: 13px; color: var(--ink); text-decoration: none; letter-spacing: .02em; }
+.nav-links a:hover { color: var(--accent); text-decoration: underline; }
+.lang { display: inline-flex; border: 1px solid var(--ink); border-radius: 999px; padding: 2px; }
+.lang button {
+  font: 500 12px/1 var(--mono); letter-spacing: .08em;
+  background: transparent; color: var(--ink); border: 0; border-radius: 999px;
+  padding: 7px 11px; cursor: pointer; min-width: 40px;
+}
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.lang button:focus-visible { outline-offset: 2px; }
+
+@media (max-width: 720px) {
+  .nav .wrap { gap: 10px 16px; padding-block: 10px; }
+  .nav-links { order: 3; width: 100%; gap: 6px 18px; flex-wrap: wrap; border-top: 1px solid var(--rule); padding-top: 8px; }
+  .nav-links a { font-size: 12px; }
+}
+
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero { padding-block: clamp(56px, 10vw, 140px) clamp(40px, 6vw, 88px); }
+.hero .kicker { grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; margin-bottom: clamp(24px, 3vw, 40px); }
+.hero .kicker::before { content: ""; width: 28px; height: 1px; background: var(--ink); }
+.hero h1 {
+  grid-column: 1 / span 11;
+  font-family: var(--serif);
+  font-size: clamp(44px, 6.6vw, 88px);
+  line-height: 1.0;
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-sub { grid-column: 1 / span 6; grid-row: 3; margin-top: clamp(28px, 3.5vw, 48px); font-size: clamp(17px, 1.35vw, 19px); color: var(--ink); max-width: 60ch; }
+.hero-ctas { grid-column: 1 / span 6; grid-row: 4; display: flex; flex-wrap: wrap; gap: 12px 20px; margin-top: 32px; align-items: center; }
+.facts {
+  grid-column: 8 / -1; grid-row: 3 / span 2; align-self: end;
+  margin-top: clamp(28px, 3.5vw, 48px);
+  border-top: 1px solid var(--ink);
+}
+.facts li { display: grid; grid-template-columns: 5.75rem 1fr; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.facts .n { font-family: var(--mono); font-size: 22px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.facts .t { color: var(--ink-soft); font-size: 15px; line-height: 1.45; }
+
+@media (max-width: 960px) {
+  .hero h1, .hero-sub, .hero-ctas, .facts { grid-column: 1 / -1; grid-row: auto; }
+  .facts { margin-top: 40px; }
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 500 14px/1 var(--mono); letter-spacing: .02em;
+  padding: 14px 18px; border: 1px solid var(--ink); border-radius: 2px;
+  text-decoration: none; color: var(--ink); background: transparent;
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+.btn:hover { background: var(--ink); color: var(--paper); text-decoration: none; }
+.btn--solid { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn--solid:hover { background: var(--ink); border-color: var(--ink); }
+.btn .arr { font-family: var(--sans); }
+.textlink { font-family: var(--mono); font-size: 14px; }
+
+/* =========================================================
+   Sections
+   ========================================================= */
+.section { border-top: 1px solid var(--ink); padding-block: clamp(56px, 8vw, 120px); }
+.section--alt { background: var(--paper-2); }
+.sec-head { align-items: baseline; margin-bottom: clamp(28px, 4vw, 56px); row-gap: 8px; }
+.sec-head .idx { grid-column: 1 / span 2; font-family: var(--mono); font-size: 13px; color: var(--ink); letter-spacing: .06em; }
+.sec-head .idx b { color: var(--accent); font-weight: 500; }
+.sec-head .kicker { grid-column: 3 / -1; }
+.sec-title {
+  font-family: var(--serif);
+  font-size: clamp(44px, 6vw, 84px);
+  line-height: .98;
+  letter-spacing: -0.015em;
+}
+.sec-title em { font-style: italic; }
+.lede { font-size: clamp(18px, 1.55vw, 22px); line-height: 1.5; max-width: 42ch; }
+@media (max-width: 720px) {
+  .sec-head .idx { grid-column: 1 / -1; }
+  .sec-head .kicker { grid-column: 1 / -1; }
+}
+
+/* Ledger (metrics) */
+.ledger { border-top: 1px solid var(--ink); }
+.ledger li { display: flex; align-items: baseline; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--rule); font-size: 15px; }
+.ledger .lbl { color: var(--ink-soft); }
+.ledger .lead { flex: 1; min-width: 16px; border-bottom: 1px dotted #A9A393; transform: translateY(-4px); }
+.ledger .val { font-family: var(--mono); font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ledger-cap { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px; }
+
+.stack { font-family: var(--mono); font-size: 13px; color: var(--ink-soft); line-height: 1.8; }
+.stack strong { color: var(--ink); font-weight: 500; }
+
+/* Numbered highlight list */
+.points { counter-reset: pt; }
+.points li { counter-increment: pt; display: grid; grid-template-columns: 3ch 1fr; gap: 14px; padding: 18px 0; border-top: 1px solid var(--rule); }
+.points li:last-child { border-bottom: 1px solid var(--rule); }
+.points li::before { content: counter(pt, decimal-leading-zero); font-family: var(--mono); font-size: 12px; color: var(--accent); padding-top: 4px; }
+.points h3 { font-family: var(--sans); font-weight: 600; font-size: 17px; line-height: 1.35; margin-bottom: 4px; }
+.points p { color: var(--ink-soft); font-size: 15.5px; line-height: 1.55; }
+
+figcaption, .caption { font-family: var(--mono); font-size: 12px; color: var(--ink-soft); margin-top: 12px; line-height: 1.5; }
+
+/* =========================================================
+   01 Buen Inventario
+   ========================================================= */
+.bi-title { grid-column: 1 / span 7; }
+.bi-lede { grid-column: 8 / -1; align-self: end; }
+.bi-text { grid-column: 1 / span 5; margin-top: clamp(40px, 5vw, 72px); }
+.bi-visual { grid-column: 7 / -1; margin-top: clamp(40px, 5vw, 72px); }
+.bi-visual .sticky { position: sticky; top: calc(var(--nav-h) + 32px); }
+.bi-foot { grid-column: 1 / -1; margin-top: clamp(40px, 5vw, 72px); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 32px; }
+.bi-foot .ledger-wrap { grid-column: 1 / span 5; }
+.bi-foot .stack-wrap { grid-column: 7 / -1; display: flex; flex-direction: column; gap: 24px; justify-content: space-between; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+@media (max-width: 960px) {
+  .bi-title, .bi-lede, .bi-text, .bi-visual, .bi-foot .ledger-wrap, .bi-foot .stack-wrap { grid-column: 1 / -1; }
+  .bi-lede { margin-top: 24px; }
+  .bi-title { order: 1; } .bi-lede { order: 2; } .bi-visual { order: 3; } .bi-text { order: 4; } .bi-foot { order: 5; }
+  .bi-visual .sticky { position: static; }
+  .bi-text { margin-top: 40px; }
+}
+
+/* Fake browser frame (portfolio's own chrome) */
+.browser { border: 1px solid var(--ink); background: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 0 var(--rule), 0 24px 48px -32px rgba(26,25,21,.35); }
+.browser-bar { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: var(--paper-2); border-bottom: 1px solid var(--ink); }
+.browser-bar .dots { display: flex; gap: 6px; }
+.browser-bar .dots i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--ink-soft); display: block; }
+.browser-bar .url { flex: 1; font: 12px/1 var(--mono); color: var(--ink-soft); background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; padding: 7px 10px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.browser-bar .url b { color: var(--ink); font-weight: 500; }
+
+/* ---- Buen Inventario product mock (its own brand) ---- */
+.bi-app {
+  --bi-ink: #0a0a0a; --bi-paper: #fafaf7; --bi-teal: #14b8a6;
+  background: var(--bi-paper); color: var(--bi-ink);
+  font-family: var(--sans); font-size: 14px; line-height: 1.4;
+  padding: clamp(14px, 2.4vw, 28px);
+}
+.bi-app * { border-color: var(--bi-ink); }
+.bi-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.bi-brand { display: flex; align-items: center; gap: 8px; font-weight: 700; letter-spacing: -.01em; font-size: 15px; }
+.bi-brand i { width: 18px; height: 18px; background: var(--bi-teal); border: 1.5px solid var(--bi-ink); display: block; }
+.bi-pill { font: 500 11px/1 var(--mono); border: 1.5px solid var(--bi-ink); padding: 5px 8px; background: #fff; display: inline-flex; align-items: center; gap: 6px; }
+.bi-pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--bi-teal); border: 1px solid var(--bi-ink); }
+.bi-search { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--bi-ink); background: #fff; padding: 10px 12px; margin-bottom: 16px; color: #52524c; font-size: 13px; }
+.bi-search svg { flex: none; }
+.bi-search .kbd { margin-left: auto; font: 11px/1 var(--mono); border: 1.5px solid var(--bi-ink); padding: 3px 5px; color: var(--bi-ink); }
+.bi-ticket { border: 1.5px solid var(--bi-ink); background: #fff; box-shadow: 4px 4px 0 var(--bi-teal); }
+.bi-ticket-head { display: flex; justify-content: space-between; padding: 10px 14px; border-bottom: 1.5px solid var(--bi-ink); font-weight: 600; font-size: 13px; }
+.bi-ticket-head span:last-child { font-family: var(--mono); font-weight: 400; color: #52524c; }
+.bi-lines { padding: 4px 14px; }
+.bi-line { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: baseline; padding: 9px 0; border-bottom: 1px dashed #c9c9c2; }
+.bi-line:last-child { border-bottom: 0; }
+.bi-line .q { font-family: var(--mono); font-size: 12px; border: 1.5px solid var(--bi-ink); padding: 1px 6px; min-width: 32px; text-align: center; }
+.bi-line .p { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; min-width: 7ch; }
+.bi-line small { display: block; color: #52524c; font-family: var(--mono); font-size: 11px; }
+.bi-total { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 14px; border-top: 1.5px solid var(--bi-ink); background: var(--bi-paper); }
+.bi-total span:first-child { font-weight: 600; text-transform: uppercase; font-size: 12px; letter-spacing: .08em; }
+.bi-total strong { font-family: var(--mono); font-size: clamp(22px, 2.6vw, 28px); font-weight: 500; font-variant-numeric: tabular-nums; }
+.bi-pay { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 16px; }
+.bi-pay span { border: 1.5px solid var(--bi-ink); padding: 6px 10px; font-size: 12.5px; background: #fff; }
+.bi-pay span[aria-current="true"] { background: var(--bi-ink); color: var(--bi-paper); }
+.bi-cobrar {
+  display: flex; justify-content: space-between; align-items: center; width: 100%;
+  font: 700 16px/1 var(--sans); letter-spacing: -.005em;
+  background: var(--bi-teal); color: var(--bi-ink);
+  border: 1.5px solid var(--bi-ink); box-shadow: 4px 4px 0 var(--bi-ink);
+  padding: 16px 18px; cursor: default;
+}
+.bi-cobrar span:last-child { font-family: var(--mono); font-weight: 500; }
+
+/* =========================================================
+   02 finanzas-agent
+   ========================================================= */
+.fa-title { grid-column: 1 / span 6; }
+.fa-lede { grid-column: 7 / -1; align-self: end; }
+.replay { grid-column: 1 / -1; margin-top: clamp(40px, 5vw, 72px); }
+.replay-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+.replay-head .caption { margin: 0; }
+.replay-btn {
+  font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase;
+  background: transparent; border: 1px solid var(--ink); color: var(--ink);
+  padding: 9px 12px; border-radius: 2px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center;
+}
+.replay-btn:hover { background: var(--ink); color: var(--paper); }
+.panes { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); border: 1px solid var(--ink); }
+@media (max-width: 860px) { .panes { grid-template-columns: 1fr; } .trace { border-left: 0 !important; border-top: 1px solid var(--ink); } }
+
+/* Chat pane */
+.chat { background: #EAE4D6; display: flex; flex-direction: column; min-width: 0; }
+.chat-head { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--accent); color: #fff; }
+.chat-head .av { width: 34px; height: 34px; border-radius: 50%; background: #fff; color: var(--accent); display: grid; place-items: center; font: 500 12px/1 var(--mono); flex: none; }
+.chat-head b { display: block; font-weight: 600; font-size: 15px; line-height: 1.2; }
+.chat-head small { font-size: 12px; opacity: .88; }
+.chat-log { height: 440px; overflow-y: auto; padding: 18px 14px; display: flex; flex-direction: column; gap: 8px; scroll-behavior: smooth; }
+.msg { max-width: 82%; padding: 8px 10px 6px; border-radius: 8px; font-size: 14.5px; line-height: 1.4; box-shadow: 0 1px 0 rgba(26,25,21,.12); position: relative; animation: pop .28s var(--ease) both; overflow-wrap: anywhere; }
+.msg.out { align-self: flex-end; background: #D5EAD9; border-top-right-radius: 2px; }
+.msg.in { align-self: flex-start; background: #fff; border-top-left-radius: 2px; }
+.msg time { display: block; text-align: right; font: 10.5px/1 var(--mono); color: #5f5d55; margin-top: 4px; }
+.msg.typing { padding: 12px 14px; }
+.typing .d { display: inline-flex; gap: 4px; }
+.typing .d i { width: 6px; height: 6px; border-radius: 50%; background: #8b887e; animation: blink 1s infinite both; }
+.typing .d i:nth-child(2) { animation-delay: .15s; }
+.typing .d i:nth-child(3) { animation-delay: .3s; }
+.chat-day { align-self: center; font: 11px/1 var(--mono); background: rgba(255,255,255,.7); color: var(--ink-soft); padding: 5px 9px; border-radius: 4px; margin-bottom: 6px; }
+@keyframes pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+
+/* Trace pane */
+.trace { background: var(--ink); color: #E9E5DA; border-left: 1px solid var(--ink); display: flex; flex-direction: column; min-width: 0; }
+.trace-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid #3a3830; font: 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: #BDB8AA; min-height: 58px; }
+.trace-head .live { display: inline-flex; align-items: center; gap: 8px; }
+.trace-head .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #8FD1B4; }
+.trace-log { height: 440px; overflow-y: auto; padding: 16px; font: 12.5px/1.6 var(--mono); display: flex; flex-direction: column; gap: 10px; }
+.tr { animation: pop .28s var(--ease) both; overflow-wrap: anywhere; padding-left: 12px; border-left: 2px solid #3a3830; }
+.tr .k { display: inline-block; font-weight: 500; margin-right: 8px; }
+.tr-rule { border-left-color: #E9967A; } .tr-rule .k { color: #F0A58C; }
+.tr-tool { border-left-color: #8FD1B4; } .tr-tool .k { color: #8FD1B4; }
+.tr-result { border-left-color: #6f6b60; color: #C9C4B6; } .tr-result .k { color: #BDB8AA; }
+.tr-msg { border-left: 0; padding-left: 0; color: #9d998c; font-size: 11.5px; }
+.trace-empty, .chat-empty { color: #9d998c; font: 12px/1.6 var(--mono); }
+.chat-empty { color: var(--ink-soft); align-self: center; margin-top: auto; margin-bottom: auto; }
+
+/* Decisions + architecture */
+.fa-decisions { grid-column: 1 / span 6; margin-top: clamp(48px, 6vw, 88px); }
+.fa-arch { grid-column: 8 / -1; margin-top: clamp(48px, 6vw, 88px); }
+.fa-foot { grid-column: 1 / -1; margin-top: 48px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 24px; align-items: end; }
+.fa-foot .stack { grid-column: 1 / span 8; }
+.fa-foot .cta-row { grid-column: 9 / -1; justify-content: flex-end; }
+@media (max-width: 960px) {
+  .fa-title, .fa-lede, .fa-decisions, .fa-arch, .fa-foot .stack, .fa-foot .cta-row { grid-column: 1 / -1; }
+  .fa-lede { margin-top: 24px; }
+  .fa-foot .cta-row { justify-content: flex-start; }
+}
+.subhead { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); padding-bottom: 12px; }
+.arch-fig { margin: 0; }
+.arch-scroll { overflow-x: auto; border: 1px solid var(--rule); background: #FBFAF6; padding: 16px; }
+.arch-scroll svg { display: block; width: 100%; min-width: 520px; height: auto; }
+.arch-svg text { font-family: var(--mono); font-size: 12px; fill: var(--ink); }
+.arch-svg .sm { font-size: 10.5px; fill: var(--ink-soft); }
+.arch-svg .box { fill: #fff; stroke: var(--ink); stroke-width: 1; }
+.arch-svg .box-accent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.arch-svg .box-dash { fill: none; stroke: var(--ink-soft); stroke-dasharray: 4 3; }
+.arch-svg .ln { stroke: var(--ink); stroke-width: 1; fill: none; }
+.arch-svg .ln-dash { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 4 3; fill: none; }
+.arch-svg .ln-accent { stroke: var(--accent); stroke-width: 1.5; fill: none; }
+
+.war { margin-top: 28px; border-top: 1px solid var(--terra); padding-top: 14px; }
+.war .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--terra); display: inline-flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.war .tag::before { content: ""; width: 8px; height: 8px; background: var(--terra); }
+.war p { font-size: 15.5px; color: var(--ink); }
+.war code { background: #F4E4DE; color: #8E3C28; }
+
+/* =========================================================
+   03 drills
+   ========================================================= */
+.dr-title { grid-column: 1 / -1; }
+.dr-title .sec-title { font-size: clamp(36px, 5.2vw, 76px); overflow-wrap: anywhere; }
+.dr-text { grid-column: 1 / span 6; margin-top: clamp(32px, 4vw, 56px); }
+.dr-visual { grid-column: 8 / -1; margin-top: clamp(32px, 4vw, 56px); display: flex; flex-direction: column; gap: 28px; }
+.dr-text .lede { margin-bottom: 32px; }
+.dr-text .ledger-wrap { margin-top: 40px; }
+@media (max-width: 960px) { .dr-text, .dr-visual { grid-column: 1 / -1; } }
+
+.quiz { background: #fff; border: 1px solid var(--ink); padding: clamp(18px, 2.4vw, 28px); border-radius: 4px; }
+.quiz-meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 11px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 14px; }
+.quiz h3 { font-family: var(--serif); font-size: clamp(22px, 2.1vw, 28px); line-height: 1.15; margin-bottom: 18px; }
+.opts li { display: flex; gap: 12px; align-items: center; border: 1px solid var(--rule); padding: 10px 12px; margin-top: 8px; font-size: 15px; border-radius: 3px; }
+.opts .l { font: 500 12px/1 var(--mono); width: 24px; height: 24px; display: grid; place-items: center; border: 1px solid var(--ink-soft); border-radius: 50%; flex: none; }
+.opts .ok { border-color: var(--accent); background: var(--accent-soft); }
+.opts .ok .l { background: var(--accent); border-color: var(--accent); color: #fff; }
+.opts .ok .st { margin-left: auto; font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.quiz .why { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--rule); font-size: 14.5px; color: var(--ink-soft); }
+.quiz .why b { color: var(--ink); font-weight: 600; }
+
+.code { background: var(--ink); color: #E9E5DA; border-radius: 4px; overflow: hidden; margin: 0; }
+.code-bar { display: flex; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid #3a3830; font: 11.5px/1 var(--mono); color: #BDB8AA; }
+.code pre { margin: 0; padding: 16px; overflow-x: auto; font: 12.5px/1.65 var(--mono); tab-size: 2; }
+.code .c { color: #9d998c; } .code .kw { color: #F0A58C; } .code .s { color: #8FD1B4; } .code .fn { color: #F3E9C6; }
+.code + figcaption { margin-top: 10px; }
+
+/* =========================================================
+   How I work
+   ========================================================= */
+.how-title { grid-column: 1 / span 8; }
+.principles { grid-column: 1 / -1; margin-top: clamp(36px, 5vw, 64px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.principles li { padding: 24px var(--col-gap) 8px 0; }
+.principles li + li { border-left: 1px solid var(--rule); padding-left: var(--col-gap); }
+.principles .n { font-family: var(--mono); font-size: 12px; color: var(--accent); letter-spacing: .06em; }
+.principles h3 { font-family: var(--serif); font-size: clamp(24px, 2.2vw, 30px); line-height: 1.1; margin: 14px 0 12px; }
+.principles p { font-size: 15.5px; color: var(--ink-soft); }
+@media (max-width: 1080px) {
+  .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .principles li:nth-child(3) { border-left: 0; padding-left: 0; }
+  .principles li:nth-child(n+3) { border-top: 1px solid var(--rule); }
+}
+@media (max-width: 640px) {
+  .how-title { grid-column: 1 / -1; }
+  .principles { grid-template-columns: 1fr; }
+  .principles li, .principles li + li { border-left: 0; padding-left: 0; padding-right: 0; }
+  .principles li + li { border-top: 1px solid var(--rule); }
+}
+
+/* =========================================================
+   Contact + footer
+   ========================================================= */
+.contact h2 { grid-column: 1 / span 9; font-family: var(--serif); font-size: clamp(44px, 6.4vw, 92px); line-height: 1; letter-spacing: -0.018em; text-wrap: balance; }
+.contact h2 em { font-style: italic; color: var(--accent); }
+.contact .sub { grid-column: 1 / span 6; margin-top: 28px; font-size: 18px; color: var(--ink-soft); }
+.contact .ledger { grid-column: 8 / -1; margin-top: 28px; align-self: end; }
+.contact .ledger li { font-size: 16px; padding: 14px 0; }
+.contact .ledger .lbl { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.ph { font-family: var(--mono); font-size: 14px; color: var(--ink-soft); background: repeating-linear-gradient(135deg, var(--paper-2) 0 6px, transparent 6px 12px); border: 1px dashed #A9A393; padding: 2px 8px; border-radius: 3px; }
+@media (max-width: 960px) { .contact h2, .contact .sub, .contact .ledger { grid-column: 1 / -1; } .contact .ledger { margin-top: 40px; } }
+
+.footer { border-top: 1px solid var(--ink); padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); }
+.footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font: 12.5px/1.5 var(--mono); color: var(--ink-soft); }
+
+/* =========================================================
+   Motion
+   ========================================================= */
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.js .reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .msg, .tr { animation: none; }
+  .typing .d i { animation: none; opacity: .6; }
+  .chat-log { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main"><span lang="en">Skip to content</span><span lang="es">Saltar al contenido</span></a>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Nestor Berlanga — home"><b>NB</b><span>Nestor Berlanga</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#work"><span lang="en">Work</span><span lang="es">Proyectos</span></a>
+      <a href="#open-source">Open source</a>
+      <a href="#how"><span lang="en">How I work</span><span lang="es">Cómo trabajo</span></a>
+      <a href="#contact"><span lang="en">Contact</span><span lang="es">Contacto</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language / Idioma">
+      <button type="button" data-set-lang="en" aria-pressed="true" title="English">EN</button>
+      <button type="button" data-set-lang="es" aria-pressed="false" title="Español">ES</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============================ HERO ============================ -->
+<section class="hero" id="top" aria-labelledby="hero-h">
+  <div class="wrap grid">
+    <p class="kicker">
+      <span lang="en">Product engineer · full-stack · Argentina</span>
+      <span lang="es">Product engineer · full-stack · Argentina</span>
+    </p>
+    <h1 id="hero-h" class="reveal">
+      <span lang="en">I build products <em>end to end</em> — from the DynamoDB access pattern to the <em>checkout button.</em></span>
+      <span lang="es">Construyo productos <em>de punta a punta</em>: desde el access pattern en DynamoDB hasta el <em>botón de checkout.</em></span>
+    </h1>
+    <div class="hero-sub reveal">
+      <p lang="en">I designed, built and run Buen Inventario, a SaaS that small Argentine retailers use to manage stock, sales, credit and tax invoicing. I care about the unglamorous parts: idempotent webhooks, honest numbers, tests that guard the architecture.</p>
+      <p lang="es">Diseñé, construí y opero Buen Inventario, un SaaS con el que comercios argentinos manejan stock, ventas, cuentas corrientes y facturación electrónica. Me importan las partes poco vistosas: webhooks idempotentes, números honestos, tests que protegen la arquitectura.</p>
+    </div>
+    <div class="hero-ctas reveal">
+      <a class="btn btn--solid" href="#work"><span lang="en">See the work</span><span lang="es">Ver proyectos</span> <span class="arr" aria-hidden="true">↓</span></a>
+      <a class="btn" href="https://github.com/nrotsen" rel="noopener">GitHub <span class="arr" aria-hidden="true">↗</span></a>
+    </div>
+    <ul class="facts reveal" aria-label="Facts">
+      <li><span class="n">~<span lang="en">2,000</span><span lang="es">2.000</span></span>
+        <span class="t"><span lang="en">commits shipped to production in 15 months</span><span lang="es">commits en producción en 15 meses</span></span></li>
+      <li><span class="n">290+</span>
+        <span class="t"><span lang="en">test files</span><span lang="es">archivos de test</span></span></li>
+      <li><span class="n">4</span>
+        <span class="t"><span lang="en">repos in one product</span><span lang="es">repos en un producto</span></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================ 01 BUEN INVENTARIO ============================ -->
+<section class="section" id="work" aria-labelledby="bi-h">
+  <div class="wrap grid bi-body">
+    <div class="sec-head grid" style="grid-column:1/-1">
+      <span class="idx"><b>01</b> / 03</span>
+      <span class="kicker"><span lang="en">Featured · SaaS · 2025 → today</span><span lang="es">Destacado · SaaS · 2025 → hoy</span></span>
+    </div>
+
+    <div class="bi-title reveal"><h2 id="bi-h" class="sec-title">Buen <em>Inventario</em></h2></div>
+    <div class="bi-lede reveal">
+      <p class="lede" lang="en">The all-in-one back office for small Argentine shops: stock, point of sale, customer credit, ARCA e-invoicing and an online store — built for owners who'd rather not read a manual.</p>
+      <p class="lede" lang="es">El sistema de gestión todo en uno para comercios argentinos: stock, caja, cuentas corrientes, facturación ARCA y tienda online — pensado para dueños que no quieren leer un manual.</p>
+    </div>
+
+    <div class="bi-text">
+      <ol class="points reveal">
+        <li><div>
+          <h3><span lang="en">Tax invoicing that survives outages.</span><span lang="es">Facturación que aguanta caídas.</span></h3>
+          <p lang="en">ARCA (AFIP) e-invoicing over SOAP with an emission worker, invoice-number reservation, credit notes, a reconcile cron and certificate-expiry alerts.</p>
+          <p lang="es">Facturación electrónica ARCA (AFIP) por SOAP con worker de emisión, reserva de numeración, notas de crédito, cron de conciliación y alertas de vencimiento de certificados.</p>
+        </div></li>
+        <li><div>
+          <h3><span lang="en">Multi-tenant on DynamoDB, no runtime scans.</span><span lang="es">Multi-tenant en DynamoDB, sin scans en runtime.</span></h3>
+          <p lang="en">Every access pattern is a key or GSI query partitioned by company; scans only exist in migration scripts.</p>
+          <p lang="es">Cada access pattern es una query por clave o GSI particionada por empresa; los scans solo existen en scripts de migración.</p>
+        </div></li>
+        <li><div>
+          <h3><span lang="en">Payments without double charges.</span><span lang="es">Pagos sin cobros dobles.</span></h3>
+          <p lang="en">Mercado Pago payments and subscriptions with webhooks deduplicated by payment id.</p>
+          <p lang="es">Pagos y suscripciones con Mercado Pago, con webhooks deduplicados por payment id.</p>
+        </div></li>
+        <li><div>
+          <h3><span lang="en">A counter-ready PWA.</span><span lang="es">Una PWA lista para el mostrador.</span></h3>
+          <p lang="en">Installable admin with barcode scanning (native BarcodeDetector + ZXing WASM fallback), virtualised tables and real-time sync over Socket.io.</p>
+          <p lang="es">Panel instalable con lector de códigos de barras (BarcodeDetector nativo + fallback ZXing WASM), tablas virtualizadas y sincronización en tiempo real por Socket.io.</p>
+        </div></li>
+        <li><div>
+          <h3><span lang="en">A landing you can use, not just read.</span><span lang="es">Una landing que se usa, no solo se lee.</span></h3>
+          <p lang="en">The hero is an interactive demo — sell, sell on credit, close the register — prerendered to static HTML; the build fails if the demo didn't render.</p>
+          <p lang="es">El hero es una demo interactiva — vender, fiar, cerrar caja — prerenderizada a HTML estático; el build falla si la demo no se renderizó.</p>
+        </div></li>
+      </ol>
+    </div>
+
+    <div class="bi-visual">
+      <figure class="sticky reveal" style="margin:0">
+        <div class="browser">
+          <div class="browser-bar" aria-hidden="true">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="url"><b>bueninventario.com</b>/demo</span>
+          </div>
+          <div class="bi-app" lang="es-AR" role="img" aria-label="Buen Inventario point-of-sale ticket: four items, total $15.850, Cobrar button">
+            <div class="bi-top">
+              <span class="bi-brand"><i></i>Buen Inventario</span>
+              <span class="bi-pill">Caja abierta</span>
+            </div>
+            <div class="bi-search">
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="#0a0a0a" stroke-width="1.5"/><path d="M11 11l3.5 3.5" stroke="#0a0a0a" stroke-width="1.5"/></svg>
+              Buscar producto o escanear código…
+              <span class="kbd">F2</span>
+            </div>
+            <div class="bi-ticket">
+              <div class="bi-ticket-head"><span>Ticket de venta</span><span>4 ítems</span></div>
+              <div class="bi-lines">
+                <div class="bi-line"><span>Yerba mate 1 kg<small>$4.200 c/u</small></span><span class="q">×2</span><span class="p">$8.400</span></div>
+                <div class="bi-line"><span>Leche entera 1 L<small>$1.350 c/u</small></span><span class="q">×3</span><span class="p">$4.050</span></div>
+                <div class="bi-line"><span>Galletitas de agua<small>$1.100 c/u</small></span><span class="q">×1</span><span class="p">$1.100</span></div>
+                <div class="bi-line"><span>Detergente 750 ml<small>$2.300 c/u</small></span><span class="q">×1</span><span class="p">$2.300</span></div>
+              </div>
+              <div class="bi-total"><span>Total</span><strong>$15.850</strong></div>
+            </div>
+            <div class="bi-pay">
+              <span aria-current="true">Efectivo</span><span>Débito</span><span>Transferencia</span><span>Cuenta corriente</span>
+            </div>
+            <button class="bi-cobrar" type="button" tabindex="-1" aria-hidden="true"><span>Cobrar</span><span>$15.850</span></button>
+          </div>
+        </div>
+        <figcaption>
+          <span lang="en">Illustrative mock of the point-of-sale ticket, in the product's own visual language.</span>
+          <span lang="es">Maqueta ilustrativa del ticket de caja, con el lenguaje visual del propio producto.</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="bi-foot reveal">
+      <div class="ledger-wrap">
+        <p class="ledger-cap"><span lang="en">By the numbers</span><span lang="es">En números</span></p>
+        <ul class="ledger">
+          <li><span class="lbl">repos</span><span class="lead"></span><span class="val">4</span></li>
+          <li><span class="lbl">commits</span><span class="lead"></span><span class="val">~<span lang="en">2,075</span><span lang="es">2.075</span></span></li>
+          <li><span class="lbl"><span lang="en">test files</span><span lang="es">archivos de test</span></span><span class="lead"></span><span class="val">290+</span></li>
+          <li><span class="lbl"><span lang="en">Lighthouse CI + bundle budgets</span><span lang="es">Lighthouse CI + presupuestos de bundle</span></span><span class="lead"></span><span class="val"><span lang="en">in CI</span><span lang="es">en CI</span></span></li>
+        </ul>
+      </div>
+      <div class="stack-wrap">
+        <p class="stack"><strong>Stack —</strong> TypeScript · React 19 · Vite · Tailwind · TanStack Query · Node / Express 5 · Socket.io · DynamoDB · S3 · KMS · Mercado Pago · ARCA SOAP · Vercel</p>
+        <div class="cta-row">
+          <a class="btn btn--solid" href="https://www.bueninventario.com" rel="noopener"><span lang="en">Try the live demo</span><span lang="es">Probar la demo</span> <span class="arr" aria-hidden="true">↗</span></a>
+          <a class="textlink" href="https://www.bueninventario.com" rel="noopener"><span lang="en">Visit site</span><span lang="es">Ver sitio</span> →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 02 FINANZAS-AGENT ============================ -->
+<section class="section section--alt" id="finanzas" aria-labelledby="fa-h">
+  <div class="wrap grid">
+    <div class="sec-head grid" style="grid-column:1/-1">
+      <span class="idx"><b>02</b> / 03</span>
+      <span class="kicker"><span lang="en">AI agent · Serverless · 2026</span><span lang="es">Agente de IA · Serverless · 2026</span></span>
+    </div>
+    <div class="fa-title reveal"><h2 id="fa-h" class="sec-title">finanzas-<em>agent</em></h2></div>
+    <div class="fa-lede reveal">
+      <p class="lede" lang="en">A personal-finance agent that lives in WhatsApp. I text what I spent, earned or owe; Claude turns it into rows in a Google Sheet and reminds me before bills are due. About US$2/month on AWS.</p>
+      <p class="lede" lang="es">Un agente de finanzas personales que vive en WhatsApp. Le escribo qué gasté, cobré o debo; Claude lo convierte en filas de un Google Sheet y me avisa antes de cada vencimiento. Unos US$2/mes en AWS.</p>
+    </div>
+
+    <!-- Chat replay -->
+    <div class="replay reveal" id="replay">
+      <div class="replay-head">
+        <p class="caption">
+          <span lang="en">Replay of a real conversation. The agent speaks Rioplatense Spanish.</span>
+          <span lang="es">Replay de una conversación real.</span>
+        </p>
+        <button class="replay-btn" type="button" id="replay-btn">
+          <span aria-hidden="true">↻</span><span lang="en">Replay</span><span lang="es">Repetir</span>
+        </button>
+      </div>
+      <div class="panes">
+        <div class="chat" lang="es-AR">
+          <div class="chat-head">
+            <span class="av" aria-hidden="true">fa</span>
+            <div><b>finanzas-agent</b><small>en línea</small></div>
+          </div>
+          <ol class="chat-log" id="chat-log" aria-label="WhatsApp conversation"></ol>
+        </div>
+        <div class="trace">
+          <div class="trace-head">
+            <span><span lang="en">Under the hood</span><span lang="es">Por debajo</span></span>
+            <span class="live">trace</span>
+          </div>
+          <ol class="trace-log" id="trace-log" aria-label="Agent trace"></ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decisions -->
+    <div class="fa-decisions reveal">
+      <p class="subhead"><span lang="en">Three decisions</span><span lang="es">Tres decisiones</span></p>
+      <ol class="points">
+        <li><div>
+          <h3><span lang="en">Answer Meta in under a second.</span><span lang="es">Responderle a Meta en menos de un segundo.</span></h3>
+          <p lang="en">Meta retries after ~5s, so the webhook only validates the HMAC, checks the allowlist and hands off asynchronously; the LLM work happens in a second Lambda.</p>
+          <p lang="es">Meta reintenta a los ~5s, así que el webhook solo valida el HMAC, chequea la allowlist y delega de forma asíncrona; el trabajo del LLM ocurre en una segunda Lambda.</p>
+        </div></li>
+        <li><div>
+          <h3><span lang="en">Idempotent by message id.</span><span lang="es">Idempotente por message id.</span></h3>
+          <p lang="en">Async invokes are at-least-once; the runner short-circuits on an already-processed message.</p>
+          <p lang="es">Las invocaciones async son at-least-once; el runner corta si el mensaje ya fue procesado.</p>
+        </div></li>
+        <li><div>
+          <h3><span lang="en">The agent doesn't know where data lives.</span><span lang="es">El agente no sabe dónde viven los datos.</span></h3>
+          <p lang="en">A <code>DataAdapter</code> interface: Sheets today, DynamoDB tomorrow, in-memory in tests. 15 tools, bounded tool-use loop.</p>
+          <p lang="es">Una interfaz <code>DataAdapter</code>: hoy Sheets, mañana DynamoDB, en memoria en los tests. 15 tools, loop de tool use acotado.</p>
+        </div></li>
+      </ol>
+    </div>
+
+    <!-- Architecture -->
+    <div class="fa-arch reveal">
+      <p class="subhead"><span lang="en">Architecture</span><span lang="es">Arquitectura</span></p>
+      <figure class="arch-fig">
+        <div class="arch-scroll">
+          <svg class="arch-svg" viewBox="0 0 560 400" role="img" aria-labelledby="arch-t">
+            <title id="arch-t">WhatsApp to Meta Cloud API to API Gateway to the webhook Lambda, which invokes the agent runner Lambda asynchronously; the runner talks to Claude, DynamoDB and Google Sheets, and reads Secrets Manager on cold start.</title>
+            <defs>
+              <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1A1915"/></marker>
+              <marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1F5B47"/></marker>
+            </defs>
+            <!-- Row 1: ingress -->
+            <rect class="box" x="0" y="10" width="120" height="40"/><text x="60" y="35" text-anchor="middle">WhatsApp</text>
+            <rect class="box" x="0" y="80" width="120" height="40"/><text x="60" y="105" text-anchor="middle">Meta Cloud API</text>
+            <rect class="box" x="0" y="150" width="120" height="40"/><text x="60" y="175" text-anchor="middle">API Gateway</text>
+            <path class="ln" d="M60 50V78" marker-end="url(#ah)"/>
+            <path class="ln" d="M60 120V148" marker-end="url(#ah)"/>
+            <path class="ln" d="M60 190V228" marker-end="url(#ah)"/>
+            <!-- Webhook -->
+            <rect class="box" x="0" y="230" width="150" height="54"/>
+            <text x="12" y="252">Lambda</text><text x="12" y="272" style="font-weight:500">webhook</text>
+            <text class="sm" x="0" y="304" lang="en">HMAC · allowlist · &lt;1s</text>
+            <text class="sm" x="0" y="304" lang="es">HMAC · allowlist · &lt;1s</text>
+            <!-- async -->
+            <path class="ln-dash" d="M150 257H218" marker-end="url(#ah)"/>
+            <text class="sm" x="154" y="248" lang="en">async</text>
+            <text class="sm" x="154" y="248" lang="es">async</text>
+            <!-- Runner -->
+            <rect class="box-accent" x="220" y="222" width="150" height="70"/>
+            <text x="232" y="248">Lambda</text><text x="232" y="268" style="font-weight:500">agent runner</text>
+            <text class="sm" x="232" y="284" lang="en">bounded loop</text>
+            <text class="sm" x="232" y="284" lang="es">loop acotado</text>
+            <!-- Targets -->
+            <rect class="box" x="420" y="120" width="140" height="44"/><text x="432" y="140">Claude</text><text class="sm" x="432" y="155">tool use</text>
+            <rect class="box" x="420" y="236" width="140" height="44"/><text x="432" y="256">DynamoDB</text>
+            <text class="sm" x="432" y="271" lang="en">history · TTL 24h</text>
+            <text class="sm" x="432" y="271" lang="es">historial · TTL 24h</text>
+            <rect class="box" x="420" y="340" width="140" height="44"/><text x="432" y="360">Google Sheets</text>
+            <text class="sm" x="432" y="375" lang="en">DataAdapter</text>
+            <text class="sm" x="432" y="375" lang="es">DataAdapter</text>
+            <path class="ln-accent" d="M372 240L418 150" marker-start="url(#ahg)" marker-end="url(#ahg)"/>
+            <path class="ln-accent" d="M372 258H418" marker-start="url(#ahg)" marker-end="url(#ahg)"/>
+            <path class="ln-accent" d="M372 276L418 356" marker-start="url(#ahg)" marker-end="url(#ahg)"/>
+            <!-- Secrets -->
+            <rect class="box-dash" x="220" y="340" width="150" height="44"/><text x="232" y="360">Secrets Manager</text>
+            <text class="sm" x="232" y="375" lang="en">on cold start</text>
+            <text class="sm" x="232" y="375" lang="es">en cold start</text>
+            <path class="ln-dash" d="M295 338V294" marker-end="url(#ah)"/>
+            <!-- Legend -->
+            <text class="sm" x="220" y="40" lang="en">— sync   - - async / cold start</text>
+            <text class="sm" x="220" y="40" lang="es">— sync   - - async / cold start</text>
+            <text class="sm" x="220" y="58" lang="en">⇄ tool calls from the runner</text>
+            <text class="sm" x="220" y="58" lang="es">⇄ llamadas desde el runner</text>
+          </svg>
+        </div>
+        <figcaption><span lang="en">WhatsApp → Meta → API Gateway → webhook ⇢ agent runner ⇄ Claude · DynamoDB · Sheets.</span><span lang="es">WhatsApp → Meta → API Gateway → webhook ⇢ agent runner ⇄ Claude · DynamoDB · Sheets.</span></figcaption>
+      </figure>
+
+      <div class="war">
+        <span class="tag"><span lang="en">War story</span><span lang="es">Historia de guerra</span></span>
+        <p lang="en">Argentine numbers arrive as <code>54 9 11…</code> but Meta's whitelist stores <code>54 11 15…</code> — replies failed with <code>#131030</code> until the wa_id was normalised.</p>
+        <p lang="es">Los números argentinos llegan como <code>54 9 11…</code> pero la whitelist de Meta guarda <code>54 11 15…</code> — las respuestas fallaban con <code>#131030</code> hasta normalizar el wa_id.</p>
+      </div>
+    </div>
+
+    <div class="fa-foot reveal">
+      <p class="stack"><strong>Stack —</strong> Python 3.12 · AWS Lambda · API Gateway · DynamoDB · Secrets Manager · SAM · Claude API · Meta Cloud API · Google Sheets API</p>
+      <div class="cta-row">
+        <a class="btn" href="https://github.com/nrotsen/finanzas-agent" rel="noopener"><span lang="en">Read the code</span><span lang="es">Ver el código</span> <span class="arr" aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 03 DRILLS ============================ -->
+<section class="section" id="open-source" aria-labelledby="dr-h">
+  <div class="wrap grid">
+    <div class="sec-head grid" style="grid-column:1/-1">
+      <span class="idx"><b>03</b> / 03</span>
+      <span class="kicker"><span lang="en">Open source · Learning tool · 2026</span><span lang="es">Open source · Herramienta de estudio · 2026</span></span>
+    </div>
+    <div class="dr-title reveal"><h2 id="dr-h" class="sec-title">software-engineering-<em>drills</em></h2></div>
+
+    <div class="dr-text">
+      <div class="reveal">
+        <p class="lede" lang="en">An active-recall trainer for software engineering fundamentals — OOP, modelling, concurrency and design patterns — with one core and two frontends: a CLI and a web app.</p>
+        <p class="lede" lang="es">Un entrenador de práctica activa para fundamentos de ingeniería de software — POO, modelado, concurrencia y patrones de diseño — con un solo core y dos frontends: una CLI y una web.</p>
+      </div>
+      <ol class="points reveal">
+        <li><div>
+          <h3><span lang="en">One core, two frontends.</span><span lang="es">Un core, dos frontends.</span></h3>
+          <p lang="en">Grading is written once and shared by the CLI and the React app.</p>
+          <p lang="es">La corrección se escribe una vez y la comparten la CLI y la app React.</p>
+        </div></li>
+        <li><div>
+          <h3><span lang="en">Architecture enforced by a test.</span><span lang="es">La arquitectura la hace cumplir un test.</span></h3>
+          <p lang="en"><code>architecture.test.ts</code> fails if the core imports from the CLI, the web app, React or Node built-ins.</p>
+          <p lang="es"><code>architecture.test.ts</code> falla si el core importa de la CLI, la web, React o módulos de Node.</p>
+        </div></li>
+        <li><div>
+          <h3><span lang="en">One contract, three repositories.</span><span lang="es">Un contrato, tres repositorios.</span></h3>
+          <p lang="en">Progress storage has three implementations passing the same <code>describe.each</code> contract suite.</p>
+          <p lang="es">El guardado de progreso tiene tres implementaciones que pasan la misma suite de contrato con <code>describe.each</code>.</p>
+        </div></li>
+        <li><div>
+          <h3><span lang="en">Content as a discriminated union.</span><span lang="es">El contenido es una unión discriminada.</span></h3>
+          <p lang="en">169 items across 4 sections and 3 levels, plus 15 SVG diagrams guarded by an orphan/missing-diagram test.</p>
+          <p lang="es">169 ítems en 4 secciones y 3 niveles, más 15 diagramas SVG protegidos por un test de diagramas huérfanos o faltantes.</p>
+        </div></li>
+      </ol>
+      <div class="ledger-wrap reveal">
+        <ul class="ledger">
+          <li><span class="lbl"><span lang="en">items</span><span lang="es">ítems</span></span><span class="lead"></span><span class="val">169</span></li>
+          <li><span class="lbl"><span lang="en">diagrams</span><span lang="es">diagramas</span></span><span class="lead"></span><span class="val">15</span></li>
+          <li><span class="lbl">tests</span><span class="lead"></span><span class="val">58</span></li>
+          <li><span class="lbl"><span lang="en">license</span><span lang="es">licencia</span></span><span class="lead"></span><span class="val">MIT</span></li>
+        </ul>
+        <p class="stack" style="margin-top:20px"><strong>Stack —</strong> TypeScript · React 19 · React Router 7 · Vite · Tailwind v4 · Vitest · Inquirer</p>
+        <div class="cta-row" style="margin-top:24px">
+          <a class="btn" href="https://github.com/nrotsen/software-engineering-drills" rel="noopener"><span lang="en">Read the code</span><span lang="es">Ver el código</span> <span class="arr" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dr-visual">
+      <figure class="reveal" style="margin:0">
+        <div class="quiz">
+          <div class="quiz-meta">
+            <span><span lang="en">Design patterns</span><span lang="es">Patrones de diseño</span></span>
+            <span><span lang="en">Multiple choice</span><span lang="es">Opción múltiple</span></span>
+          </div>
+          <h3>
+            <span lang="en">Which pattern adds behaviour to one object at runtime without changing its class?</span>
+            <span lang="es">¿Qué patrón agrega comportamiento a un objeto en tiempo de ejecución sin cambiar su clase?</span>
+          </h3>
+          <ul class="opts">
+            <li><span class="l">A</span>Adapter</li>
+            <li class="ok"><span class="l">B</span>Decorator<span class="st"><span lang="en">Correct</span><span lang="es">Correcta</span></span></li>
+            <li><span class="l">C</span>Singleton</li>
+            <li><span class="l">D</span>Template Method</li>
+          </ul>
+          <p class="why">
+            <span lang="en"><b>Why:</b> a Decorator wraps the object behind the same interface and delegates, adding behaviour per instance; Adapter changes the interface instead.</span>
+            <span lang="es"><b>Por qué:</b> un Decorator envuelve al objeto con la misma interfaz y delega, agregando comportamiento por instancia; el Adapter en cambio cambia la interfaz.</span>
+          </p>
+        </div>
+        <figcaption><span lang="en">Illustrative quiz card, as rendered by the web frontend.</span><span lang="es">Tarjeta de ejemplo, como la muestra el frontend web.</span></figcaption>
+      </figure>
+
+      <figure class="reveal" style="margin:0">
+        <div class="code">
+          <div class="code-bar"><span>core/architecture.test.ts</span><span>vitest</span></div>
+<pre><code style="background:none;color:inherit;padding:0;font-size:inherit"><span class="c">// the idea, simplified</span>
+<span class="kw">const</span> FORBIDDEN = [<span class="s">/^\.\.\/cli/</span>, <span class="s">/^\.\.\/web/</span>, <span class="s">/^react/</span>, <span class="s">/^node:/</span>];
+
+<span class="fn">it</span>(<span class="s">"core imports nothing from the edges"</span>, () =&gt; {
+  <span class="kw">for</span> (<span class="kw">const</span> file <span class="kw">of</span> <span class="fn">coreFiles</span>()) {
+    <span class="kw">for</span> (<span class="kw">const</span> spec <span class="kw">of</span> <span class="fn">importsOf</span>(file)) {
+      <span class="fn">expect</span>(FORBIDDEN.<span class="fn">some</span>((re) =&gt; re.<span class="fn">test</span>(spec))).<span class="fn">toBe</span>(<span class="kw">false</span>);
+    }
+  }
+});</code></pre>
+        </div>
+        <figcaption><span lang="en">A sketch of the architecture test's idea — not the literal file.</span><span lang="es">Un boceto de la idea del test de arquitectura — no es el archivo literal.</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HOW I WORK ============================ -->
+<section class="section section--alt" id="how" aria-labelledby="how-h">
+  <div class="wrap grid">
+    <div class="sec-head grid" style="grid-column:1/-1">
+      <span class="idx"><b>§</b></span>
+      <span class="kicker"><span lang="en">Four principles</span><span lang="es">Cuatro principios</span></span>
+    </div>
+    <div class="how-title reveal">
+      <h2 id="how-h" class="sec-title"><span lang="en">How I <em>work</em></span><span lang="es">Cómo <em>trabajo</em></span></h2>
+    </div>
+    <ol class="principles reveal">
+      <li>
+        <span class="n">P.01</span>
+        <h3><span lang="en">Design doc before code.</span><span lang="es">Primero el documento de diseño.</span></h3>
+        <p lang="en">Non-trivial work starts as a dated plan with the trade-offs written down — the repos keep them in <code>docs/plans/</code>.</p>
+        <p lang="es">El trabajo no trivial empieza como un plan fechado con los trade-offs por escrito — los repos los guardan en <code>docs/plans/</code>.</p>
+      </li>
+      <li>
+        <span class="n">P.02</span>
+        <h3><span lang="en">Tests that protect decisions, not just functions.</span><span lang="es">Tests que protegen decisiones, no solo funciones.</span></h3>
+        <p lang="en">Architecture tests, contract suites, a build that fails when the demo doesn't render.</p>
+        <p lang="es">Tests de arquitectura, suites de contrato, un build que falla si la demo no renderiza.</p>
+      </li>
+      <li>
+        <span class="n">P.03</span>
+        <h3><span lang="en">Boring reliability.</span><span lang="es">Confiabilidad aburrida.</span></h3>
+        <p lang="en">Idempotency keys, fail-closed defaults, least-privilege IAM, secrets out of the repo.</p>
+        <p lang="es">Claves de idempotencia, defaults que fallan cerrado, IAM de mínimo privilegio, secretos fuera del repo.</p>
+      </li>
+      <li>
+        <span class="n">P.04</span>
+        <h3><span lang="en">Honest products.</span><span lang="es">Productos honestos.</span></h3>
+        <p lang="en">No fake social proof, no dark patterns; if a number is on the page, it's true.</p>
+        <p lang="es">Sin prueba social falsa ni patrones oscuros; si un número está en la página, es verdad.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================ CONTACT ============================ -->
+<section class="section contact" id="contact" aria-labelledby="ct-h">
+  <div class="wrap grid">
+    <div class="sec-head grid" style="grid-column:1/-1">
+      <span class="idx"><b>→</b></span>
+      <span class="kicker"><span lang="en">Contact</span><span lang="es">Contacto</span></span>
+    </div>
+    <h2 id="ct-h" class="reveal">
+      <span lang="en">Let's build something that works on a <em>Monday morning.</em></span>
+      <span lang="es">Construyamos algo que funcione un <em>lunes a la mañana.</em></span>
+    </h2>
+    <p class="sub reveal">
+      <span lang="en">Open to senior product / full-stack roles, remote.</span>
+      <span lang="es">Abierto a roles senior de producto / full-stack, remotos.</span>
+    </p>
+    <ul class="ledger reveal">
+      <li><span class="lbl">Email</span><span class="lead"></span><span class="val"><span class="ph" title="Placeholder">email@placeholder</span></span></li>
+      <li><span class="lbl">GitHub</span><span class="lead"></span><span class="val"><a href="https://github.com/nrotsen" rel="noopener">github.com/nrotsen</a></span></li>
+      <li><span class="lbl">LinkedIn</span><span class="lead"></span><span class="val"><span class="ph" title="Placeholder">linkedin@placeholder</span></span></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>© 2026 Nestor Berlanga</span>
+    <span><span lang="en">Built with React + Vite</span><span lang="es">Hecho con React + Vite</span> · <a href="https://github.com/nrotsen/portfolio" rel="noopener"><span lang="en">source</span><span lang="es">código</span></a></span>
+    <span><span lang="en">Argentina · works remote</span><span lang="es">Argentina · trabajo remoto</span></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var root = document.documentElement;
+
+  /* ---------------- Language toggle ---------------- */
+  var TITLES = {
+    en: 'Nestor Berlanga — Product engineer · full-stack',
+    es: 'Nestor Berlanga — Product engineer · full-stack'
+  };
+  var buttons = document.querySelectorAll('[data-set-lang]');
+  function setLang(l, persist) {
+    root.setAttribute('data-lang', l);
+    root.lang = l;
+    document.title = TITLES[l];
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute('aria-pressed', buttons[i].getAttribute('data-set-lang') === l ? 'true' : 'false');
+    }
+    if (persist) { try { localStorage.setItem('nb-lang', l); } catch (e) {} }
+  }
+  for (var b = 0; b < buttons.length; b++) {
+    buttons[b].addEventListener('click', function () { setLang(this.getAttribute('data-set-lang'), true); });
+  }
+  setLang(root.getAttribute('data-lang') === 'es' ? 'es' : 'en', false);
+
+  /* ---------------- Reduced motion ---------------- */
+  var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  function reduced() { return !!(mq && mq.matches); }
+
+  /* ---------------- Scroll reveal ---------------- */
+  var reveals = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || reduced()) {
+    for (var r = 0; r < reveals.length; r++) reveals[r].classList.add('in');
+  } else {
+    var ro = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    for (var k = 0; k < reveals.length; k++) ro.observe(reveals[k]);
+  }
+
+  /* ---------------- Chat replay ---------------- */
+  var chatLog = document.getElementById('chat-log');
+  var traceLog = document.getElementById('trace-log');
+  var replayBtn = document.getElementById('replay-btn');
+  var replayEl = document.getElementById('replay');
+
+  var SCRIPT = [
+    { t: 'day', x: 'HOY' },
+    { t: 'mark', x: '── msg 1' },
+    { t: 'user', x: 'gasté 12k en el super', time: '21:14' },
+    { t: 'trace', k: 'rule', x: "medio_pago missing → ask, don't guess" },
+    { t: 'agent', x: '¿con qué pagaste? efectivo / débito / crédito / transferencia / mp', time: '21:14' },
+    { t: 'mark', x: '── msg 2' },
+    { t: 'user', x: 'débito', time: '21:15' },
+    { t: 'trace', k: 'tool_use', x: 'registrar_gasto({ monto: 12000, categoria: "comida", medio_pago: "debito", fecha: "2026-05-19" })' },
+    { t: 'trace', k: 'result', x: '{ id: "g_8f2c" } · sheet row appended' },
+    { t: 'agent', x: '✅ Registrado: $12.000 en comida (débito).', time: '21:15' },
+    { t: 'mark', x: '── msg 3' },
+    { t: 'user', x: 'cómo voy este mes?', time: '21:16' },
+    { t: 'trace', k: 'tool_use', x: 'resumen_financiero({ periodo: "este mes" })' },
+    { t: 'trace', k: 'result', x: '{ ingresos: 1800000, gastos: 950000 }' },
+    { t: 'trace', k: 'tool_use', x: 'vencimientos_proximos({ dias: 3 })' },
+    { t: 'trace', k: 'result', x: '[ tarjeta_visa · 280000 · in 2 days ]' },
+    { t: 'agent', x: 'Mayo: ingresos $1.800.000, gastos $950.000. Neto +$850.000. ⚠️ Vence en 2 días: tarjeta_visa ($280.000).', time: '21:16' }
+  ];
+
+  var DELAY = { user: 900, trace: 550, agentTyping: 1300, mark: 250, day: 0 };
+  var runId = 0;
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function scrollBottom(box) { box.scrollTop = box.scrollHeight; }
+
+  function bubble(step) {
+    var li = el('li', 'msg ' + (step.t === 'user' ? 'out' : 'in'));
+    li.appendChild(el('span', '', step.x));
+    var tm = el('time', '', step.time + (step.t === 'user' ? ' ✓✓' : ''));
+    li.appendChild(tm);
+    return li;
+  }
+  function traceLine(step) {
+    if (step.t === 'mark') return el('li', 'tr tr-msg', step.x);
+    var cls = step.k === 'rule' ? 'tr-rule' : step.k === 'tool_use' ? 'tr-tool' : 'tr-result';
+    var li = el('li', 'tr ' + cls);
+    li.appendChild(el('span', 'k', step.k === 'result' ? '→ result' : step.k));
+    li.appendChild(document.createTextNode(step.x));
+    return li;
+  }
+  function render(step) {
+    if (step.t === 'day') { chatLog.appendChild(el('li', 'chat-day', step.x)); }
+    else if (step.t === 'user' || step.t === 'agent') { chatLog.appendChild(bubble(step)); scrollBottom(chatLog); }
+    else { traceLog.appendChild(traceLine(step)); scrollBottom(traceLog); }
+  }
+  function clear() { chatLog.innerHTML = ''; traceLog.innerHTML = ''; }
+
+  function sleep(ms, id) {
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () { id === runId ? resolve() : reject('cancelled'); }, ms);
+    });
+  }
+
+  function play() {
+    var id = ++runId;
+    clear();
+    if (reduced()) { SCRIPT.forEach(render); return; }
+    var i = 0;
+    function next() {
+      if (id !== runId || i >= SCRIPT.length) return;
+      var step = SCRIPT[i++];
+      if (step.t === 'agent') {
+        var typing = el('li', 'msg in typing');
+        typing.setAttribute('aria-label', 'escribiendo…');
+        var d = el('span', 'd'); d.innerHTML = '<i></i><i></i><i></i>';
+        typing.appendChild(d);
+        sleep(300, id).then(function () {
+          chatLog.appendChild(typing); scrollBottom(chatLog);
+          return sleep(DELAY.agentTyping, id);
+        }).then(function () {
+          typing.remove(); render(step); next();
+        }).catch(function () {});
+      } else {
+        sleep(DELAY[step.t] != null ? DELAY[step.t] : 500, id).then(function () { render(step); next(); }).catch(function () {});
+      }
+    }
+    next();
+  }
+
+  replayBtn.addEventListener('click', play);
+
+  if ('IntersectionObserver' in window) {
+    var started = false;
+    var co = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting && !started) { started = true; co.disconnect(); play(); }
+      });
+    }, { threshold: 0.35 });
+    co.observe(replayEl);
+  } else {
+    play();
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio · mockups</title>
+<style>
+  :root { --bg: #f4f3ef; --ink: #16161a; --soft: #5f5f66; --rule: #dcdad3; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 ui-sans-serif, system-ui, "Segoe UI", sans-serif; padding: clamp(24px, 6vw, 72px) 20px; }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: clamp(28px, 4vw, 40px); letter-spacing: -.02em; margin: 0 0 8px; }
+  p { color: var(--soft); margin: 0 0 32px; }
+  ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  a { display: block; text-decoration: none; color: inherit; border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; background: #fff; transition: border-color .2s, transform .2s; }
+  a:hover, a:focus-visible { border-color: var(--ink); transform: translateY(-2px); outline: none; }
+  .sw { height: 120px; display: flex; align-items: flex-end; padding: 14px; gap: 6px; }
+  .sw i { width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(0,0,0,.12); }
+  .meta { padding: 14px 16px 18px; }
+  .meta b { display: block; font-size: 18px; }
+  .meta span { color: var(--soft); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Portfolio — 3 direcciones</h1>
+  <p>Mismo contenido (ver CONTENT.md), tres identidades visuales. Probá el switch EN/ES y bajá hasta el replay del bot.</p>
+  <ul>
+    <li><a href="a-editorial.html">
+      <div class="sw" style="background:#F6F3EC"><i style="background:#1A1915"></i><i style="background:#1F5B47"></i><i style="background:#B5533C"></i></div>
+      <div class="meta"><b>A · Editorial</b><span>Instrument Serif + Geist · papel cálido, verde bosque · caso de estudio de revista</span></div>
+    </a></li>
+    <li><a href="b-console.html">
+      <div class="sw" style="background:#0B1020"><i style="background:#E7EBF3"></i><i style="background:#7FE3C4"></i><i style="background:#F5B86B"></i></div>
+      <div class="meta"><b>B · Night Console</b><span>Bricolage Grotesque + Inter · oscuro, bento grid · herramienta de desarrollador</span></div>
+    </a></li>
+    <li><a href="c-swiss.html">
+      <div class="sw" style="background:#FAFAF8"><i style="background:#111214"></i><i style="background:#2B44E8"></i><i style="background:#FF5A36"></i></div>
+      <div class="meta"><b>C · Swiss Precision</b><span>Schibsted Grotesk + IBM Plex Mono · grilla estricta, cobalto · índice de proyectos</span></div>
+    </a></li>
+  </ul>
+</main>
+</body>
+</html>
