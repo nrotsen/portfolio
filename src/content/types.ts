@@ -191,6 +191,10 @@ export interface ReplayUi {
   traceTitle: string;
   traceSubtitle: string;
   traceAriaLabel: string;
+  /** Texto del campo de mensaje del teléfono, decorativo. */
+  inputPlaceholder: string;
+  /** Mismo criterio que el ticket de Buen Inventario: se aclara que es maqueta. */
+  mockNote: string;
   logAriaLabel: string;
   caption: string;
   captionRight: string;

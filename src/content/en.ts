@@ -294,6 +294,8 @@ export const en: SiteContent = {
         traceTitle: 'Under the hood',
         traceSubtitle: 'agent_runner · tool use',
         traceAriaLabel: 'Agent trace',
+        inputPlaceholder: 'Message',
+        mockNote: 'Their app, their colours — illustrative mock-up',
         logAriaLabel: 'Conversation replay',
         caption: 'Replay of a real conversation. The agent speaks Rioplatense Spanish.',
         captionRight: 'rule · tool_use · result',

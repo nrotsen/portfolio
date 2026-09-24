@@ -298,6 +298,8 @@ export const es: SiteContent = {
         traceTitle: 'Por dentro',
         traceSubtitle: 'agent_runner · tool use',
         traceAriaLabel: 'Traza del agente',
+        inputPlaceholder: 'Mensaje',
+        mockNote: 'Su app, sus colores — maqueta ilustrativa',
         logAriaLabel: 'Replay de la conversación',
         caption: 'Replay de una conversación real.',
         captionRight: 'rule · tool_use · result',
