@@ -31,10 +31,6 @@
   --signal: #ff5a36;
   --signal-halo: rgb(255 90 54 / 18%);
 
-  /* Tinta sobre naranja: fija en los dos temas, porque el naranja no cambia
-     lo suficiente como para que el texto claro funcione encima. */
-  --on-signal: #16181c;
-
   /* ---------- Panel de traza (siempre oscuro) ---------- */
   --ink-trace: #111214;
   --trace-kw: #9aa8ff;

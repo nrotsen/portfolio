@@ -1,6 +1,7 @@
 import type { SiteContent } from './types';
 import {
   BUEN_INVENTARIO_URL,
+  DRILLS_APP_URL,
   DRILLS_HANDLE,
   DRILLS_URL,
   EMAIL,
@@ -21,10 +22,10 @@ export const en: SiteContent = {
   lang: 'en',
 
   meta: {
-    title: 'Nestor Berlanga — Product engineer · full-stack',
+    title: `${FULL_NAME} — Product engineer · full-stack`,
     description:
       'Product engineer, full-stack. I designed, built and run Buen Inventario, a SaaS for small Argentine retailers. Case studies: Buen Inventario, finanzas-agent, software-engineering-drills.',
-    ogImageAlt: 'Nestor Berlanga — product engineer, full-stack. Argentina, works remote.',
+    ogImageAlt: `${FULL_NAME} — product engineer, full-stack. Argentina, works remote.`,
     ogLocale: 'en_US',
   },
 
@@ -236,9 +237,6 @@ export const en: SiteContent = {
           body: 'A `DataAdapter` interface: Sheets today, DynamoDB tomorrow, in-memory in tests. 15 tools, bounded tool-use loop.',
         },
       ],
-      warStoryTag: 'War story',
-      warStory:
-        "Argentine numbers arrive as `54 9 11…` but Meta's whitelist stores `54 11 15…` — replies failed with `#131030` until the wa_id was normalised.",
       ctas: [{ label: 'Read the code', href: FINANZAS_AGENT_URL, external: true }],
     },
 
@@ -314,7 +312,10 @@ export const en: SiteContent = {
         { value: n(FACTS.drillTests), caption: 'tests', isText: false },
         { value: 'MIT', caption: 'licence', isText: false },
       ],
-      ctas: [{ label: DRILLS_HANDLE, href: DRILLS_URL, external: true }],
+      ctas: [
+        { label: 'Try the drills', href: DRILLS_APP_URL, external: true },
+        { label: DRILLS_HANDLE, href: DRILLS_URL, external: true },
+      ],
     },
   },
 

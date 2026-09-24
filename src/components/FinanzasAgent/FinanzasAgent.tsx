@@ -35,11 +35,6 @@ export function FinanzasAgent({ project }: { project: Content }) {
           ))}
         </div>
 
-        <div className={`${s.war} reveal`} ref={useReveal<HTMLDivElement>()}>
-          <span className={s.tag}>{project.warStoryTag}</span>
-          <p>{renderInline(project.warStory)}</p>
-        </div>
-
         <Ctas items={project.ctas} />
       </div>
     </article>

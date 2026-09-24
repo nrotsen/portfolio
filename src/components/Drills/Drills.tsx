@@ -31,7 +31,7 @@ export function Drills({ project }: { project: Content }) {
         </div>
 
         <Metrics items={project.metrics} />
-        <Ctas items={project.ctas} primaryFirst={false} />
+        <Ctas items={project.ctas} />
       </div>
     </article>
   );

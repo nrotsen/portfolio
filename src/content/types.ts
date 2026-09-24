@@ -188,8 +188,6 @@ export interface FinanzasAgent extends ProjectBase {
   architecture: ArchitectureDiagram;
   decisionsLabel: string;
   decisions: readonly [Decision, Decision, Decision];
-  warStoryTag: string;
-  warStory: string;
 }
 
 export interface QuizCard {

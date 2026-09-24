@@ -37,9 +37,10 @@ export const REPO_URL = `${GITHUB_URL}/portfolio`;
 export const FINANZAS_AGENT_URL = `${GITHUB_URL}/finanzas-agent`;
 export const DRILLS_URL = `${GITHUB_URL}/software-engineering-drills`;
 export const DRILLS_HANDLE = 'github.com/nrotsen/software-engineering-drills';
+export const DRILLS_APP_URL = 'https://software-engineering-drills.vercel.app';
 export const BUEN_INVENTARIO_URL = 'https://www.bueninventario.com';
 
-export const FULL_NAME = 'Nestor Berlanga';
+export const FULL_NAME = 'Néstor Berlanga';
 export const JOB_TITLE = 'Product engineer · full-stack';
 
 const LOCALES: Record<Lang, string> = { en: 'en-US', es: 'es-AR' };
