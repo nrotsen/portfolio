@@ -38,8 +38,8 @@ export const es: SiteContent = {
     primaryAriaLabel: 'Principal',
     menuLabel: 'Menú',
     links: [
+      { href: '#experience', label: 'Experiencia' },
       { href: '#work', label: 'Proyectos' },
-      { href: '#p04', label: 'Open source' },
       { href: '#how', label: 'Cómo trabajo' },
       { href: '#contact', label: 'Contacto' },
     ],
@@ -59,7 +59,7 @@ export const es: SiteContent = {
       'Construyo productos de punta a punta: desde la *base de datos* hasta el *botón de checkout*.',
     sub: 'Soy el developer principal de Andes Docs, una plataforma de contratos que usan empresas argentinas todos los días, y diseñé, construí y opero Buen Inventario, un SaaS para comercios chicos. Me gustan las partes poco vistosas: webhooks idempotentes, números honestos, tests que protegen la arquitectura.',
     ctas: [
-      { label: 'Ver proyectos', href: '#work', external: false },
+      { label: 'Ver mi trabajo', href: '#experience', external: false },
       { label: 'GitHub', href: GITHUB_URL, external: true },
     ],
     facts: [
@@ -78,7 +78,8 @@ export const es: SiteContent = {
     ],
   },
 
-  work: { label: 'Casos', title: 'Proyectos' },
+  experience: { label: 'Dónde trabajo', title: 'Experiencia' },
+  work: { label: 'Hechos por mí', title: 'Proyectos' },
 
   projects: {
     andesDocs: {

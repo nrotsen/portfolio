@@ -8,14 +8,18 @@ import s from './FinanzasAgent.module.css';
 
 export function FinanzasAgent({ project }: { project: Content }) {
   return (
-    <article className="project grid" id="p03" aria-labelledby="p03-h">
+    <article className="project grid" id="finanzas-agent" aria-labelledby="finanzas-agent-h">
       <Aside meta={project.meta} />
 
       <div className="body">
         <p className="kicker reveal" ref={useReveal<HTMLParagraphElement>()}>
           {project.kicker}
         </p>
-        <h3 id="p03-h" className="ptitle sm reveal" ref={useReveal<HTMLHeadingElement>()}>
+        <h3
+          id="finanzas-agent-h"
+          className="ptitle sm reveal"
+          ref={useReveal<HTMLHeadingElement>()}
+        >
           {project.title}
         </h3>
         <Lead plain={project.plainLead} technical={project.oneLiner} />

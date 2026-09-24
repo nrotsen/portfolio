@@ -38,8 +38,8 @@ export const en: SiteContent = {
     primaryAriaLabel: 'Primary',
     menuLabel: 'Menu',
     links: [
-      { href: '#work', label: 'Work' },
-      { href: '#p04', label: 'Open source' },
+      { href: '#experience', label: 'Experience' },
+      { href: '#work', label: 'Projects' },
       { href: '#how', label: 'How I work' },
       { href: '#contact', label: 'Contact' },
     ],
@@ -58,7 +58,7 @@ export const en: SiteContent = {
     headline: 'I build products end to end — from the *database* to the *checkout button*.',
     sub: "I'm the main developer on Andes Docs, a contract platform Argentine companies use every day, and I designed, built and run Buen Inventario, a SaaS for small shops. I like the unglamorous parts: idempotent webhooks, honest numbers, tests that guard the architecture.",
     ctas: [
-      { label: 'See the work', href: '#work', external: false },
+      { label: 'See the work', href: '#experience', external: false },
       { label: 'GitHub', href: GITHUB_URL, external: true },
     ],
     facts: [
@@ -74,7 +74,8 @@ export const en: SiteContent = {
     ],
   },
 
-  work: { label: 'Case studies', title: 'Work' },
+  experience: { label: 'Where I work', title: 'Experience' },
+  work: { label: 'Built on my own', title: 'Projects' },
 
   projects: {
     andesDocs: {

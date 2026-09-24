@@ -13,14 +13,14 @@ import s from './AndesDocs.module.css';
  */
 export function AndesDocs({ project }: { project: Content }) {
   return (
-    <article className="project grid" id="p01" aria-labelledby="p01-h">
+    <article className="project grid" id="andes-docs" aria-labelledby="andes-docs-h">
       <Aside meta={project.meta} />
 
       <div className="body">
         <p className="kicker reveal" ref={useReveal<HTMLParagraphElement>()}>
           {project.kicker}
         </p>
-        <h3 id="p01-h" className="ptitle reveal" ref={useReveal<HTMLHeadingElement>()}>
+        <h3 id="andes-docs-h" className="ptitle reveal" ref={useReveal<HTMLHeadingElement>()}>
           {project.title}
         </h3>
         <Lead plain={project.plainLead} technical={project.oneLiner} />

@@ -7,14 +7,14 @@ import s from './Drills.module.css';
 
 export function Drills({ project }: { project: Content }) {
   return (
-    <article className="project grid" id="p04" aria-labelledby="p04-h">
+    <article className="project grid" id="drills" aria-labelledby="drills-h">
       <Aside meta={project.meta} />
 
       <div className="body">
         <p className="kicker reveal" ref={useReveal<HTMLParagraphElement>()}>
           {project.kicker}
         </p>
-        <h3 id="p04-h" className="ptitle sm reveal" ref={useReveal<HTMLHeadingElement>()}>
+        <h3 id="drills-h" className="ptitle sm reveal" ref={useReveal<HTMLHeadingElement>()}>
           {project.title}
         </h3>
         <Lead plain={project.plainLead} technical={project.oneLiner} />

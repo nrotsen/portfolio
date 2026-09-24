@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { CONTENT } from '@/content';
+import { LANGS } from '@/content/types';
 import { LANG_STORAGE_KEY } from '@/lib/langPreference';
 import { THEME_ATTRIBUTE, THEME_STORAGE_KEY } from '@/lib/theme';
 import { Nav } from './Nav';
@@ -36,12 +37,20 @@ describe('switch de idioma', () => {
   it('los links del nav salen del diccionario del idioma', () => {
     const { unmount } = render(<Nav nav={CONTENT.es.nav} lang="es" />);
     const es = screen.getByRole('navigation', { name: 'Principal' });
+    expect(within(es).getByRole('link', { name: 'Experiencia' })).toHaveAttribute(
+      'href',
+      '#experience',
+    );
     expect(within(es).getByRole('link', { name: 'Proyectos' })).toHaveAttribute('href', '#work');
     unmount();
 
     render(<Nav nav={CONTENT.en.nav} lang="en" />);
     const en = screen.getByRole('navigation', { name: 'Primary' });
-    expect(within(en).getByRole('link', { name: 'Work' })).toHaveAttribute('href', '#work');
+    expect(within(en).getByRole('link', { name: 'Experience' })).toHaveAttribute(
+      'href',
+      '#experience',
+    );
+    expect(within(en).getByRole('link', { name: 'Projects' })).toHaveAttribute('href', '#work');
   });
 });
 
@@ -115,5 +124,20 @@ describe('menú de mobile', () => {
 
     expect(names(menu)).toEqual(names(desktop));
     expect(names(menu)).toHaveLength(CONTENT.es.nav.links.length);
+  });
+});
+
+describe('secciones', () => {
+  /**
+   * Experiencia y Proyectos son dos secciones distintas desde que el trabajo
+   * en relación de dependencia dejó de estar mezclado con lo propio. Si algún
+   * día vuelven a ser una sola, este test lo dice.
+   */
+  it('cada link del nav apunta a una sección que existe en la página', () => {
+    const expected = ['#experience', '#work', '#how', '#contact'];
+
+    for (const lang of LANGS) {
+      expect(CONTENT[lang].nav.links.map((link) => link.href)).toEqual(expected);
+    }
   });
 });

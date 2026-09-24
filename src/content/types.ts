@@ -278,6 +278,7 @@ export interface SiteContent {
   skipToContent: string;
   nav: Nav;
   hero: Hero;
+  experience: SectionHead;
   work: SectionHead;
   projects: {
     andesDocs: AndesDocs;

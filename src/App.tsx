@@ -1,5 +1,6 @@
 import type { SiteContent } from '@/content/types';
 import { Contact } from '@/components/Contact/Contact';
+import { Experience } from '@/components/Experience/Experience';
 import { Footer } from '@/components/Footer/Footer';
 import { Hero } from '@/components/Hero/Hero';
 import { Nav } from '@/components/Nav/Nav';
@@ -24,6 +25,7 @@ export function App({ content }: { content: SiteContent }) {
 
       <main id="main">
         <Hero hero={content.hero} />
+        <Experience head={content.experience} projects={content.projects} />
         <ProjectIndex head={content.work} projects={content.projects} />
         <Principles head={content.how} items={content.principles} />
         <Contact head={content.contactHead} contact={content.contact} />

@@ -6,14 +6,14 @@ import s from './BuenInventario.module.css';
 
 export function BuenInventario({ project }: { project: Content }) {
   return (
-    <article className="project grid" id="p02" aria-labelledby="p02-h">
+    <article className="project grid" id="buen-inventario" aria-labelledby="buen-inventario-h">
       <Aside meta={project.meta} />
 
       <div className="body">
         <p className="kicker reveal" ref={useReveal<HTMLParagraphElement>()}>
           {project.kicker}
         </p>
-        <h3 id="p02-h" className="ptitle reveal" ref={useReveal<HTMLHeadingElement>()}>
+        <h3 id="buen-inventario-h" className="ptitle reveal" ref={useReveal<HTMLHeadingElement>()}>
           {project.title}
         </h3>
         <Lead plain={project.plainLead} technical={project.oneLiner} />
