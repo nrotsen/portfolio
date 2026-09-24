@@ -8,8 +8,11 @@ import type { Lang } from './types';
  * `/` diga 2.000 y `/es` diga 1.900.
  */
 export const FACTS = {
-  /** commits a producción sumando los 4 repos de Buen Inventario */
-  commitsShipped: 2000,
+  /** Desde junio de 2023, cuando empezó Andes Docs. */
+  yearsProfessional: 3,
+  /** Andes Docs en el trabajo y Buen Inventario propio, los dos en uso diario. */
+  productsInDailyUse: 2,
+  /** Commits sumando los 4 repos de Buen Inventario. */
   commitsBuenInventario: 2075,
   monthsShipping: 15,
   testFiles: 322,

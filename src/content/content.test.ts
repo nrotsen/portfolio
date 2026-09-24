@@ -55,15 +55,31 @@ describe.each(LANGS)('diccionario %s', (lang: Lang) => {
 
 describe('números', () => {
   it('cada idioma usa su separador de miles', () => {
-    expect(formatNumber(FACTS.commitsShipped, 'en')).toBe('2,000');
-    expect(formatNumber(FACTS.commitsShipped, 'es')).toBe('2.000');
     expect(formatNumber(FACTS.commitsBuenInventario, 'en')).toBe('2,075');
     expect(formatNumber(FACTS.commitsBuenInventario, 'es')).toBe('2.075');
   });
 
-  it('el hero de cada idioma muestra el número formateado para ese idioma', () => {
-    expect(CONTENT.en.hero.facts[0].value).toBe('~2,000');
-    expect(CONTENT.es.hero.facts[0].value).toBe('~2.000');
+  it('el número de miles sale formateado para su idioma en la página', () => {
+    // Los commits viven en la fila de métricas de Buen Inventario. El hero ya
+    // no lleva ningún número de cuatro cifras: sus tres cifras son años,
+    // productos y archivos de test, que es lo que se lee sin ser del rubro.
+    const commits = (lang: Lang): string | undefined =>
+      CONTENT[lang].projects.buenInventario.metrics.find((metric) =>
+        metric.caption.startsWith('commits'),
+      )?.value;
+
+    expect(commits('en')).toBe('~2,075');
+    expect(commits('es')).toBe('~2.075');
+  });
+
+  it('el hero no arranca con jerga de ingeniero', () => {
+    // Es la primera pantalla y la lee gente que no sabe qué es un commit.
+    const captions = LANGS.flatMap((lang) =>
+      CONTENT[lang].hero.facts.map((fact) => fact.caption.toLowerCase()),
+    );
+
+    expect(captions.some((caption) => caption.includes('commit'))).toBe(false);
+    expect(captions.some((caption) => caption.includes('repo'))).toBe(false);
   });
 
   it('los dos idiomas cuentan lo mismo', () => {

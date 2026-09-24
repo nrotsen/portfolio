@@ -56,19 +56,25 @@ export const es: SiteContent = {
     eyebrowMain: 'Product engineer · full-stack · Argentina',
     eyebrowAside: 'Trabajo remoto',
     headline:
-      'Construyo productos de punta a punta: desde el *access pattern en DynamoDB* hasta el *botón de checkout*.',
-    sub: 'Diseñé, construí y opero Buen Inventario, un SaaS con el que comercios argentinos manejan stock, ventas, cuentas corrientes y facturación electrónica. Me importan las partes poco vistosas: webhooks idempotentes, números honestos, tests que protegen la arquitectura.',
+      'Construyo productos de punta a punta: desde la *base de datos* hasta el *botón de checkout*.',
+    sub: 'Soy el developer principal de Andes Docs, una plataforma de contratos que usan empresas argentinas todos los días, y diseñé, construí y opero Buen Inventario, un SaaS para comercios chicos. Me gustan las partes poco vistosas: webhooks idempotentes, números honestos, tests que protegen la arquitectura.',
     ctas: [
       { label: 'Ver proyectos', href: '#work', external: false },
       { label: 'GitHub', href: GITHUB_URL, external: true },
     ],
     facts: [
       {
-        value: `~${n(FACTS.commitsShipped)}`,
-        caption: `commits en producción en ${FACTS.monthsShipping} meses`,
+        value: n(FACTS.yearsProfessional),
+        caption: 'años construyendo y enviando software a producción',
       },
-      { value: `${n(FACTS.testFiles)}+`, caption: 'archivos de test' },
-      { value: n(FACTS.repos), caption: 'repos en un producto' },
+      {
+        value: n(FACTS.productsInDailyUse),
+        caption: 'productos en uso diario — uno en el trabajo, uno propio',
+      },
+      {
+        value: `${n(FACTS.testFiles)}+`,
+        caption: 'archivos de test en el SaaS que construí y opero',
+      },
     ],
   },
 
@@ -243,7 +249,11 @@ export const es: SiteContent = {
       },
       metrics: [
         { value: n(FACTS.repos), caption: 'repos', isText: false },
-        { value: `~${n(FACTS.commitsBuenInventario)}`, caption: 'commits', isText: false },
+        {
+          value: `~${n(FACTS.commitsBuenInventario)}`,
+          caption: `commits en ${FACTS.monthsShipping} meses`,
+          isText: false,
+        },
         { value: `${n(FACTS.testFiles)}+`, caption: 'archivos de test', isText: false },
         { value: 'Lighthouse CI', caption: '+ presupuestos de bundle', isText: true },
       ],

@@ -55,20 +55,22 @@ export const en: SiteContent = {
   hero: {
     eyebrowMain: 'Product engineer · full-stack · Argentina',
     eyebrowAside: 'Works remote',
-    headline:
-      'I build products end to end — from the *DynamoDB access pattern* to the *checkout button*.',
-    sub: 'I designed, built and run Buen Inventario, a SaaS that small Argentine retailers use to manage stock, sales, credit and tax invoicing. I care about the unglamorous parts: idempotent webhooks, honest numbers, tests that guard the architecture.',
+    headline: 'I build products end to end — from the *database* to the *checkout button*.',
+    sub: "I'm the main developer on Andes Docs, a contract platform Argentine companies use every day, and I designed, built and run Buen Inventario, a SaaS for small shops. I like the unglamorous parts: idempotent webhooks, honest numbers, tests that guard the architecture.",
     ctas: [
       { label: 'See the work', href: '#work', external: false },
       { label: 'GitHub', href: GITHUB_URL, external: true },
     ],
     facts: [
       {
-        value: `~${n(FACTS.commitsShipped)}`,
-        caption: `commits shipped to production in ${FACTS.monthsShipping} months`,
+        value: n(FACTS.yearsProfessional),
+        caption: 'years building and shipping production software',
       },
-      { value: `${n(FACTS.testFiles)}+`, caption: 'test files' },
-      { value: n(FACTS.repos), caption: 'repos in one product' },
+      {
+        value: n(FACTS.productsInDailyUse),
+        caption: 'products in daily use — one at work, one my own',
+      },
+      { value: `${n(FACTS.testFiles)}+`, caption: 'test files in the SaaS I built and run' },
     ],
   },
 
@@ -243,7 +245,11 @@ export const en: SiteContent = {
       },
       metrics: [
         { value: n(FACTS.repos), caption: 'repos', isText: false },
-        { value: `~${n(FACTS.commitsBuenInventario)}`, caption: 'commits', isText: false },
+        {
+          value: `~${n(FACTS.commitsBuenInventario)}`,
+          caption: `commits in ${FACTS.monthsShipping} months`,
+          isText: false,
+        },
         { value: `${n(FACTS.testFiles)}+`, caption: 'test files', isText: false },
         { value: 'Lighthouse CI', caption: '+ bundle budgets', isText: true },
       ],
