@@ -1,0 +1,45 @@
+/**
+ * Los tokens del mockup C ("Swiss Precision"), copiados tal cual.
+ *
+ * Ningún componente escribe un hex suelto: si un color aparece dos veces en el
+ * repo, una de las dos es un bug esperando. La única excepción documentada es
+ * `TicketMock`, que usa la paleta de Buen Inventario — es la marca de otro
+ * producto y vive encerrada en su propio módulo.
+ */
+:root {
+  /* Superficies y tinta */
+  --bg: #fafaf8;
+  --bg-2: #f1f1ee;
+  --text: #111214;
+  --text-soft: #55585f;
+  --rule: #dcdcd7;
+
+  /* Acentos */
+  --accent: #2b44e8;
+  --accent-tint: #e9ecff;
+  --signal: #ff5a36;
+
+  /* Panel de traza (fondo oscuro) */
+  --ink-trace: #111214;
+  --trace-kw: #9aa8ff;
+  --trace-str: #d7dcff;
+  --trace-dim: #9a9da4;
+  --trace-text: #e8e9ec;
+  --trace-rule: #2a2c31;
+  --trace-row: #1f2126;
+  --trace-num: #7a7e86;
+
+  /* Tipografías. Las familias variables vienen de @fontsource-variable. */
+  --sans:
+    'Schibsted Grotesk Variable', 'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial,
+    system-ui, sans-serif;
+  --mono:
+    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+
+  /* Métrica */
+  --gutter: clamp(16px, 4vw, 56px);
+  --col-gap: clamp(16px, 2vw, 32px);
+  --maxw: 1600px;
+  --nav-h: 64px;
+  --radius: 2px;
+}

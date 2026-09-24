@@ -1,0 +1,215 @@
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 3vw, 40px);
+  margin-top: clamp(36px, 5vw, 64px);
+}
+
+@media (min-width: 1100px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.highlights {
+  margin-top: clamp(36px, 5vw, 64px);
+}
+
+/* ---------- Tarjeta de práctica ---------- */
+.quiz {
+  /* Item de grilla: sin esto su mínimo automático es el min-content del
+     snippet, y la tarjeta se ensancha más que la columna. */
+  min-width: 0;
+  border: 1px solid var(--text);
+  background: #fff;
+  border-radius: var(--radius);
+}
+
+.quizTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-wrap: wrap;
+}
+
+.question {
+  padding: 18px 16px 6px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+/**
+ * El ítem real del repo viene con código: la pregunta es "qué patrón es este".
+ * Va en claro adentro de la tarjeta para no competir con el bloque oscuro de
+ * al lado, que es otra cosa.
+ */
+.snippet {
+  margin: 12px 16px 0;
+  background: var(--bg-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+
+.snippet pre {
+  margin: 0;
+  padding: 12px 14px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  line-height: 1.7;
+}
+
+.snippetCap {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-soft);
+  margin: 6px 16px 0;
+}
+
+.options {
+  padding: 10px 16px 4px;
+  display: grid;
+  gap: 6px;
+}
+
+.option {
+  display: grid;
+  grid-template-columns: 26px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  font-size: 15px;
+}
+
+.option .letter {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.option.ok {
+  border-color: var(--accent);
+  background: var(--accent-tint);
+}
+
+.option.ok .letter {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.mark {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.why {
+  margin: 12px 16px 8px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--rule);
+  font-size: 14.5px;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+.why b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.source {
+  margin: 0 16px 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+/* ---------- Bloque de código ---------- */
+.code {
+  min-width: 0;
+  background: var(--ink-trace);
+  color: var(--trace-text);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.codeTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--trace-rule);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--trace-dim);
+  flex-wrap: wrap;
+}
+
+.codeTop b {
+  color: #fff;
+  font-weight: 500;
+}
+
+.code pre {
+  margin: 0;
+  padding: 16px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+.comment {
+  color: #8a8e96;
+}
+
+.kw {
+  color: var(--trace-kw);
+}
+
+.str {
+  color: var(--trace-str);
+}
+
+.fn {
+  color: #fff;
+  font-weight: 600;
+}
+
+.bad {
+  color: #ffb7a6;
+}
+
+/* Los mismos nombres, en el bloque claro de la tarjeta */
+.snippet .kw {
+  color: var(--accent);
+}
+
+.snippet .fn {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.snippet .str {
+  color: #2f6f5e;
+}
+
+.snippet .comment {
+  color: var(--text-soft);
+}

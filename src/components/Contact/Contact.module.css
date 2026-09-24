@@ -1,0 +1,74 @@
+.headline {
+  font-size: clamp(2.5rem, 7vw, 7.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.sub {
+  margin-top: 28px;
+  font-size: clamp(1.0625rem, 1.4vw, 1.3125rem);
+  color: var(--text-soft);
+  max-width: 36em;
+}
+
+.links {
+  margin-top: clamp(40px, 5vw, 72px);
+  border-top: 1px solid var(--text);
+}
+
+.links li {
+  border-bottom: 1px solid var(--rule);
+}
+
+.links a {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 20px 0;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.links a:hover .value {
+  color: var(--accent);
+}
+
+.key {
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-soft);
+}
+
+.value {
+  font-size: clamp(1.25rem, 2.6vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  transition: color 0.15s;
+}
+
+.arrow {
+  font-family: var(--mono);
+  color: var(--accent);
+}
+
+@media (max-width: 599px) {
+  .links a {
+    grid-template-columns: 1fr auto;
+  }
+  .key {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .value {
+    transition: none;
+  }
+}

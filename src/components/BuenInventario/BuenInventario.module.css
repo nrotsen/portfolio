@@ -1,0 +1,14 @@
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(32px, 4vw, 56px);
+  margin-top: clamp(36px, 5vw, 64px);
+}
+
+/* Recién a 1280px entran el mock y los highlights uno al lado del otro. */
+@media (min-width: 1280px) {
+  .split {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+    align-items: start;
+  }
+}

@@ -1,0 +1,275 @@
+/**
+ * La marca de Buen Inventario, no la del portfolio.
+ *
+ * Es el único archivo del repo con colores propios y está encerrado a
+ * propósito: tinta casi negra, papel crema, teal, bordes de 1.5px y sombra
+ * offset. Si el portfolio cambia de paleta, el ticket tiene que seguir
+ * viéndose como Buen Inventario.
+ */
+.frame {
+  --bi-ink: #0a0a0a;
+  --bi-paper: #fafaf7;
+  --bi-teal: #14b8a6;
+
+  min-width: 0;
+  border: 1px solid var(--rule);
+  background: var(--bg-2);
+  border-radius: 4px;
+  padding: clamp(16px, 3vw, 40px);
+}
+
+.browser {
+  background: #fff;
+  border: 1px solid #cfcfca;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow:
+    0 1px 0 rgb(0 0 0 / 3%),
+    0 18px 40px -24px rgb(17 18 20 / 28%);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e3e3de;
+  background: #f6f6f3;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #d5d5d0;
+  display: block;
+}
+
+.url {
+  flex: 1;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-soft);
+  background: #fff;
+  border: 1px solid #e3e3de;
+  border-radius: 3px;
+  padding: 4px 10px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.url b {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.app {
+  background: var(--bi-paper);
+  color: var(--bi-ink);
+  font-family: var(--sans);
+  padding: clamp(14px, 2.4vw, 24px);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: 15px;
+}
+
+.logo i {
+  width: 18px;
+  height: 18px;
+  background: var(--bi-teal);
+  border: 1.5px solid var(--bi-ink);
+  display: block;
+}
+
+.pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  border: 1.5px solid var(--bi-ink);
+  padding: 3px 8px;
+  background: #fff;
+  white-space: nowrap;
+}
+
+.ticket {
+  background: #fff;
+  border: 1.5px solid var(--bi-ink);
+  box-shadow: 4px 4px 0 var(--bi-teal);
+}
+
+.ticketHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 14px;
+  border-bottom: 1.5px solid var(--bi-ink);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.ticketHead span {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 11.5px;
+  color: #3b3b3b;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+  color: #3b3b3b;
+  padding: 8px 14px 6px;
+  border-bottom: 1px dashed #bdbdb6;
+}
+
+.table td {
+  padding: 8px 14px;
+  border-bottom: 1px dashed #d6d6cf;
+  vertical-align: top;
+}
+
+/* Acá sí van cifras tabulares: es una tabla de importes y tienen que alinear. */
+.table .qty,
+.table .price {
+  text-align: right;
+  font-family: var(--mono);
+  font-size: 13px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.table .qty span {
+  display: inline-block;
+  min-width: 26px;
+  border: 1.5px solid var(--bi-ink);
+  text-align: center;
+  padding: 0 4px;
+  background: var(--bi-paper);
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 14px 4px;
+  font-weight: 800;
+}
+
+.totalLabel {
+  font-size: 14px;
+}
+
+.totalAmount {
+  font-family: var(--mono);
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.pay {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 8px 14px 0;
+}
+
+.pay span {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  border: 1.5px solid var(--bi-ink);
+  padding: 4px 8px;
+  background: #fff;
+}
+
+.pay span.on {
+  background: var(--bi-ink);
+  color: var(--bi-paper);
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+}
+
+.action {
+  flex: 1;
+  text-align: center;
+  font-weight: 800;
+  font-size: 16px;
+  padding: 12px 10px;
+  border: 1.5px solid var(--bi-ink);
+  background: var(--bi-teal);
+  color: var(--bi-ink);
+  box-shadow: 3px 3px 0 var(--bi-ink);
+}
+
+.action.ghost {
+  flex: 0 0 auto;
+  background: #fff;
+  box-shadow: none;
+  font-weight: 700;
+}
+
+/* Abajo de 360px la tabla no entra con el padding de 14px. */
+@media (max-width: 359px) {
+  .frame {
+    padding: 10px;
+  }
+  .table {
+    font-size: 13px;
+  }
+  .table th,
+  .table td {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .table .qty,
+  .table .price {
+    font-size: 12px;
+  }
+  .pay {
+    padding: 8px 8px 0;
+  }
+}
+
+.note {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-soft);
+  flex-wrap: wrap;
+}

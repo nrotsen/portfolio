@@ -1,0 +1,35 @@
+.arch {
+  margin-top: clamp(40px, 5vw, 72px);
+}
+
+/**
+ * El diagrama no se re-dibuja en mobile: se lee con scroll horizontal dentro de
+ * su propia caja. Es la única parte del sitio que scrollea de costado, y el
+ * test de overflow la excluye justamente por estar en un contenedor con
+ * `overflow-x: auto`.
+ */
+.scroll {
+  min-width: 0;
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+  background: #fff;
+  padding: clamp(16px, 2.5vw, 32px);
+  border-radius: var(--radius);
+}
+
+.scroll svg {
+  min-width: 620px;
+  width: 100%;
+  height: auto;
+}
+
+.arch svg text {
+  font-family: var(--mono);
+}
+
+.caption {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-top: 10px;
+}
