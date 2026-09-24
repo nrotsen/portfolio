@@ -1,0 +1,10 @@
+# Los mockups son referencia de diseño, no código del sitio. Sin esto pesan
+# 220 KB de HTML contra 157 KB de TypeScript y GitHub etiqueta el repo como
+# "HTML", que es lo único que se ve desde afuera.
+mockups/** linguist-documentation
+
+# El prerender escribe dist/ con saltos LF; que el checkout no los toque.
+*.html text eol=lf
+*.css  text eol=lf
+*.ts   text eol=lf
+*.tsx  text eol=lf

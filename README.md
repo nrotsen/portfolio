@@ -175,5 +175,5 @@ docs/plans/  the plan this repo was built from
 The **code** is MIT — see [LICENSE](./LICENSE). Take the prerender script, the overflow test, the
 replay timeline, whatever is useful.
 
-The **content** — the copy, the case studies, the OG images and my name — is not. It is all rights
-reserved. Reuse the machinery, write your own words.
+The **content** — the copy, the case studies, the OG images and my name — is not: see
+[NOTICE](./NOTICE). It is all rights reserved. Reuse the machinery, write your own words.
