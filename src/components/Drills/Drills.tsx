@@ -1,25 +1,23 @@
 import type { Drills as Content } from '@/content/types';
 import { useReveal } from '@/hooks/useReveal';
-import { Aside, Ctas, Highlights, Metrics } from '@/components/Project/Project';
+import { Aside, Ctas, Highlights, Lead, Metrics } from '@/components/Project/Project';
 import { CodeSnippet } from './CodeSnippet';
 import { QuizCard } from './QuizCard';
 import s from './Drills.module.css';
 
 export function Drills({ project }: { project: Content }) {
   return (
-    <article className="project grid" id="p03" aria-labelledby="p03-h">
-      <Aside index="03" meta={project.meta} />
+    <article className="project grid" id="p04" aria-labelledby="p04-h">
+      <Aside index="04" meta={project.meta} />
 
       <div className="body">
         <p className="kicker reveal" ref={useReveal<HTMLParagraphElement>()}>
           {project.kicker}
         </p>
-        <h3 id="p03-h" className="ptitle sm reveal" ref={useReveal<HTMLHeadingElement>()}>
+        <h3 id="p04-h" className="ptitle sm reveal" ref={useReveal<HTMLHeadingElement>()}>
           {project.title}
         </h3>
-        <p className="oneliner reveal" ref={useReveal<HTMLParagraphElement>()}>
-          {project.oneLiner}
-        </p>
+        <Lead plain={project.plainLead} technical={project.oneLiner} />
 
         <div className={s.split}>
           <QuizCard quiz={project.quiz} />

@@ -111,6 +111,14 @@ export interface Metric {
 export interface ProjectBase {
   kicker: string;
   title: string;
+  /**
+   * Qué es y para quién, sin jerga. Va primero y en grande.
+   *
+   * Existe porque el resto de la página está escrita para alguien que sabe qué
+   * es un access pattern, y quien abre un portfolio muchas veces no lo sabe.
+   * No reemplaza nada: `oneLiner` sigue abajo con el detalle técnico.
+   */
+  plainLead: string;
   oneLiner: string;
   meta: ProjectMeta;
   ctas: readonly Cta[];
@@ -138,6 +146,33 @@ export interface BuenInventario extends ProjectBase {
   highlightsLabel: string;
   highlights: readonly Highlight[];
   ticket: TicketMock;
+}
+
+export interface LifecycleStep {
+  /** 01, 02, 03… */
+  index: string;
+  title: string;
+  body: string;
+}
+
+export interface Lifecycle {
+  sectionLabel: string;
+  /** La única descripción del diagrama para un lector de pantalla */
+  svgTitle: string;
+  steps: readonly [LifecycleStep, LifecycleStep, LifecycleStep, LifecycleStep];
+}
+
+export interface AndesDocs extends ProjectBase {
+  highlightsLabel: string;
+  highlights: readonly Highlight[];
+  lifecycle: Lifecycle;
+  metrics: readonly Metric[];
+  /**
+   * De dónde salen las métricas. No es opcional a propósito: son números de
+   * otra empresa, y publicarlos sin decir de quién son es exactamente la
+   * prueba social prestada que el principio 04 dice no usar.
+   */
+  metricsNote: string;
 }
 
 export interface Decision {
@@ -245,6 +280,7 @@ export interface SiteContent {
   hero: Hero;
   work: SectionHead;
   projects: {
+    andesDocs: AndesDocs;
     buenInventario: BuenInventario;
     finanzasAgent: FinanzasAgent;
     drills: Drills;

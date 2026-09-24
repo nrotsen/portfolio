@@ -231,11 +231,24 @@ section {
   font-size: var(--fs-project-sm);
 }
 
-.oneliner {
+.lead {
   font-size: var(--fs-oneliner);
   line-height: 1.5;
   margin-top: 20px;
-  max-width: 42em;
+  max-width: 40em;
+  color: var(--text);
+}
+
+/**
+ * El detalle técnico queda debajo de `.lead`, más chico y en gris: sigue
+ * estando entero para quien lo busca, sin ser lo primero que se lee.
+ */
+.oneliner {
+  font-size: 15.5px;
+  line-height: 1.6;
+  margin-top: 12px;
+  max-width: 46em;
+  color: var(--text-soft);
 }
 
 .accent {

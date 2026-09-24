@@ -1,26 +1,24 @@
 import type { FinanzasAgent as Content } from '@/content/types';
 import { useReveal } from '@/hooks/useReveal';
 import { renderInline } from '@/lib/richText';
-import { Aside, Ctas } from '@/components/Project/Project';
+import { Aside, Ctas, Lead } from '@/components/Project/Project';
 import { ArchitectureDiagram } from './ArchitectureDiagram';
 import { ChatReplay } from './ChatReplay';
 import s from './FinanzasAgent.module.css';
 
 export function FinanzasAgent({ project }: { project: Content }) {
   return (
-    <article className="project grid" id="p02" aria-labelledby="p02-h">
-      <Aside index="02" meta={project.meta} />
+    <article className="project grid" id="p03" aria-labelledby="p03-h">
+      <Aside index="03" meta={project.meta} />
 
       <div className="body">
         <p className="kicker reveal" ref={useReveal<HTMLParagraphElement>()}>
           {project.kicker}
         </p>
-        <h3 id="p02-h" className="ptitle sm reveal" ref={useReveal<HTMLHeadingElement>()}>
+        <h3 id="p03-h" className="ptitle sm reveal" ref={useReveal<HTMLHeadingElement>()}>
           {project.title}
         </h3>
-        <p className="oneliner reveal" ref={useReveal<HTMLParagraphElement>()}>
-          {project.oneLiner}
-        </p>
+        <Lead plain={project.plainLead} technical={project.oneLiner} />
 
         <ChatReplay ui={project.replay} />
         <ArchitectureDiagram diagram={project.architecture} />

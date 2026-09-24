@@ -30,6 +30,27 @@ export function Head({ head, id }: { head: SectionHead; id: string }) {
   );
 }
 
+/**
+ * La capa en plano arriba, el detalle técnico abajo.
+ *
+ * El orden es el punto: el sitio entero está escrito para alguien que sabe qué
+ * es un access pattern, y mucha gente que abre un portfolio no lo sabe. La
+ * primera frase dice qué es la cosa y para quién; la segunda sigue siendo tan
+ * técnica como antes, solo que más chica y en gris.
+ */
+export function Lead({ plain, technical }: { plain: string; technical: string }) {
+  return (
+    <>
+      <p className="lead reveal" ref={useReveal<HTMLParagraphElement>()}>
+        {renderInline(plain)}
+      </p>
+      <p className="oneliner reveal" ref={useReveal<HTMLParagraphElement>()}>
+        {renderInline(technical)}
+      </p>
+    </>
+  );
+}
+
 export function Aside({ index, meta }: { index: string; meta: ProjectMeta }) {
   return (
     <aside className="side">

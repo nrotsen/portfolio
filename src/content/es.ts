@@ -1,5 +1,6 @@
 import type { SiteContent } from './types';
 import {
+  ANDESDOCS_URL,
   BUEN_INVENTARIO_URL,
   DRILLS_APP_URL,
   DRILLS_HANDLE,
@@ -37,7 +38,7 @@ export const es: SiteContent = {
     primaryAriaLabel: 'Principal',
     links: [
       { href: '#work', label: 'Proyectos' },
-      { href: '#p03', label: 'Open source' },
+      { href: '#p04', label: 'Open source' },
       { href: '#how', label: 'Cómo trabajo' },
       { href: '#contact', label: 'Contacto' },
     ],
@@ -73,9 +74,102 @@ export const es: SiteContent = {
   work: { index: 'A', label: 'Índice', title: 'Proyectos' },
 
   projects: {
+    andesDocs: {
+      kicker: 'Puesto actual · SaaS B2B · 2023 → hoy',
+      title: 'Andes Docs',
+      plainLead:
+        'Una plataforma de contratos que usan inmobiliarias, desarrolladoras, empresas de transporte y equipos legales de Argentina. Arman un documento respondiendo unas preguntas, lo firman con validez jurídica y les avisa antes de que venza — todo desde el navegador.',
+      oneLiner:
+        'Trabajo sobre todo el stack: las APIs REST en Node y TypeScript, las interfaces de React que van encima, y las integraciones sobre las que se apoya el producto — firma electrónica, autenticación, propiedades, mails y WhatsApp.',
+      meta: {
+        yearLabel: 'Año',
+        year: 'Jun 2023 → hoy',
+        roleLabel: 'Rol',
+        role: 'Fullstack developer',
+        stackLabel: 'Stack',
+        stack: [
+          'Node.js',
+          'TypeScript',
+          'Express',
+          'React',
+          'Material UI',
+          'Redux Toolkit',
+          'Jotai',
+          'DynamoDB',
+          'S3',
+          'Auth0',
+          'ZapSign',
+          '.NET',
+          'SendGrid',
+          'WhatsApp API',
+        ],
+      },
+      lifecycle: {
+        sectionLabel: 'Qué hace la plataforma',
+        svgTitle:
+          'El ciclo de vida de un documento en Andes Docs, en cuatro pasos: crear el documento respondiendo preguntas sobre los modelos de la empresa; guardarlo, negociarlo y compartirlo en la nube; firmarlo electrónicamente con validez jurídica; y controlar renovaciones y vencimientos.',
+        steps: [
+          {
+            index: '01',
+            title: 'Crear',
+            body: 'Se responden preguntas y el documento se arma solo.',
+          },
+          {
+            index: '02',
+            title: 'Colaborar',
+            body: 'Se guarda, se negocia y se comparte en la nube.',
+          },
+          {
+            index: '03',
+            title: 'Firmar',
+            body: 'Firma electrónica con validez jurídica.',
+          },
+          {
+            index: '04',
+            title: 'Controlar',
+            body: 'Renovaciones y vencimientos, vigilados.',
+          },
+        ],
+      },
+      highlightsLabel: 'Qué hice',
+      highlights: [
+        {
+          title: 'Sostuve el desarrollo con el CTO ausente.',
+          body: 'Tomé la responsabilidad principal del desarrollo durante una ausencia prolongada y entregué features de punta a punta, del modelo de datos a la pantalla.',
+        },
+        {
+          title: 'Prueba que resiste a un auditor.',
+          body: 'Una feature de prevención de lavado de dinero que mete el resultado del chequeo en listas restrictivas adentro del PDF firmado. Quien tiene obligación de reportar se queda con un solo documento a prueba de alteraciones, en vez de un contrato más un informe aparte que nadie puede vincular.',
+        },
+        {
+          title: 'Un fin de semana para sacar un punto único de falla.',
+          body: 'El proveedor de la integración de edición de documentos la discontinuó. Escribí un microservicio en `.NET` desde cero para reemplazarla en un fin de semana, y con eso se fue la dependencia de una empresa de afuera.',
+        },
+        {
+          title: 'Las integraciones sobre las que se apoya el producto.',
+          body: 'ZapSign para firma electrónica, con sus webhooks y la máquina de estados alrededor; Auth0 para autenticación y permisos por rol; Tokko Broker para propiedades, con credenciales encriptadas; SendGrid y la API de WhatsApp para todo lo que la plataforma manda.',
+        },
+        {
+          title: 'Consultas que siguen rápidas cuando se acumulan documentos.',
+          body: 'Access patterns en DynamoDB resueltos con GSIs en vez de scans, y S3 para guardar los documentos.',
+        },
+      ],
+      metrics: [
+        { value: '120+', caption: 'empresas en la plataforma', isText: false },
+        { value: '50.000+', caption: 'documentos generados', isText: false },
+        { value: '30.000+', caption: 'firmados electrónicamente', isText: false },
+        { value: 'Inmobiliarias · transporte · legales', caption: 'quiénes la usan', isText: true },
+      ],
+      metricsNote:
+        'Números publicados por Andes Docs en su propio sitio. Describen la plataforma, no mi aporte individual.',
+      ctas: [{ label: 'Ver Andes Docs', href: ANDESDOCS_URL, external: true }],
+    },
+
     buenInventario: {
       kicker: 'Destacado · SaaS · 2025 → hoy',
       title: 'Buen Inventario',
+      plainLead:
+        'Lo usan comercios argentinos todos los días para cobrar, controlar el stock, fiarle a los clientes de siempre y facturar. Lo diseñé, lo construí y lo mantengo andando.',
       oneLiner:
         'El sistema de gestión todo en uno para comercios argentinos: stock, caja, cuentas corrientes, facturación ARCA y tienda online — pensado para dueños que no quieren leer un manual.',
       meta: {
@@ -88,8 +182,10 @@ export const es: SiteContent = {
           'TypeScript',
           'React 19',
           'Vite',
-          'Tailwind',
+          'Tailwind v4',
           'TanStack Query',
+          'Zustand',
+          'shadcn/ui',
           'Node / Express 5',
           'Socket.io',
           'DynamoDB',
@@ -159,6 +255,8 @@ export const es: SiteContent = {
     finanzasAgent: {
       kicker: 'Agente de IA · Serverless · 2026',
       title: 'finanzas-agent',
+      plainLead:
+        'Le escribo a un número de WhatsApp qué gasté y aparece en mi planilla de presupuesto — sin abrir una app ni llenar un formulario. Además me avisa antes de cada vencimiento.',
       oneLiner:
         'Un agente de finanzas personales que vive en WhatsApp. Le escribo qué gasté, cobré o debo; Claude lo convierte en filas de un Google Sheet y me avisa antes de cada vencimiento. Unos US$2/mes en AWS.',
       meta: {
@@ -243,6 +341,8 @@ export const es: SiteContent = {
     drills: {
       kicker: 'Open source · Herramienta de estudio · 2026',
       title: 'software-engineering-drills',
+      plainLead:
+        'Una herramienta gratis para desarrolladores que preparan entrevistas: ejercicios cortos sobre los fundamentos, con la explicación de por qué cada respuesta es la correcta. Open source y se usa desde el navegador.',
       oneLiner:
         'Un entrenador de práctica activa para fundamentos de ingeniería de software — POO, modelado, concurrencia y patrones de diseño — con un solo core y dos frontends: una CLI y una web.',
       meta: {

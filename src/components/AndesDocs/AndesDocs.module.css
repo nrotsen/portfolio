@@ -1,0 +1,81 @@
+.highlights {
+  margin-top: clamp(28px, 4vw, 52px);
+}
+
+.lifecycle {
+  margin-top: clamp(28px, 4vw, 52px);
+}
+
+/**
+ * Mismo criterio que el diagrama de finanzas-agent: se lee con scroll propio
+ * en mobile en vez de re-dibujarse, y por eso el test de overflow lo excluye.
+ */
+.scroll {
+  min-width: 0;
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  padding: clamp(16px, 2.5vw, 28px);
+  border-radius: var(--radius);
+}
+
+.scroll svg {
+  min-width: 560px;
+  width: 100%;
+  height: auto;
+}
+
+.lifecycle svg text {
+  font-family: var(--mono);
+}
+
+.box {
+  fill: var(--bg);
+  stroke: var(--text);
+  stroke-width: 1;
+}
+
+/* El paso 03 es el que da validez jurídica: es el corazón del producto. */
+.boxAccent {
+  fill: var(--accent-tint);
+  stroke: var(--accent);
+  stroke-width: 1;
+}
+
+.index {
+  fill: var(--accent);
+}
+
+.title {
+  fill: var(--text);
+}
+
+.body {
+  fill: var(--text-soft);
+}
+
+.link {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1;
+}
+
+.arrowInk {
+  fill: var(--text);
+}
+
+/**
+ * De dónde salen los números de la fila de métricas.
+ *
+ * No es decorativo: son números de otra empresa y el principio 04 de la
+ * sección "Cómo trabajo" dice que no hay prueba social falsa. Publicarlos sin
+ * decir de quién son sería exactamente eso.
+ */
+.note {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-top: 12px;
+  line-height: 1.6;
+  max-width: 52em;
+}
