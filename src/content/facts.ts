@@ -28,7 +28,7 @@ export const FACTS = {
  * de acá, y el test de e2e compara contra esta misma constante en vez de
  * repetir la URL.
  */
-export const SITE_URL = 'https://portfolio-ten-zeta-80.vercel.app';
+export const SITE_URL = 'https://portfolio-nestor-berlanga.vercel.app';
 
 export const GITHUB_URL = 'https://github.com/nrotsen';
 export const GITHUB_HANDLE = 'github.com/nrotsen';

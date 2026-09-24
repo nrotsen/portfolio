@@ -1,7 +1,8 @@
-import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, stat, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { createElement, type ComponentType } from 'react';
 import { prerenderToNodeStream } from 'react-dom/static';
+import { SITE_URL } from '../src/content/facts.ts';
 import { LANGS, type Lang } from '../src/content/types.ts';
 import { buildBootScript } from '../src/lib/bootScript.ts';
 import { buildHead, buildRobots, buildSitemap } from '../src/lib/seo.ts';
@@ -175,8 +176,66 @@ async function writePage(template: string, lang: Lang, appHtml: string, preloads
   return Buffer.byteLength(html, 'utf8');
 }
 
+/**
+ * Archivos que `buildHead` promete por URL absoluta. Si alguno no está en
+ * `dist/`, el `<head>` apunta a un 404 y nadie se entera hasta que alguien
+ * comparte el link y el preview sale en blanco.
+ */
+const DECLARED_ASSETS = ['og-en.png', 'og-es.png', 'favicon.svg', 'apple-touch-icon.png'] as const;
+
+async function checkDeclaredAssets(): Promise<void> {
+  const missing: string[] = [];
+
+  for (const asset of DECLARED_ASSETS) {
+    const exists = await stat(resolve(DIST, asset))
+      .then(() => true)
+      .catch(() => false);
+    if (!exists) missing.push(asset);
+  }
+
+  if (missing.length > 0) {
+    throw new Error(
+      `[prerender] El <head> declara archivos que no están en dist/: ${missing.join(', ')}. ` +
+        'Las OG se generan a mano con `pnpm generate:og` y se commitean; si faltan, ' +
+        'el preview de LinkedIn y Twitter sale roto.',
+    );
+  }
+}
+
+/**
+ * `SITE_URL` contra el dominio real del deploy.
+ *
+ * De acá salen el canonical, los hreflang, el sitemap y las og:image, todas
+ * como URLs absolutas. Cuando el proyecto cambió de dominio en Vercel, la
+ * constante se quedó con el viejo: el sitio siguió andando, pero declaraba una
+ * og:image en un dominio que ya devolvía 404 — o sea, cualquiera que
+ * compartiera el link se quedaba sin miniatura, y nada lo avisaba.
+ *
+ * Vercel expone el dominio de producción en el build. Si no coincide, el build
+ * falla en vez de publicar metadatos que apuntan a la nada. Si la variable no
+ * está —build local, o Vercel la renombra— el chequeo no hace nada: es una red
+ * de seguridad, no un requisito.
+ */
+function checkSiteUrl(): void {
+  const productionUrl = process.env['VERCEL_PROJECT_PRODUCTION_URL'];
+  if (productionUrl === undefined || productionUrl === '') return;
+  if (process.env['VERCEL_ENV'] !== 'production') return;
+
+  const declared = new URL(SITE_URL).host;
+  if (declared === productionUrl) return;
+
+  throw new Error(
+    `[prerender] SITE_URL dice "${declared}" y Vercel publica en "${productionUrl}". ` +
+      'El canonical, los hreflang, el sitemap y las og:image saldrían apuntando a un ' +
+      'dominio equivocado. Actualizar SITE_URL en src/content/facts.ts.',
+  );
+}
+
 async function main(): Promise<void> {
   const started = Date.now();
+
+  checkSiteUrl();
+  await checkDeclaredAssets();
 
   const AppShell = await loadAppShell();
   const template = await readFile(resolve(DIST, 'index.html'), 'utf8');

@@ -6,7 +6,7 @@ It is also a small demonstration of how I work, so the parts that are usually ha
 ones that are written down here: how the two languages stay in sync, how the page gets into the
 HTML before any JavaScript runs, and what has to break for the build to fail.
 
-**Live:** https://portfolio-ten-zeta-80.vercel.app · `/` in English, `/es` in Spanish.
+**Live:** https://portfolio-nestor-berlanga.vercel.app · `/` in English, `/es` in Spanish.
 
 ---
 
