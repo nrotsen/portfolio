@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup — finanzas-agent en un teléfono</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Tokens copiados de src/styles/tokens.css para que el mockup se vea
+     exactamente como se vería integrado. */
+  :root {
+    --bg: #fafaf8;
+    --bg-2: #f1f1ee;
+    --surface: #ffffff;
+    --text: #111214;
+    --text-soft: #55585f;
+    --rule: #dcdcd7;
+    --accent: #2b44e8;
+    --accent-tint: #e9ecff;
+    --accent-border: #cdd3fb;
+    --on-accent: #fff;
+    --ink-trace: #111214;
+    --trace-kw: #9aa8ff;
+    --trace-str: #d7dcff;
+    --trace-dim: #9a9da4;
+    --trace-text: #e8e9ec;
+    --trace-rule: #2a2c31;
+    --trace-row: #1f2126;
+    --trace-num: #7a7e86;
+    --trace-rule-kw: #ffb7a6;
+    --trace-fn: #fff;
+
+    /* Paleta del teléfono, variante "mensajería" */
+    --wa-bg: #efeae2;
+    --wa-header: #f6f6f6;
+    --wa-out: #d9fdd3;
+    --wa-in: #ffffff;
+    --wa-text: #111b21;
+    --wa-soft: #667781;
+    --wa-accent: #128c7e;
+    --wa-bar: #f6f6f6;
+
+    --sans: "Schibsted Grotesk", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --radius: 2px;
+  }
+
+  html[data-theme="dark"] {
+    --bg: #121316;
+    --bg-2: #191b1f;
+    --surface: #1c1e23;
+    --text: #ecedef;
+    --text-soft: #9fa3ac;
+    --rule: #2c2f35;
+    --accent: #8296ff;
+    --accent-tint: #1e2444;
+    --accent-border: #38407a;
+    --on-accent: #0b0c0f;
+    --ink-trace: #0a0b0d;
+    --trace-rule: #24272d;
+    --trace-row: #17191d;
+
+    --wa-bg: #0b141a;
+    --wa-header: #1f2c34;
+    --wa-out: #005c4b;
+    --wa-in: #202c33;
+    --wa-text: #e9edef;
+    --wa-soft: #8696a0;
+    --wa-accent: #00a884;
+    --wa-bar: #1f2c34;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    padding: 40px clamp(16px, 4vw, 48px) 96px;
+  }
+  h1 { font-size: clamp(1.75rem, 3.4vw, 2.75rem); letter-spacing: -.035em; line-height: 1.05; margin: 0 0 12px; }
+  h2 { font-size: clamp(1.25rem, 2vw, 1.625rem); letter-spacing: -.025em; margin: 0 0 6px; }
+  p { margin: 0 0 8px; max-width: 62em; }
+  .label { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-soft); }
+  .note { color: var(--text-soft); font-size: 15px; max-width: 58em; }
+  header { max-width: 1240px; margin: 0 auto 48px; }
+  section { max-width: 1240px; margin: 0 auto; padding-top: 56px; border-top: 1px solid var(--rule); }
+  section + section { margin-top: 56px; }
+  .head { margin-bottom: 28px; }
+
+  .toggle {
+    position: fixed; top: 16px; right: 16px; z-index: 10;
+    font-family: var(--mono); font-size: 13px; padding: 9px 14px;
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--text); border-radius: var(--radius); cursor: pointer;
+  }
+
+  /* ---------- Bloque replay, como en el sitio ---------- */
+  .replay { border: 1px solid var(--text); border-radius: var(--radius); background: var(--bg); }
+  .replay-head {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 12px 16px; border-bottom: 1px solid var(--text); flex-wrap: wrap;
+  }
+  .replay-head .label { color: var(--text); }
+  .replay-btn {
+    font-family: var(--mono); font-size: 13px; font-weight: 500; background: none;
+    border: 1px solid var(--text); color: var(--text); padding: 7px 12px;
+    border-radius: var(--radius); display: inline-flex; gap: 8px; align-items: center;
+  }
+  .panes { display: grid; grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .panes { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } }
+  .stage {
+    background: var(--bg-2); display: grid; place-items: center;
+    padding: 32px 16px; min-width: 0;
+  }
+  .cap {
+    padding: 10px 16px; border-top: 1px solid var(--text);
+    font-family: var(--mono); font-size: 12px; color: var(--text-soft);
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+
+  /* ---------- El teléfono ---------- */
+  .phone {
+    width: 296px; flex: none;
+    background: #1c1c1e; border-radius: 46px; padding: 11px;
+    box-shadow:
+      0 0 0 1.5px #3a3a3c,
+      0 30px 60px -28px rgb(0 0 0 / 55%);
+    position: relative;
+  }
+  html[data-theme="dark"] .phone { box-shadow: 0 0 0 1.5px #48484a, 0 30px 60px -28px rgb(0 0 0 / 80%); }
+  .screen {
+    border-radius: 36px; overflow: hidden; background: var(--wa-bg);
+    display: flex; flex-direction: column; height: 560px; position: relative;
+  }
+  .island {
+    position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
+    width: 82px; height: 23px; background: #000; border-radius: 12px; z-index: 5;
+  }
+  .status {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 22px 6px; font-size: 12.5px; font-weight: 600;
+    color: var(--wa-text); background: var(--wa-header);
+    font-family: var(--sans); letter-spacing: -.01em;
+  }
+  .status .right { display: flex; gap: 5px; align-items: center; }
+  .status svg { display: block; }
+
+  .wa-top {
+    display: flex; align-items: center; gap: 9px;
+    padding: 6px 12px 9px; background: var(--wa-header);
+    border-bottom: 1px solid rgb(0 0 0 / 8%);
+  }
+  html[data-theme="dark"] .wa-top { border-bottom-color: rgb(255 255 255 / 8%); }
+  .wa-top .back { color: var(--wa-accent); flex: none; }
+  .avatar {
+    width: 32px; height: 32px; border-radius: 50%; flex: none;
+    background: var(--ink-trace); color: #fff; font-family: var(--mono);
+    font-size: 11px; font-weight: 600; display: grid; place-items: center;
+  }
+  html[data-theme="dark"] .avatar { background: #2a3942; }
+  .who { font-size: 14.5px; font-weight: 600; color: var(--wa-text); line-height: 1.2; }
+  .st { font-size: 11.5px; color: var(--wa-soft); }
+  .wa-top .icons { margin-left: auto; display: flex; gap: 16px; color: var(--wa-accent); }
+
+  .log {
+    flex: 1; overflow: hidden; padding: 10px 9px;
+    display: flex; flex-direction: column; gap: 5px;
+    /* Trama suave, en vez del fondo real de WhatsApp */
+    background:
+      radial-gradient(circle at 20% 15%, rgb(0 0 0 / 2.5%) 0 2px, transparent 2px),
+      radial-gradient(circle at 70% 60%, rgb(0 0 0 / 2.5%) 0 2px, transparent 2px),
+      var(--wa-bg);
+    background-size: 42px 42px, 58px 58px, auto;
+  }
+  html[data-theme="dark"] .log {
+    background:
+      radial-gradient(circle at 20% 15%, rgb(255 255 255 / 2.5%) 0 2px, transparent 2px),
+      radial-gradient(circle at 70% 60%, rgb(255 255 255 / 2.5%) 0 2px, transparent 2px),
+      var(--wa-bg);
+    background-size: 42px 42px, 58px 58px, auto;
+  }
+  .day {
+    align-self: center; font-size: 10.5px; color: var(--wa-soft);
+    background: var(--wa-in); padding: 3px 9px; border-radius: 6px; margin-bottom: 3px;
+    box-shadow: 0 1px 0.5px rgb(0 0 0 / 8%);
+  }
+  .msg {
+    max-width: 82%; padding: 5px 8px 4px; font-size: 13px; line-height: 1.35;
+    border-radius: 7px; position: relative; color: var(--wa-text);
+    box-shadow: 0 1px 0.5px rgb(0 0 0 / 10%); overflow-wrap: anywhere;
+  }
+  .msg .t { float: right; font-size: 9.5px; color: var(--wa-soft); margin: 4px 0 0 7px; white-space: nowrap; }
+  .msg.out { align-self: flex-end; background: var(--wa-out); border-top-right-radius: 2px; }
+  .msg.in  { align-self: flex-start; background: var(--wa-in);  border-top-left-radius: 2px; }
+  .tick { color: #53bdeb; font-weight: 700; letter-spacing: -1px; }
+
+  .wa-bar {
+    display: flex; align-items: center; gap: 8px; padding: 7px 10px 6px;
+    background: var(--wa-bar);
+  }
+  .field {
+    flex: 1; background: var(--wa-in); border-radius: 18px; padding: 8px 12px;
+    font-size: 13px; color: var(--wa-soft); display: flex; align-items: center; justify-content: space-between;
+  }
+  .mic {
+    width: 32px; height: 32px; border-radius: 50%; flex: none;
+    background: var(--wa-accent); color: #fff; display: grid; place-items: center;
+  }
+  .home {
+    height: 20px; display: grid; place-items: center; background: var(--wa-bar);
+  }
+  .home i { width: 106px; height: 4px; border-radius: 2px; background: var(--wa-text); opacity: .3; display: block; }
+
+  /* ---------- Variante con la paleta del portfolio ---------- */
+  /* El cuerpo del teléfono no invierte con el tema: es un objeto físico.
+     Con var(--text) quedaba un marco blanco flotando en la página oscura. */
+  .phone.site { background: #1c1c1e; }
+  .phone.site .screen { background: var(--bg-2); }
+  .phone.site .status, .phone.site .wa-top, .phone.site .wa-bar, .phone.site .home { background: var(--surface); }
+  .phone.site .status { color: var(--text); }
+  .phone.site .wa-top { border-bottom: 1px solid var(--rule); }
+  .phone.site .wa-top .back, .phone.site .wa-top .icons { color: var(--accent); }
+  .phone.site .who { color: var(--text); }
+  .phone.site .st, .phone.site .day, .phone.site .msg .t, .phone.site .field { color: var(--text-soft); }
+  .phone.site .avatar { background: var(--text); color: var(--bg); }
+  .phone.site .log { background: var(--bg-2); }
+  .phone.site .day { background: var(--bg); border: 1px solid var(--rule); box-shadow: none; }
+  .phone.site .msg { color: var(--text); box-shadow: none; }
+  .phone.site .msg.out { background: var(--accent-tint); border: 1px solid var(--accent-border); }
+  .phone.site .msg.in  { background: var(--surface); border: 1px solid var(--rule); }
+  .phone.site .tick { color: var(--accent); }
+  .phone.site .field { background: var(--bg-2); border: 1px solid var(--rule); }
+  .phone.site .mic { background: var(--accent); color: var(--on-accent); }
+  .phone.site .home i { background: var(--text); }
+
+  /* ---------- Traza, igual que en el sitio ---------- */
+  .trace { background: var(--ink-trace); color: var(--trace-text); font-family: var(--mono); font-size: 12.5px; line-height: 1.6; min-width: 0; display: flex; flex-direction: column; }
+  .trace-top { display: flex; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--trace-rule); color: var(--trace-dim); font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; flex-wrap: wrap; }
+  .trace-top b { color: var(--trace-fn); font-weight: 500; }
+  .trace-log { margin: 0; padding: 14px 16px; list-style: none; counter-reset: tl; overflow-y: auto; }
+  .trace-log li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--trace-row); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .trace-log li::before { counter-increment: tl; content: counter(tl, decimal-leading-zero); color: var(--trace-num); }
+  .kw { color: var(--trace-kw); font-weight: 600; }
+  .rule { color: var(--trace-rule-kw); font-weight: 600; }
+  .fn { color: var(--trace-fn); font-weight: 600; }
+  .str { color: var(--trace-str); }
+  .dim { color: var(--trace-dim); }
+
+  .compare { display: grid; gap: 28px; grid-template-columns: 1fr; margin-top: 8px; }
+  @media (min-width: 760px) { .compare { grid-template-columns: 1fr 1fr; } }
+  .cell { background: var(--bg-2); border: 1px solid var(--rule); border-radius: var(--radius); padding: 28px 16px; display: grid; place-items: center; }
+  .cell-label { font-family: var(--mono); font-size: 12px; color: var(--text-soft); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 14px; text-align: center; }
+</style>
+</head>
+<body>
+
+<button class="toggle" id="toggle" type="button">Cambiar tema</button>
+
+<header>
+  <p class="label">Mockup · no integrado</p>
+  <h1>finanzas-agent, adentro de un teléfono</h1>
+  <p class="note">
+    Tres opciones para reemplazar el panel de chat plano de la sección 03. El panel de traza
+    queda igual en todas. Probá el cambio de tema arriba a la derecha: el marco del teléfono
+    responde igual que el resto del sitio.
+  </p>
+</header>
+
+<section>
+  <div class="head">
+    <p class="label">Opción A</p>
+    <h2>Teléfono con paleta de mensajería</h2>
+    <p class="note">
+      Se lee como una captura real de WhatsApp. Es lo más creíble: se entiende de un vistazo
+      que el producto vive en un chat. A cambio, mete verde en una página que no tiene verde
+      en ningún otro lado.
+    </p>
+  </div>
+
+  <div class="replay">
+    <div class="replay-head">
+      <p class="label">Replay · WhatsApp ⇄ traza</p>
+      <button class="replay-btn" type="button"><span aria-hidden="true">↻</span> Repetir</button>
+    </div>
+    <div class="panes">
+      <div class="stage">
+        <div class="phone" id="phone-a"></div>
+      </div>
+      <div class="trace" id="trace-a"></div>
+    </div>
+    <p class="cap">
+      <span>Replay de una conversación real.</span>
+      <span>rule · tool_use · result</span>
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="label">Opción B</p>
+    <h2>Teléfono con la paleta del portfolio</h2>
+    <p class="note">
+      El mismo marco, pintado con los tokens del sitio: cobalto en vez de verde. Pierde el
+      golpe de "esto es WhatsApp" pero no introduce una marca ajena ni un color que no existe
+      en el resto de la página.
+    </p>
+  </div>
+
+  <div class="replay">
+    <div class="replay-head">
+      <p class="label">Replay · WhatsApp ⇄ traza</p>
+      <button class="replay-btn" type="button"><span aria-hidden="true">↻</span> Repetir</button>
+    </div>
+    <div class="panes">
+      <div class="stage">
+        <div class="phone site" id="phone-b"></div>
+      </div>
+      <div class="trace" id="trace-b"></div>
+    </div>
+    <p class="cap">
+      <span>Replay de una conversación real.</span>
+      <span>rule · tool_use · result</span>
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="label">Las dos, lado a lado</p>
+    <h2>Para comparar</h2>
+  </div>
+  <div class="compare">
+    <div class="cell">
+      <div>
+        <p class="cell-label">A · mensajería</p>
+        <div class="phone" id="phone-c"></div>
+      </div>
+    </div>
+    <div class="cell">
+      <div>
+        <p class="cell-label">B · portfolio</p>
+        <div class="phone site" id="phone-d"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // El mismo guion que src/content/replay.ts
+  const SCRIPT = [
+    { k: 'out', text: 'gasté 12k en el super', t: '21:14' },
+    { k: 'in',  text: '¿con qué pagaste? efectivo / débito / crédito / transferencia / mp', t: '21:14' },
+    { k: 'out', text: 'débito', t: '21:15' },
+    { k: 'in',  text: '✅ Registrado: $12.000 en comida (débito).', t: '21:15' },
+    { k: 'out', text: 'cómo voy este mes?', t: '21:16' },
+    { k: 'in',  text: 'Mayo: ingresos $1.800.000, gastos $950.000. Neto +$850.000. ⚠️ Vence en 2 días: tarjeta_visa ($280.000).', t: '21:16' },
+  ];
+
+  const TRACE = [
+    '<span class="rule">rule</span> <span class="dim">·</span> medio_pago missing → ask, don\'t guess',
+    '<span class="kw">tool_use</span> <span class="fn">registrar_gasto</span>({ monto: 12000, categoria: <span class="str">"comida"</span>, medio_pago: <span class="str">"debito"</span>, fecha: <span class="str">"2026-05-19"</span> })',
+    '<span class="dim">→</span> <span class="kw">result</span> { id: <span class="str">"g_8f2c"</span> } <span class="dim">·</span> sheet row appended',
+    '<span class="kw">tool_use</span> <span class="fn">resumen_financiero</span>({ periodo: <span class="str">"este mes"</span> })',
+    '<span class="dim">→</span> <span class="kw">result</span> { ingresos: 1800000, gastos: 950000 }',
+    '<span class="kw">tool_use</span> <span class="fn">vencimientos_proximos</span>({ dias: 3 })',
+    '<span class="dim">→</span> <span class="kw">result</span> [ tarjeta_visa · 280000 · in 2 days ]',
+  ];
+
+  const ICON = {
+    signal: '<svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>',
+    wifi: '<svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 11.5 5.6 8.8a3.6 3.6 0 0 1 4.8 0L8 11.5Z"/><path d="M8 5.6c-1.7 0-3.3.6-4.5 1.8L2 5.9A9.2 9.2 0 0 1 8 3.6c2.3 0 4.4.9 6 2.3l-1.5 1.5A6.5 6.5 0 0 0 8 5.6Z" opacity=".9"/><path d="M8 .6C5.1.6 2.4 1.7.3 3.6L1.8 5A9.4 9.4 0 0 1 8 2.6c2.4 0 4.6.9 6.2 2.4l1.5-1.4A11.3 11.3 0 0 0 8 .6Z" opacity=".55"/></svg>',
+    battery: '<svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".6" y=".6" width="21" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".4"/><rect x="2.2" y="2.2" width="15" height="7.6" rx="1.8" fill="currentColor"/><path d="M23 4.2v3.6c.9-.3 1.4-.9 1.4-1.8S23.9 4.5 23 4.2Z" fill="currentColor" fill-opacity=".4"/></svg>',
+    back: '<svg width="11" height="18" viewBox="0 0 11 18" fill="none"><path d="M9.5 1.5 2 9l7.5 7.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    video: '<svg width="20" height="14" viewBox="0 0 20 14" fill="currentColor"><rect x="0" y="1" width="13" height="12" rx="3"/><path d="M14.5 5.5 20 2v10l-5.5-3.5v-3Z"/></svg>',
+    call: '<svg width="17" height="17" viewBox="0 0 17 17" fill="currentColor"><path d="M4.3.9a1.4 1.4 0 0 0-1.9.2L1.2 2.5C.3 3.6.5 5.2 1.2 6.7c1.4 3 4.1 5.7 7.1 7.1 1.5.7 3.1.9 4.2 0l1.4-1.2a1.4 1.4 0 0 0 .2-1.9l-1.7-2.2a1.4 1.4 0 0 0-1.8-.4l-1.3.7a11 11 0 0 1-3.1-3.1l.7-1.3a1.4 1.4 0 0 0-.4-1.8L4.3.9Z"/></svg>',
+    plus: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+    mic: '<svg width="13" height="17" viewBox="0 0 13 17" fill="currentColor"><rect x="4" y="0" width="5" height="9.5" rx="2.5"/><path d="M1.2 7.5v1.2a5.3 5.3 0 0 0 10.6 0V7.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M6.5 14v2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  };
+
+  function phoneHtml() {
+    const msgs = SCRIPT.map((m) => `
+      <div class="msg ${m.k}">${m.text}<span class="t">${m.t}${m.k === 'out' ? ' <span class="tick">✓✓</span>' : ''}</span></div>
+    `).join('');
+
+    return `
+      <div class="island"></div>
+      <div class="screen">
+        <div class="status">
+          <span>21:16</span>
+          <span class="right">${ICON.signal}${ICON.wifi}${ICON.battery}</span>
+        </div>
+        <div class="wa-top">
+          <span class="back">${ICON.back}</span>
+          <span class="avatar">fa</span>
+          <div>
+            <div class="who">finanzas-agent</div>
+            <div class="st">en línea</div>
+          </div>
+          <span class="icons">${ICON.video}${ICON.call}</span>
+        </div>
+        <div class="log">
+          <span class="day">hoy</span>
+          ${msgs}
+        </div>
+        <div class="wa-bar">
+          <span class="field"><span>Mensaje</span>${ICON.plus}</span>
+          <span class="mic">${ICON.mic}</span>
+        </div>
+        <div class="home"><i></i></div>
+      </div>`;
+  }
+
+  function traceHtml() {
+    return `
+      <div class="trace-top"><b>Por dentro</b><span>agent_runner · tool use</span></div>
+      <ol class="trace-log">${TRACE.map((l) => `<li><span>${l}</span></li>`).join('')}</ol>`;
+  }
+
+  for (const id of ['phone-a', 'phone-b', 'phone-c', 'phone-d']) {
+    document.getElementById(id).innerHTML = phoneHtml();
+  }
+  for (const id of ['trace-a', 'trace-b']) {
+    document.getElementById(id).innerHTML = traceHtml();
+  }
+
+  document.getElementById('toggle').addEventListener('click', () => {
+    const root = document.documentElement;
+    root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+</script>
+</body>
+</html>
