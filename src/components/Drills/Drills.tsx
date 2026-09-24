@@ -8,7 +8,7 @@ import s from './Drills.module.css';
 export function Drills({ project }: { project: Content }) {
   return (
     <article className="project grid" id="p04" aria-labelledby="p04-h">
-      <Aside index="04" meta={project.meta} />
+      <Aside meta={project.meta} />
 
       <div className="body">
         <p className="kicker reveal" ref={useReveal<HTMLParagraphElement>()}>

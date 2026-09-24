@@ -73,7 +73,6 @@
   --fs-project: clamp(2rem, 4.6vw, 4rem);
   --fs-project-sm: clamp(1.75rem, 3.4vw, 3rem);
   --fs-oneliner: clamp(1.0625rem, 1.35vw, 1.25rem);
-  --fs-index: clamp(3.25rem, 7.5vw, 7rem);
   --fs-fact: clamp(2.5rem, 5.8vw, 5rem);
   --fs-metric: clamp(1.75rem, 2.8vw, 2.5rem);
   --fs-metric-text: clamp(1.25rem, 2vw, 1.625rem);

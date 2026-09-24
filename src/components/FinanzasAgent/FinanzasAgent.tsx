@@ -9,7 +9,7 @@ import s from './FinanzasAgent.module.css';
 export function FinanzasAgent({ project }: { project: Content }) {
   return (
     <article className="project grid" id="p03" aria-labelledby="p03-h">
-      <Aside index="03" meta={project.meta} />
+      <Aside meta={project.meta} />
 
       <div className="body">
         <p className="kicker reveal" ref={useReveal<HTMLParagraphElement>()}>

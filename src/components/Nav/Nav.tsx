@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react';
 import { FULL_NAME, pathFor } from '@/content/facts';
 import type { Lang, Nav as NavContent } from '@/content/types';
 import { LANGS } from '@/content/types';
@@ -46,6 +47,42 @@ function LangSwitch({ lang, groupLabel, otherLabel }: NavContent['langSwitch'] &
   );
 }
 
+/**
+ * El menú de mobile.
+ *
+ * Es un `<details>` y no un botón con estado de React por una razón concreta:
+ * así funciona sin JavaScript. Antes los links simplemente desaparecían abajo
+ * de 768px y en un teléfono no había ninguna forma de navegar la página.
+ *
+ * El `onClick` que lo cierra es mejora progresiva: sin JS el menú queda
+ * abierto después de saltar a la sección, que es molesto pero no rompe nada.
+ */
+function MobileMenu({ nav }: { nav: NavContent }) {
+  const close = (event: MouseEvent<HTMLElement>): void => {
+    event.currentTarget.closest('details')?.removeAttribute('open');
+  };
+
+  return (
+    <details className={s.menu}>
+      <summary className={s.burger} aria-label={nav.menuLabel}>
+        <span className={s.burgerBars} aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </span>
+      </summary>
+
+      <nav className={s.panel} aria-label={nav.menuLabel}>
+        {nav.links.map((link) => (
+          <a key={link.href} href={link.href} onClick={close}>
+            {link.label}
+          </a>
+        ))}
+      </nav>
+    </details>
+  );
+}
+
 export function Nav({ nav, lang }: Props) {
   return (
     <header className={s.nav}>
@@ -66,6 +103,7 @@ export function Nav({ nav, lang }: Props) {
 
           <LangSwitch lang={lang} {...nav.langSwitch} />
           <ThemeToggle labels={nav.themeToggle} />
+          <MobileMenu nav={nav} />
         </div>
       </div>
     </header>

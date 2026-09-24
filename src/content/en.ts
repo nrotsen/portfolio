@@ -36,6 +36,7 @@ export const en: SiteContent = {
     markAriaLabel: `${FULL_NAME} — home`,
     markRole: '/ product engineer',
     primaryAriaLabel: 'Primary',
+    menuLabel: 'Menu',
     links: [
       { href: '#work', label: 'Work' },
       { href: '#p04', label: 'Open source' },
@@ -71,7 +72,7 @@ export const en: SiteContent = {
     ],
   },
 
-  work: { index: 'A', label: 'Index', title: 'Work' },
+  work: { label: 'Case studies', title: 'Work' },
 
   projects: {
     andesDocs: {
@@ -134,8 +135,8 @@ export const en: SiteContent = {
       highlightsLabel: 'What I did',
       highlights: [
         {
-          title: 'Kept the platform shipping while the CTO was away.',
-          body: 'I took primary ownership of development through an extended absence and shipped features end to end, from the data model to the screen.',
+          title: 'Primary developer on the platform.',
+          body: 'I took primary ownership of development and ship features end to end, from the data model to the screen.',
         },
         {
           title: 'Proof that stands up to an auditor.',
@@ -419,7 +420,7 @@ export const en: SiteContent = {
     },
   },
 
-  how: { index: 'B', label: 'Principles', title: 'How I work' },
+  how: { label: 'Principles', title: 'How I work' },
 
   principles: [
     {
@@ -440,7 +441,7 @@ export const en: SiteContent = {
     },
   ],
 
-  contactHead: { index: 'C', label: 'Contact', title: 'Contact' },
+  contactHead: { label: 'Contact', title: 'Contact' },
 
   contact: {
     headline: "Let's build something that works on a *Monday morning*.",

@@ -7,7 +7,7 @@ import s from './BuenInventario.module.css';
 export function BuenInventario({ project }: { project: Content }) {
   return (
     <article className="project grid" id="p02" aria-labelledby="p02-h">
-      <Aside index="02" meta={project.meta} />
+      <Aside meta={project.meta} />
 
       <div className="body">
         <p className="kicker reveal" ref={useReveal<HTMLParagraphElement>()}>

@@ -14,7 +14,7 @@ import s from './AndesDocs.module.css';
 export function AndesDocs({ project }: { project: Content }) {
   return (
     <article className="project grid" id="p01" aria-labelledby="p01-h">
-      <Aside index="01" meta={project.meta} />
+      <Aside meta={project.meta} />
 
       <div className="body">
         <p className="kicker reveal" ref={useReveal<HTMLParagraphElement>()}>

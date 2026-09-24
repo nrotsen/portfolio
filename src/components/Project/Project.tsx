@@ -22,9 +22,7 @@ import { Cta } from '@/components/Cta/Cta';
 export function Head({ head, id }: { head: SectionHead; id: string }) {
   return (
     <div className="sec-head">
-      <p className="label">
-        <span className="idx">{head.index}</span> / {head.label}
-      </p>
+      <p className="label">{head.label}</p>
       <h2 id={id}>{head.title}</h2>
     </div>
   );
@@ -51,12 +49,14 @@ export function Lead({ plain, technical }: { plain: string; technical: string })
   );
 }
 
-export function Aside({ index, meta }: { index: string; meta: ProjectMeta }) {
+/**
+ * La ficha del proyecto. Sin el número gigante que tenía antes: esto es una
+ * página web, no un libro con capítulos, y esos 01/02/03 se comían la columna
+ * entera sin decir nada que el orden no dijera ya.
+ */
+export function Aside({ meta }: { meta: ProjectMeta }) {
   return (
     <aside className="side">
-      <div className="pidx" aria-hidden="true">
-        {index}
-      </div>
       <dl className="meta">
         <div>
           <dt>{meta.yearLabel}</dt>

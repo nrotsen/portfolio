@@ -13,9 +13,7 @@ export function Contact({ head, contact }: Props) {
     <section className="sec" id="contact" aria-labelledby="contact-h">
       <div className="wrap grid">
         <div className="side">
-          <p className="label">
-            <span className="idx">{head.index}</span> / {head.label}
-          </p>
+          <p className="label">{head.label}</p>
         </div>
 
         <div className="body">

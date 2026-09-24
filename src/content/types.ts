@@ -51,6 +51,8 @@ export interface Nav {
   /** Lo chiquito al lado del nombre; se oculta por debajo de 960px */
   markRole: string;
   primaryAriaLabel: string;
+  /** El botón de menú en mobile: es un ícono, necesita nombre accesible. */
+  menuLabel: string;
   links: readonly NavLink[];
   langSwitch: LangSwitch;
   themeToggle: ThemeToggleLabels;
@@ -80,8 +82,6 @@ export interface Hero {
 }
 
 export interface SectionHead {
-  /** La letra del índice: A / B / C */
-  index: string;
   label: string;
   title: string;
 }

@@ -194,10 +194,6 @@ section {
   color: var(--text-soft);
 }
 
-.label .idx {
-  color: var(--accent);
-}
-
 .kicker {
   font-family: var(--mono);
   font-size: 12px;
@@ -326,17 +322,8 @@ section {
   border-top: 1px solid var(--text);
 }
 
-.pidx {
-  font-size: var(--fs-index);
-  line-height: 0.8;
-  font-weight: 700;
-  letter-spacing: -0.06em;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
-}
-
 .meta {
-  margin-top: 24px;
+  margin-top: 0;
   display: grid;
   grid-template-columns: 1fr;
   gap: 0;
@@ -349,7 +336,11 @@ section {
   grid-template-columns: 72px 1fr;
   gap: 12px;
   padding: 8px 0;
-  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.meta > div:last-child {
+  border-bottom: 0;
 }
 
 .meta dt {

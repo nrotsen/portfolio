@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { CONTENT } from '@/content';
@@ -35,11 +35,13 @@ describe('switch de idioma', () => {
 
   it('los links del nav salen del diccionario del idioma', () => {
     const { unmount } = render(<Nav nav={CONTENT.es.nav} lang="es" />);
-    expect(screen.getByRole('link', { name: 'Proyectos' })).toHaveAttribute('href', '#work');
+    const es = screen.getByRole('navigation', { name: 'Principal' });
+    expect(within(es).getByRole('link', { name: 'Proyectos' })).toHaveAttribute('href', '#work');
     unmount();
 
     render(<Nav nav={CONTENT.en.nav} lang="en" />);
-    expect(screen.getByRole('link', { name: 'Work' })).toHaveAttribute('href', '#work');
+    const en = screen.getByRole('navigation', { name: 'Primary' });
+    expect(within(en).getByRole('link', { name: 'Work' })).toHaveAttribute('href', '#work');
   });
 });
 
@@ -82,5 +84,36 @@ describe('botón de tema', () => {
 
     expect(document.documentElement.getAttribute(THEME_ATTRIBUTE)).toBe('light');
     expect(button).toHaveAttribute('aria-pressed', 'false');
+  });
+});
+
+describe('menú de mobile', () => {
+  /**
+   * Los links viven dos veces en el HTML: la fila de desktop y el menú. Es a
+   * propósito — `display: none` deja solo uno en el árbol de accesibilidad
+   * según el ancho — pero conviene que un test lo diga, porque visto en el DOM
+   * pelado parece un bug.
+   */
+  it('es un <details>, así que abre sin JavaScript', () => {
+    const { container } = render(<Nav nav={CONTENT.en.nav} lang="en" />);
+
+    const details = container.querySelector('details');
+    expect(details).not.toBeNull();
+    expect(details?.querySelector('summary')).not.toBeNull();
+  });
+
+  it('lleva los mismos links que la fila de desktop, con su propio nombre', () => {
+    render(<Nav nav={CONTENT.es.nav} lang="es" />);
+
+    const menu = screen.getByRole('navigation', { name: 'Menú' });
+    const desktop = screen.getByRole('navigation', { name: 'Principal' });
+
+    const names = (el: HTMLElement) =>
+      within(el)
+        .getAllByRole('link')
+        .map((link) => link.getAttribute('href'));
+
+    expect(names(menu)).toEqual(names(desktop));
+    expect(names(menu)).toHaveLength(CONTENT.es.nav.links.length);
   });
 });

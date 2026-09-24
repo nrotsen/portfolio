@@ -32,9 +32,7 @@ export function Principles({ head, items }: Props) {
     <section className="sec" id="how" aria-labelledby="how-h">
       <div className="wrap grid">
         <div className="side">
-          <p className="label">
-            <span className="idx">{head.index}</span> / {head.label}
-          </p>
+          <p className="label">{head.label}</p>
           <h2 id="how-h" className={s.title}>
             {head.title}
           </h2>
