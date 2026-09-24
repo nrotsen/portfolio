@@ -103,7 +103,9 @@
   .mark i { width: 12px; height: 12px; background: var(--accent); display: inline-block; }
   .mark small { font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--text-soft); letter-spacing: 0; }
   .nav-links { display: flex; gap: clamp(16px, 2.4vw, 36px); align-items: center; }
-  .nav-links a { color: var(--text); text-decoration: none; font-size: 15px; font-weight: 500; }
+  .nav-links a { color: var(--text); text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; }
+  .mark { white-space: nowrap; }
+  @media (max-width: 959px) { .mark small { display: none; } }
   .nav-links a:hover { color: var(--accent); }
   .nav-right { display: flex; align-items: center; gap: clamp(16px, 3vw, 40px); }
   .lang { display: flex; align-items: center; gap: 4px; font-family: var(--mono); font-size: 13px; color: var(--text-soft); }
@@ -180,6 +182,7 @@
   .btn:hover { background: var(--text); color: var(--bg); text-decoration: none; }
   .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
   .btn.primary:hover { background: var(--text); border-color: var(--text); }
+  @media (max-width: 359px) { .btn { padding: 14px 14px; font-size: 15px; max-width: 100%; } }
   .btn .arr { font-family: var(--mono); font-weight: 400; }
 
   .facts { grid-column: 1 / -1; margin-top: clamp(56px, 8vw, 112px); display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--text); }
@@ -231,7 +234,7 @@
   .metric { padding: 20px 16px 20px 0; border-bottom: 1px solid var(--rule); }
   .metric:nth-child(2n) { padding-left: 16px; border-left: 1px solid var(--rule); }
   .metric .n { font-size: clamp(2.25rem, 3.6vw, 3.5rem); font-weight: 700; letter-spacing: -.04em; line-height: .95; white-space: nowrap; }
-  .metric .n.txt { font-size: clamp(1.5rem, 2.6vw, 2.25rem); letter-spacing: -.025em; line-height: 1.1; padding-top: .3em; }
+  .metric .n.txt { font-size: clamp(1.5rem, 2.6vw, 2.25rem); letter-spacing: -.025em; line-height: 1.1; padding-top: .3em; white-space: normal; }
   .metric .c { font-family: var(--mono); font-size: 12.5px; color: var(--text-soft); margin-top: 10px; }
   @media (min-width: 900px) {
     .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -280,6 +283,13 @@
   .bi-actions { display: flex; gap: 10px; padding: 14px; }
   .bi-btn { flex: 1; text-align: center; font-weight: 800; font-size: 16px; padding: 12px 10px; border: 1.5px solid var(--bi-ink); background: var(--bi-teal); color: var(--bi-ink); box-shadow: 3px 3px 0 var(--bi-ink); }
   .bi-btn.ghost { flex: 0 0 auto; background: #fff; box-shadow: none; font-weight: 700; }
+  @media (max-width: 359px) {
+    .bi-frame { padding: 10px; }
+    .bi-table { font-size: 13px; }
+    .bi-table th, .bi-table td { padding-left: 8px; padding-right: 8px; }
+    .bi-table .q, .bi-table .p { font-size: 12px; }
+    .bi-pay { padding: 8px 8px 0; }
+  }
   .bi-note { margin-top: 12px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--text-soft); flex-wrap: wrap; }
 
   /* ---------- REPLAY ---------- */
@@ -455,7 +465,7 @@
       <div class="grid">
         <p class="eyebrow label rv">
           <span class="live">Product engineer · full-stack · Argentina</span>
-          <span><span lang="en">Works remote</span><span lang="es">Trabajo remoto</span></span>
+          <span>· <span lang="en">Works remote</span><span lang="es">Trabajo remoto</span></span>
         </p>
         <h1 id="hero-h" class="rv">
           <span lang="en">I build products end to end — from the <em>DynamoDB access pattern</em> to the <em>checkout button</em>.</span>
