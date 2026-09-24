@@ -44,6 +44,9 @@ export const es: SiteContent = {
       groupLabel: 'Idioma',
       otherLabel: 'View in English',
     },
+    themeToggle: {
+      label: 'Tema oscuro',
+    },
   },
 
   hero: {

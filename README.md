@@ -12,10 +12,13 @@ HTML before any JavaScript runs, and what has to break for the build to fail.
 
 ## What it is
 
-A single page in two languages, prerendered to static HTML at build time. JavaScript adds three
-things and nothing else: the chat replay, the reveal-on-scroll animation, and remembering which
-language you picked. With JavaScript off, every word is still there and the language switch still
-works — they are real links to real URLs.
+A single page in two languages, prerendered to static HTML at build time. JavaScript adds four
+things and nothing else: the chat replay, the reveal-on-scroll animation, the light/dark toggle,
+and remembering what you picked. With JavaScript off, every word is still there and the language
+switch still works — they are real links to real URLs.
+
+It follows your OS theme out of the box and has a toggle that overrides it. Both themes are held
+to the same bar: the contrast tests run over the rendered page in each one.
 
 Three projects are on it:
 
@@ -27,16 +30,17 @@ Three projects are on it:
 
 ## Stack and why
 
-| Decision  | Choice                                                 | Why                                                                                                                                                   |
-| --------- | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Build     | Vite 7 + React 19 + TypeScript 5.8, strict             | Two pages and a handful of components. A framework with a router and a data layer would be paying rent on rooms nobody uses.                          |
-| Styles    | Plain CSS with custom properties + CSS Modules         | The design is bespoke and the tokens already existed in the mockup. Translating them into utility classes would have been translation without a gain. |
-| Fonts     | Self-hosted (`@fontsource`), latin subset, preloaded   | No requests to Google. Two files, both preloaded from the prerendered `<head>`.                                                                       |
-| Prerender | `vite build` → `vite build --ssr` → `react-dom/static` | Two HTML files written at build time. No server, no hydration mismatch, no framework.                                                                 |
-| i18n      | Typed dictionaries, one URL per language               | See below — it is the decision the whole repo is arranged around.                                                                                     |
-| Animation | CSS + `IntersectionObserver`                           | No animation library. Everything respects `prefers-reduced-motion`.                                                                                   |
-| Tests     | Vitest + Testing Library + axe, Playwright for e2e     | Unit tests for the pure parts, e2e for the parts that only exist in a browser.                                                                        |
-| Deploy    | Vercel, `cleanUrls: true`                              | Static files. Nothing runs on a server.                                                                                                               |
+| Decision  | Choice                                                                     | Why                                                                                                                                                   |
+| --------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Build     | Vite 7 + React 19 + TypeScript 5.8, strict                                 | Two pages and a handful of components. A framework with a router and a data layer would be paying rent on rooms nobody uses.                          |
+| Styles    | Plain CSS with custom properties + CSS Modules                             | The design is bespoke and the tokens already existed in the mockup. Translating them into utility classes would have been translation without a gain. |
+| Fonts     | Self-hosted (`@fontsource`), latin subset, preloaded                       | No requests to Google. Two files, both preloaded from the prerendered `<head>`.                                                                       |
+| Prerender | `vite build` → `vite build --ssr` → `react-dom/static`                     | Two HTML files written at build time. No server, no hydration mismatch, no framework.                                                                 |
+| i18n      | Typed dictionaries, one URL per language                                   | See below — it is the decision the whole repo is arranged around.                                                                                     |
+| Animation | CSS + `IntersectionObserver`                                               | No animation library. Everything respects `prefers-reduced-motion`.                                                                                   |
+| Theming   | CSS custom properties: `prefers-color-scheme` plus a `data-theme` override | One token block per theme. No component knows which one is on.                                                                                        |
+| Tests     | Vitest + Testing Library + axe, Playwright for e2e                         | Unit tests for the pure parts, e2e for the parts that only exist in a browser.                                                                        |
+| Deploy    | Vercel, `cleanUrls: true`                                                  | Static files. Nothing runs on a server.                                                                                                               |
 
 ## Two languages, two URLs, no flash
 
@@ -53,6 +57,32 @@ not written by hand in either file: they come from `src/content/facts.ts` and ar
 The copy is plain strings with a two-marker inline syntax (`` `code` `` and `*accent*`) parsed by
 `src/lib/richText.tsx`. There is no `dangerouslySetInnerHTML` anywhere in the site. There is no
 underscore marker on purpose: the copy is full of `tool_use`, `agent_runner` and `wa_id`.
+
+## One set of tokens, two themes
+
+Every colour and every display size in the site is a custom property in `src/styles/tokens.css`.
+No component writes a hex or a `clamp()` of its own, which is what makes a second theme a block of
+CSS instead of a hunt through thirty files.
+
+The dark theme is declared twice on purpose: once under `prefers-color-scheme` narrowed with
+`:not([data-theme="light"])`, so picking light by hand beats the OS, and once under
+`[data-theme="dark"]` for people who picked it. That attribute is set by the inline script in the
+`<head>`, before the first paint — set it from React instead and everyone who chose dark eats a
+white flash on every load.
+
+The accent is a different colour in each theme, not the same one dimmed: the light cobalt
+(`#2b44e8`) lands at 2.4:1 on a dark background and is unreadable.
+
+Two things deliberately do **not** invert:
+
+- **The Buen Inventario point-of-sale mock**, because it is a picture of somebody else's product
+  and that product is light. Inverting it would show a screen that does not exist. It carries its
+  own fixed palette, including its browser chrome, so the page tokens cannot reach in.
+- **The trace panel and the code block**, which are dark in both themes. They are terminals.
+
+The architecture diagram does invert, and that is why its SVG is painted with CSS classes instead
+of `fill="#111214"` attributes: a presentation attribute does not accept `var()`, so an
+attribute-painted diagram keeps its black ink on a black background the day a second theme shows up.
 
 ## The build fails if the page did not render
 
@@ -95,6 +125,13 @@ What they actually guard:
   own on a phone.
 - **No JavaScript** — every section, including the chat replay and the diagram, is in the HTML, and
   the language switch still navigates.
+- **Colour contrast in both themes**, measured by axe over the rendered page in Chromium and WebKit.
+  It is the one check happy-dom cannot do — `color-contrast` needs real computed colours — and the
+  exact thing a hand-rolled dark theme gets wrong.
+- **The inline boot script**, which is the only code in the repo the bundler never sees: no types, no
+  lint, and a syntax error there breaks the page silently. Its tests check that it parses, that it
+  wraps every `localStorage` read in a `try`, and that its keys come from the same module the rest
+  of the code writes with.
 
 WebKit is in the matrix because it is the only engine on an iPhone, and sticky positioning and
 horizontal scroll are where it disagrees.

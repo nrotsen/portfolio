@@ -1,6 +1,7 @@
 import type { Lang } from '@/content/types';
+import { LANG_STORAGE_KEY } from './storageKeys';
 
-export const LANG_STORAGE_KEY = 'nb-lang';
+export { LANG_STORAGE_KEY };
 
 /**
  * Recuerda el idioma que el usuario eligió a mano.

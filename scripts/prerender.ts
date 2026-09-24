@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { createElement, type ComponentType } from 'react';
 import { prerenderToNodeStream } from 'react-dom/static';
 import { LANGS, type Lang } from '../src/content/types.ts';
+import { buildBootScript } from '../src/lib/bootScript.ts';
 import { buildHead, buildRobots, buildSitemap } from '../src/lib/seo.ts';
 
 /**
@@ -47,17 +48,6 @@ const PRELOAD_FONTS = [
   'schibsted-grotesk-latin-wght-normal',
   'ibm-plex-mono-latin-400-normal',
 ] as const;
-
-/**
- * Redirección de primera visita, solo en `/`.
- *
- * Además agrega `js` al `<html>`, que es lo que habilita la regla que esconde
- * los bloques hasta que entran en pantalla. Van juntos en un solo script inline
- * para que la clase esté puesta antes del primer paint y no haya un flash de
- * contenido que después se desvanece.
- */
-const INLINE_SCRIPT_EN = `(function(){var d=document.documentElement;d.className+=' js';try{var s=localStorage.getItem('nb-lang');if(!s&&(navigator.language||'').toLowerCase().indexOf('es')===0){location.replace('/es');}}catch(e){}})();`;
-const INLINE_SCRIPT_ES = `(function(){document.documentElement.className+=' js';})();`;
 
 interface EntryServerModule {
   AppShell: ComponentType<{ lang: Lang }>;
@@ -165,7 +155,7 @@ function injectSection(html: string, start: string, end: string, replacement: st
 }
 
 async function writePage(template: string, lang: Lang, appHtml: string, preloads: string[]) {
-  const inline = lang === 'en' ? INLINE_SCRIPT_EN : INLINE_SCRIPT_ES;
+  const inline = buildBootScript(lang);
 
   const head = [...preloads, buildHead(lang), `<script>${inline}</script>`].join('\n    ');
 

@@ -2,6 +2,7 @@ import { FULL_NAME, pathFor } from '@/content/facts';
 import type { Lang, Nav as NavContent } from '@/content/types';
 import { LANGS } from '@/content/types';
 import { rememberLang } from '@/lib/langPreference';
+import { ThemeToggle } from './ThemeToggle';
 import s from './Nav.module.css';
 
 const LANG_LABEL: Record<Lang, string> = { en: 'EN', es: 'ES' };
@@ -64,6 +65,7 @@ export function Nav({ nav, lang }: Props) {
           </nav>
 
           <LangSwitch lang={lang} {...nav.langSwitch} />
+          <ThemeToggle labels={nav.themeToggle} />
         </div>
       </div>
     </header>

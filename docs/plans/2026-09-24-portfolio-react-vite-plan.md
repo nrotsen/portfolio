@@ -16,7 +16,12 @@ Convertir el mockup C en un sitio de producción que:
 3. Cargue rápido y sin JS obligatorio para leer: el contenido está en el HTML; el JS agrega el replay del chat, el switch de idioma y las animaciones.
 4. Tenga la misma vara de calidad que el resto de tus repos: TypeScript estricto, tests, CI y un build que falla si algo importante no se renderizó.
 
-**Fuera de alcance:** blog, CMS, modo oscuro, analytics con cookies, formulario de contacto (contacto = links).
+**Fuera de alcance:** blog, CMS, analytics con cookies, formulario de contacto (contacto = links).
+
+> **Enmienda (2026-09-24, después de ver el sitio andando):** el modo oscuro estaba fuera de
+> alcance y entró igual, a pedido. Junto con eso bajó la escala tipográfica: en pantallas grandes
+> el titular ocupaba media ventana y había que alejar el navegador al 80% para leer cómodo. Las
+> dos cosas viven en `src/styles/tokens.css`.
 
 ## 2. Decisiones técnicas
 

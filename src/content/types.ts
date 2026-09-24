@@ -41,6 +41,11 @@ export interface NavLink {
   label: string;
 }
 
+export interface ThemeToggleLabels {
+  /** El botón es un toggle: el estado lo cuenta `aria-pressed`, no la etiqueta. */
+  label: string;
+}
+
 export interface Nav {
   markAriaLabel: string;
   /** Lo chiquito al lado del nombre; se oculta por debajo de 960px */
@@ -48,6 +53,7 @@ export interface Nav {
   primaryAriaLabel: string;
   links: readonly NavLink[];
   langSwitch: LangSwitch;
+  themeToggle: ThemeToggleLabels;
 }
 
 export interface Cta {

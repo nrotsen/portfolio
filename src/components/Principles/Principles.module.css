@@ -1,5 +1,5 @@
 .title {
-  font-size: clamp(2.25rem, 4.4vw, 4rem);
+  font-size: var(--fs-section-sm);
   line-height: 1;
   letter-spacing: -0.035em;
   font-weight: 700;
@@ -13,7 +13,7 @@
 }
 
 .item {
-  padding: 28px 0;
+  padding: 24px 0;
   border-bottom: 1px solid var(--rule);
   display: grid;
   grid-template-columns: 64px 1fr;
@@ -22,7 +22,7 @@
 
 .n {
   font-family: var(--mono);
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-size: var(--fs-principle-n);
   color: var(--accent);
   font-weight: 500;
   line-height: 1;
@@ -30,7 +30,7 @@
 }
 
 .item h3 {
-  font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+  font-size: var(--fs-principle);
   line-height: 1.15;
   letter-spacing: -0.025em;
   font-weight: 700;
@@ -39,7 +39,7 @@
 .item p {
   color: var(--text-soft);
   margin-top: 10px;
-  font-size: 16.5px;
+  font-size: 15.5px;
   max-width: 34em;
 }
 
@@ -48,7 +48,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .item {
-    padding: 36px var(--col-gap) 36px 0;
+    padding: 32px var(--col-gap) 32px 0;
     grid-template-columns: 1fr;
     gap: 20px;
   }

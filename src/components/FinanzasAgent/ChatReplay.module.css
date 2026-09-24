@@ -1,5 +1,5 @@
 .replay {
-  margin-top: clamp(36px, 5vw, 64px);
+  margin-top: clamp(28px, 4vw, 52px);
   border: 1px solid var(--text);
   border-radius: var(--radius);
   background: var(--bg);
@@ -37,7 +37,7 @@
 .button:hover {
   background: var(--accent);
   border-color: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .panes {
@@ -83,7 +83,7 @@
 
 .who {
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14.5px;
   line-height: 1.2;
 }
 
@@ -106,8 +106,8 @@
 .msg {
   max-width: 84%;
   padding: 8px 12px 6px;
-  font-size: 15px;
-  line-height: 1.4;
+  font-size: 14.5px;
+  line-height: 1.45;
   border-radius: 10px;
   position: relative;
   overflow-wrap: anywhere;
@@ -125,13 +125,13 @@
 .user {
   align-self: flex-end;
   background: var(--accent-tint);
-  border: 1px solid #cdd3fb;
+  border: 1px solid var(--accent-border);
   border-bottom-right-radius: 2px;
 }
 
 .agent {
   align-self: flex-start;
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--rule);
   border-bottom-left-radius: 2px;
 }
@@ -223,7 +223,7 @@
 }
 
 .traceTop b {
-  color: #fff;
+  color: var(--trace-fn);
   font-weight: 500;
 }
 
@@ -259,12 +259,12 @@
 }
 
 .rule {
-  color: #ffb7a6;
+  color: var(--trace-rule-kw);
   font-weight: 600;
 }
 
 .fn {
-  color: #fff;
+  color: var(--trace-fn);
   font-weight: 600;
 }
 

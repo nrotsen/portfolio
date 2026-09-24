@@ -25,8 +25,8 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--sans);
-  font-size: 17px;
-  line-height: 1.55;
+  font-size: var(--fs-body);
+  line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -125,20 +125,20 @@ section {
 }
 
 .sec {
-  padding-block: clamp(64px, 9vw, 144px);
+  padding-block: var(--sec-pad);
 }
 
 .sec-head {
   grid-column: 1 / -1;
-  margin-bottom: clamp(32px, 5vw, 64px);
+  margin-bottom: clamp(28px, 4vw, 52px);
 }
 
 .sec-head h2 {
-  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  font-size: var(--fs-section);
   line-height: 1;
   letter-spacing: -0.035em;
   font-weight: 700;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 .side {
@@ -176,7 +176,7 @@ section {
 
 @media (max-width: 1023px) {
   .side {
-    margin-bottom: 36px;
+    margin-bottom: 32px;
   }
 }
 
@@ -219,23 +219,23 @@ section {
 }
 
 .ptitle {
-  font-size: clamp(2.5rem, 6vw, 5.75rem);
+  font-size: var(--fs-project);
   line-height: 0.95;
   letter-spacing: -0.045em;
   font-weight: 700;
-  margin-top: 14px;
+  margin-top: 12px;
   overflow-wrap: anywhere;
 }
 
 .ptitle.sm {
-  font-size: clamp(2.25rem, 4.6vw, 4.25rem);
+  font-size: var(--fs-project-sm);
 }
 
 .oneliner {
-  font-size: clamp(1.125rem, 1.6vw, 1.4375rem);
-  line-height: 1.45;
-  margin-top: 24px;
-  max-width: 40em;
+  font-size: var(--fs-oneliner);
+  line-height: 1.5;
+  margin-top: 20px;
+  max-width: 42em;
 }
 
 .accent {
@@ -250,9 +250,9 @@ section {
   gap: 10px;
   font-family: var(--sans);
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1;
-  padding: 15px 20px;
+  padding: 13px 18px;
   border: 1px solid var(--text);
   border-radius: var(--radius);
   color: var(--text);
@@ -274,12 +274,13 @@ section {
 .btn.primary {
   background: var(--accent);
   border-color: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 .btn.primary:hover {
   background: var(--text);
   border-color: var(--text);
+  color: var(--bg);
 }
 
 .btn .arr {
@@ -289,8 +290,8 @@ section {
 
 @media (max-width: 359px) {
   .btn {
-    padding: 14px 14px;
-    font-size: 15px;
+    padding: 12px 14px;
+    font-size: 14.5px;
     max-width: 100%;
   }
 }
@@ -299,12 +300,12 @@ section {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 36px;
+  margin-top: 32px;
 }
 
 /* ---------- Proyecto: índice, ficha y highlights ---------- */
 .project {
-  padding-block: clamp(48px, 6vw, 96px);
+  padding-block: var(--project-pad);
   border-top: 1px solid var(--rule);
 }
 
@@ -313,7 +314,7 @@ section {
 }
 
 .pidx {
-  font-size: clamp(5rem, 11vw, 11rem);
+  font-size: var(--fs-index);
   line-height: 0.8;
   font-weight: 700;
   letter-spacing: -0.06em;
@@ -322,19 +323,19 @@ section {
 }
 
 .meta {
-  margin-top: 28px;
+  margin-top: 24px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 0;
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: 12.5px;
 }
 
 .meta > div {
   display: grid;
-  grid-template-columns: 76px 1fr;
+  grid-template-columns: 72px 1fr;
   gap: 12px;
-  padding: 9px 0;
+  padding: 8px 0;
   border-top: 1px solid var(--rule);
 }
 
@@ -374,10 +375,10 @@ section {
 
 .hl li {
   position: relative;
-  padding: 16px 0 16px 44px;
+  padding: 14px 0 14px 40px;
   border-bottom: 1px solid var(--rule);
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.55;
   color: var(--text-soft);
 }
 
@@ -391,7 +392,7 @@ section {
   content: counter(hl, decimal-leading-zero);
   position: absolute;
   left: 0;
-  top: 18px;
+  top: 16px;
   font-family: var(--mono);
   font-size: 12px;
   color: var(--accent);
@@ -403,11 +404,11 @@ section {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   border-top: 1px solid var(--text);
-  margin-top: clamp(40px, 5vw, 72px);
+  margin-top: clamp(32px, 4vw, 56px);
 }
 
 .metric {
-  padding: 20px 16px 20px 0;
+  padding: 18px 16px 18px 0;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -417,7 +418,7 @@ section {
 }
 
 .metric .n {
-  font-size: clamp(2.25rem, 3.6vw, 3.5rem);
+  font-size: var(--fs-metric);
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 0.95;
@@ -426,7 +427,7 @@ section {
 }
 
 .metric .n.txt {
-  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  font-size: var(--fs-metric-text);
   letter-spacing: -0.025em;
   line-height: 1.1;
   padding-top: 0.3em;
@@ -435,7 +436,7 @@ section {
 
 .metric .c {
   font-family: var(--mono);
-  font-size: 12.5px;
+  font-size: 12px;
   color: var(--text-soft);
   margin-top: 10px;
 }
@@ -446,7 +447,7 @@ section {
   }
   .metric {
     border-bottom: 0;
-    padding: 24px 20px 0 0;
+    padding: 20px 20px 0 0;
   }
   .metric + .metric {
     padding-left: 20px;

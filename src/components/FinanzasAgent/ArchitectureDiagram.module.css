@@ -1,5 +1,5 @@
 .arch {
-  margin-top: clamp(40px, 5vw, 72px);
+  margin-top: clamp(32px, 4vw, 56px);
 }
 
 /**
@@ -12,8 +12,8 @@
   min-width: 0;
   overflow-x: auto;
   border: 1px solid var(--rule);
-  background: #fff;
-  padding: clamp(16px, 2.5vw, 32px);
+  background: var(--surface);
+  padding: clamp(16px, 2.5vw, 28px);
   border-radius: var(--radius);
 }
 
@@ -32,4 +32,128 @@
   font-size: 12px;
   color: var(--text-soft);
   margin-top: 10px;
+  line-height: 1.6;
+}
+
+/**
+ * Los colores del SVG salen de acá y no de atributos `fill="#111214"`.
+ *
+ * No es cosmético: una presentación attribute no acepta `var()`, así que un
+ * diagrama pintado con atributos se queda con tinta negra sobre fondo oscuro
+ * el día que aparece un segundo tema. Con clases, el mismo dibujo sirve para
+ * los dos.
+ */
+.lane {
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+.laneLabel {
+  fill: var(--text-soft);
+  letter-spacing: 0.06em;
+}
+
+.laneLabelAccent {
+  fill: var(--accent);
+  letter-spacing: 0.06em;
+}
+
+/* Cajas */
+.box {
+  fill: var(--bg);
+  stroke: var(--text);
+  stroke-width: 1;
+}
+
+.boxSurface {
+  fill: var(--surface);
+  stroke: var(--text);
+  stroke-width: 1;
+}
+
+/* La caja invertida del runner: es el centro del dibujo. */
+.boxSolid {
+  fill: var(--text);
+}
+
+.boxTint {
+  fill: var(--accent-tint);
+  stroke: var(--accent);
+  stroke-width: 1;
+}
+
+/* Punteada = planificado o solo tests */
+.boxDashed {
+  fill: var(--bg);
+  stroke: var(--text-soft);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.boxGhost {
+  fill: none;
+  stroke: var(--text-soft);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.pill {
+  fill: var(--accent-tint);
+}
+
+/* Textos */
+.title {
+  fill: var(--text);
+}
+
+.titleInverse {
+  fill: var(--bg);
+}
+
+.sub {
+  fill: var(--text-soft);
+}
+
+.subInverse {
+  fill: var(--solid-sub);
+}
+
+.subAccent {
+  fill: var(--accent);
+}
+
+/* Flechas */
+.link {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1;
+}
+
+.linkSoft {
+  fill: none;
+  stroke: var(--text-soft);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+/* Lo único en cobalto: el traspaso asíncrono, que es la decisión del caso. */
+.linkAccent {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+}
+
+.arrowInk {
+  fill: var(--text);
+}
+
+.arrowAccent {
+  fill: var(--accent);
+}
+
+.arrowSoft {
+  fill: var(--text-soft);
 }

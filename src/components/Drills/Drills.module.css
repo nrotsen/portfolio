@@ -1,8 +1,8 @@
 .split {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(24px, 3vw, 40px);
-  margin-top: clamp(36px, 5vw, 64px);
+  gap: clamp(20px, 2.5vw, 36px);
+  margin-top: clamp(28px, 4vw, 52px);
 }
 
 @media (min-width: 1100px) {
@@ -13,7 +13,7 @@
 }
 
 .highlights {
-  margin-top: clamp(36px, 5vw, 64px);
+  margin-top: clamp(28px, 4vw, 52px);
 }
 
 /* ---------- Tarjeta de práctica ---------- */
@@ -22,7 +22,7 @@
      snippet, y la tarjeta se ensancha más que la columna. */
   min-width: 0;
   border: 1px solid var(--text);
-  background: #fff;
+  background: var(--surface);
   border-radius: var(--radius);
 }
 
@@ -41,8 +41,8 @@
 }
 
 .question {
-  padding: 18px 16px 6px;
-  font-size: 18px;
+  padding: 16px 16px 6px;
+  font-size: 16.5px;
   font-weight: 600;
   line-height: 1.35;
   letter-spacing: -0.01em;
@@ -90,7 +90,7 @@
   padding: 9px 12px;
   border: 1px solid var(--rule);
   border-radius: 2px;
-  font-size: 15px;
+  font-size: 14.5px;
 }
 
 .option .letter {
@@ -123,9 +123,9 @@
   margin: 12px 16px 8px;
   padding-top: 12px;
   border-top: 1px dashed var(--rule);
-  font-size: 14.5px;
+  font-size: 14px;
   color: var(--text-soft);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .why b {
@@ -207,7 +207,7 @@
 }
 
 .snippet .str {
-  color: #2f6f5e;
+  color: var(--code-str);
 }
 
 .snippet .comment {

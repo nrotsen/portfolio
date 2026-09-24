@@ -82,7 +82,10 @@ export function buildHead(lang: Lang): string {
     `<title>${escapeHtml(title)}</title>`,
     meta('name', 'description', description),
     meta('name', 'author', FULL_NAME),
-    meta('name', 'theme-color', '#FAFAF8'),
+    // Dos: el color de la barra del navegador tiene que seguir al tema, o en
+    // oscuro queda una franja blanca arriba de una página negra.
+    '<meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)">',
+    '<meta name="theme-color" content="#121316" media="(prefers-color-scheme: dark)">',
     `<link rel="canonical" href="${canonical}">`,
     ...alternates(),
 

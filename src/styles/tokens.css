@@ -1,25 +1,41 @@
 /**
- * Los tokens del mockup C ("Swiss Precision"), copiados tal cual.
+ * Los tokens del sitio: color, escala tipográfica y métrica.
  *
- * Ningún componente escribe un hex suelto: si un color aparece dos veces en el
- * repo, una de las dos es un bug esperando. La única excepción documentada es
- * `TicketMock`, que usa la paleta de Buen Inventario — es la marca de otro
- * producto y vive encerrada en su propio módulo.
+ * Ningún componente escribe un hex suelto. Si un color aparece dos veces en el
+ * repo, una de las dos es un bug esperando — y con dos temas, el bug es que la
+ * mitad de la página cambia y la otra mitad no.
+ *
+ * La única excepción documentada es `TicketMock`, que tiene su propia paleta
+ * fija: es la marca de Buen Inventario y una maqueta de su producto, así que
+ * se queda clara en los dos temas, como una captura de pantalla.
  */
+
 :root {
-  /* Superficies y tinta */
+  /* ---------- Superficies y tinta (claro) ---------- */
   --bg: #fafaf8;
   --bg-2: #f1f1ee;
+  /* Tarjetas que en papel serían blancas: quiz, burbuja del agente, diagrama */
+  --surface: #ffffff;
+  --bg-translucent: rgb(250 250 248 / 94%);
   --text: #111214;
   --text-soft: #55585f;
   --rule: #dcdcd7;
+  /* Las guías de columna del hero: casi invisibles, a propósito */
+  --hairline: rgb(17 18 20 / 4.5%);
 
-  /* Acentos */
+  /* ---------- Acentos ---------- */
   --accent: #2b44e8;
   --accent-tint: #e9ecff;
+  --accent-border: #cdd3fb;
+  --on-accent: #ffffff;
   --signal: #ff5a36;
+  --signal-halo: rgb(255 90 54 / 18%);
 
-  /* Panel de traza (fondo oscuro) */
+  /* Tinta sobre naranja: fija en los dos temas, porque el naranja no cambia
+     lo suficiente como para que el texto claro funcione encima. */
+  --on-signal: #16181c;
+
+  /* ---------- Panel de traza (siempre oscuro) ---------- */
   --ink-trace: #111214;
   --trace-kw: #9aa8ff;
   --trace-str: #d7dcff;
@@ -28,18 +44,131 @@
   --trace-rule: #2a2c31;
   --trace-row: #1f2126;
   --trace-num: #7a7e86;
+  --trace-rule-kw: #ffb7a6;
+  --trace-fn: #ffffff;
 
-  /* Tipografías. Las familias variables vienen de @fontsource-variable. */
+  /* ---------- Código en superficie clara ---------- */
+  --code-str: #2f6f5e;
+
+  /* Subtítulo dentro de la caja invertida del diagrama (λ agent runner) */
+  --solid-sub: #b9c2ff;
+
+  /* ---------- Tipografías ---------- */
   --sans:
     'Schibsted Grotesk Variable', 'Schibsted Grotesk', 'Helvetica Neue', Helvetica, Arial,
     system-ui, sans-serif;
   --mono:
     'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
 
-  /* Métrica */
-  --gutter: clamp(16px, 4vw, 56px);
+  /**
+   * Escala de display. Achicar o agrandar los titulares del sitio entero es
+   * tocar estas nueve líneas: ningún componente escribe un `clamp()` propio.
+   *
+   * Los tamaños salieron de bajar la escala del mockup: en pantallas grandes
+   * el titular ocupaba media ventana y había que alejar el navegador para
+   * leer la página. El cuerpo bajó mucho menos que los títulos — el problema
+   * era la diferencia entre los dos, no el texto.
+   */
+  --fs-body: 16px;
+  --fs-hero: clamp(2.25rem, 5.4vw, 5rem);
+  --fs-hero-sub: clamp(1rem, 1.15vw, 1.1875rem);
+  --fs-section: clamp(1.875rem, 3.8vw, 3.25rem);
+  --fs-section-sm: clamp(1.75rem, 3.2vw, 2.75rem);
+  --fs-project: clamp(2rem, 4.6vw, 4rem);
+  --fs-project-sm: clamp(1.75rem, 3.4vw, 3rem);
+  --fs-oneliner: clamp(1.0625rem, 1.35vw, 1.25rem);
+  --fs-index: clamp(3.25rem, 7.5vw, 7rem);
+  --fs-fact: clamp(2.5rem, 5.8vw, 5rem);
+  --fs-metric: clamp(1.75rem, 2.8vw, 2.5rem);
+  --fs-metric-text: clamp(1.25rem, 2vw, 1.625rem);
+  --fs-contact: clamp(2.25rem, 5.2vw, 4.75rem);
+  --fs-contact-link: clamp(1.125rem, 2vw, 1.75rem);
+  --fs-principle: clamp(1.25rem, 1.8vw, 1.5rem);
+  --fs-principle-n: clamp(1.5rem, 2.4vw, 2rem);
+
+  /* ---------- Métrica ---------- */
+  --gutter: clamp(16px, 4vw, 48px);
   --col-gap: clamp(16px, 2vw, 32px);
-  --maxw: 1600px;
-  --nav-h: 64px;
+  --maxw: 1440px;
+  --nav-h: 56px;
   --radius: 2px;
+
+  /* Ritmo vertical: acompaña a la escala tipográfica. Con titulares más
+     chicos, el aire de antes dejaba las secciones flotando sueltas. */
+  --sec-pad: clamp(56px, 7vw, 112px);
+  --project-pad: clamp(40px, 5vw, 80px);
+
+  color-scheme: light;
+}
+
+/**
+ * Tema oscuro.
+ *
+ * Se declara dos veces a propósito:
+ *
+ * 1. Bajo `prefers-color-scheme`, para quien no tocó nada — pero acotado con
+ *    `:not([data-theme='light'])`, así elegir claro a mano gana sobre el
+ *    sistema.
+ * 2. Bajo `[data-theme='dark']`, para quien lo eligió. Ese atributo lo pone un
+ *    script inline en el `<head>`, antes del primer paint: sin eso hay un
+ *    flash blanco en cada carga.
+ *
+ * El cobalto del tema claro (#2b44e8) sobre fondo oscuro queda en 2.4:1 y es
+ * ilegible, así que el acento del tema oscuro es otro color, no el mismo con
+ * opacidad.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #121316;
+    --bg-2: #191b1f;
+    --surface: #1c1e23;
+    --bg-translucent: rgb(18 19 22 / 94%);
+    --text: #ecedef;
+    --text-soft: #9fa3ac;
+    --rule: #2c2f35;
+    --hairline: rgb(236 237 239 / 6%);
+
+    --accent: #8296ff;
+    --accent-tint: #1e2444;
+    --accent-border: #38407a;
+    --on-accent: #0b0c0f;
+    --signal: #ff7a5c;
+    --signal-halo: rgb(255 122 92 / 22%);
+
+    --ink-trace: #0a0b0d;
+    --trace-rule: #24272d;
+    --trace-row: #17191d;
+
+    --code-str: #7fd1b9;
+    --solid-sub: #4c5570;
+
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #121316;
+  --bg-2: #191b1f;
+  --surface: #1c1e23;
+  --bg-translucent: rgb(18 19 22 / 94%);
+  --text: #ecedef;
+  --text-soft: #9fa3ac;
+  --rule: #2c2f35;
+  --hairline: rgb(236 237 239 / 6%);
+
+  --accent: #8296ff;
+  --accent-tint: #1e2444;
+  --accent-border: #38407a;
+  --on-accent: #0b0c0f;
+  --signal: #ff7a5c;
+  --signal-halo: rgb(255 122 92 / 22%);
+
+  --ink-trace: #0a0b0d;
+  --trace-rule: #24272d;
+  --trace-row: #17191d;
+
+  --code-str: #7fd1b9;
+  --solid-sub: #4c5570;
+
+  color-scheme: dark;
 }
