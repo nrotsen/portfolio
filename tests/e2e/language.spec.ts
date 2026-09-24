@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { canonicalFor } from '../../src/content/facts.ts';
 
 /**
  * Cada idioma es una URL con su propio HTML. Lo que se testea acá es que sea
@@ -34,9 +35,11 @@ test('el idioma activo está marcado con aria-current', async ({ page }) => {
 });
 
 test('cada idioma declara su canonical y sus hreflang', async ({ page }) => {
+  // Derivado de `facts.ts`, no repetido: cuando cambió el dominio, esta era la
+  // única copia que no se actualizaba sola y el test pasaba a mentir.
   for (const [path, canonical] of [
-    ['/', 'https://portfolio.vercel.app/'],
-    ['/es', 'https://portfolio.vercel.app/es'],
+    ['/', canonicalFor('en')],
+    ['/es', canonicalFor('es')],
   ] as const) {
     await page.goto(path);
 
@@ -45,7 +48,7 @@ test('cada idioma declara su canonical y sus hreflang', async ({ page }) => {
     await expect(page.locator('link[rel="alternate"][hreflang="es"]')).toHaveCount(1);
     await expect(page.locator('link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
       'href',
-      'https://portfolio.vercel.app/',
+      canonicalFor('en'),
     );
   }
 });

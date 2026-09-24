@@ -20,10 +20,12 @@ export const FACTS = {
 } as const;
 
 /**
- * Dominio del sitio. Provisorio hasta que haya uno propio: cambiar esta
- * constante alcanza — canonical, hreflang, sitemap, OG y JSON-LD salen de acá.
+ * Dominio del sitio. El de Vercel hasta que haya uno propio: cambiar esta
+ * constante alcanza — canonical, hreflang, sitemap, robots, OG y JSON-LD salen
+ * de acá, y el test de e2e compara contra esta misma constante en vez de
+ * repetir la URL.
  */
-export const SITE_URL = 'https://portfolio.vercel.app';
+export const SITE_URL = 'https://portfolio-ten-zeta-80.vercel.app';
 
 export const GITHUB_URL = 'https://github.com/nrotsen';
 export const GITHUB_HANDLE = 'github.com/nrotsen';
