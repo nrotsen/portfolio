@@ -175,6 +175,20 @@ export interface AndesDocs extends ProjectBase {
   metricsNote: string;
 }
 
+/**
+ * Un trabajo anterior, contado en chico: sin stack, sin métricas y sin
+ * diagrama, porque no hay nada de eso para mostrar con honestidad.
+ */
+export interface PastRole {
+  kicker: string;
+  title: string;
+  body: string;
+  yearLabel: string;
+  year: string;
+  roleLabel: string;
+  role: string;
+}
+
 export interface Decision {
   /** D1 / D2 / D3 */
   id: string;
@@ -262,6 +276,22 @@ export interface Principle {
   body: string;
 }
 
+export interface BackgroundRow {
+  key: string;
+  value: string;
+}
+
+export interface BackgroundGroup {
+  label: string;
+  rows: readonly BackgroundRow[];
+}
+
+/** Lo que un CV lleva al final: skills, formación, certificaciones, idiomas. */
+export interface Background {
+  head: SectionHead;
+  groups: readonly BackgroundGroup[];
+}
+
 export interface Contact {
   /** Usa *acento* */
   headline: string;
@@ -286,12 +316,14 @@ export interface SiteContent {
   work: SectionHead;
   projects: {
     andesDocs: AndesDocs;
+    applash: PastRole;
     buenInventario: BuenInventario;
     finanzasAgent: FinanzasAgent;
     drills: Drills;
   };
   how: SectionHead;
   principles: readonly [Principle, Principle, Principle, Principle];
+  background: Background;
   contactHead: SectionHead;
   contact: Contact;
   footer: Footer;

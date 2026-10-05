@@ -1,4 +1,5 @@
 import type { SiteContent } from '@/content/types';
+import { Background } from '@/components/Background/Background';
 import { Contact } from '@/components/Contact/Contact';
 import { Experience } from '@/components/Experience/Experience';
 import { Footer } from '@/components/Footer/Footer';
@@ -28,6 +29,7 @@ export function App({ content }: { content: SiteContent }) {
         <Experience head={content.experience} projects={content.projects} />
         <ProjectIndex head={content.work} projects={content.projects} />
         <Principles head={content.how} items={content.principles} />
+        <Background background={content.background} />
         <Contact head={content.contactHead} contact={content.contact} />
       </main>
 

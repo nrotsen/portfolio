@@ -8,8 +8,8 @@ import type { Lang } from './types';
  * `/` diga 2.000 y `/es` diga 1.900.
  */
 export const FACTS = {
-  /** Desde junio de 2023, cuando empezó Andes Docs. */
-  yearsProfessional: 3,
+  /** Desde junio de 2022, el primer trabajo como developer (Applash Solutions). */
+  yearsProfessional: 4,
   /** Andes Docs en el trabajo y Buen Inventario propio, los dos en uso diario. */
   productsInDailyUse: 2,
   /** Commits sumando los 4 repos de Buen Inventario. */
@@ -20,6 +20,8 @@ export const FACTS = {
   drillItems: 169,
   drillDiagrams: 15,
   drillTests: 58,
+  /** Productos del catálogo de referencia de Buen Inventario, en producción. */
+  catalogProducts: 29789,
 } as const;
 
 /**

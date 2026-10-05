@@ -64,7 +64,7 @@ export const es: SiteContent = {
     ],
     facts: [
       {
-        value: n(FACTS.yearsProfessional),
+        value: `${n(FACTS.yearsProfessional)}+`,
         caption: 'años construyendo y enviando software a producción',
       },
       {
@@ -93,7 +93,7 @@ export const es: SiteContent = {
         yearLabel: 'Año',
         year: 'Jun 2023 → hoy',
         roleLabel: 'Rol',
-        role: 'Fullstack developer',
+        role: 'Full-stack product engineer',
         stackLabel: 'Stack',
         stack: [
           'Node.js',
@@ -143,7 +143,7 @@ export const es: SiteContent = {
       highlights: [
         {
           title: 'Developer principal de la plataforma.',
-          body: 'Tomé la responsabilidad principal del desarrollo y entrego features de punta a punta, del modelo de datos a la pantalla.',
+          body: 'Tomo las decisiones técnicas del producto y entrego features de punta a punta, del modelo de datos a la pantalla. También reviso código y atiendo el soporte técnico a clientes.',
         },
         {
           title: 'Prueba que resiste a un auditor.',
@@ -173,6 +173,16 @@ export const es: SiteContent = {
       ctas: [{ label: 'Ver Andes Docs', href: ANDESDOCS_URL, external: true }],
     },
 
+    applash: {
+      kicker: 'Puesto anterior · Freelance · 2022 → 2023',
+      title: 'Applash Solutions',
+      body: 'Mi primer trabajo profesional como developer: landing pages y sitios responsive para clientes, hechos junto a otros desarrolladores y llevados del diseño a producción.',
+      yearLabel: 'Año',
+      year: 'Jun 2022 → May 2023',
+      roleLabel: 'Rol',
+      role: 'Web developer',
+    },
+
     buenInventario: {
       kicker: 'Destacado · SaaS · 2025 → hoy',
       title: 'Buen Inventario',
@@ -184,7 +194,7 @@ export const es: SiteContent = {
         yearLabel: 'Año',
         year: '2025 → hoy',
         roleLabel: 'Rol',
-        role: 'Diseño, desarrollo y operación',
+        role: 'Fundador e ingeniero',
         stackLabel: 'Stack',
         stack: [
           'TypeScript',
@@ -221,6 +231,14 @@ export const es: SiteContent = {
         {
           title: 'Una PWA lista para el mostrador.',
           body: 'Panel instalable con lector de códigos de barras (`BarcodeDetector` nativo + fallback ZXing WASM), tablas virtualizadas y sincronización en tiempo real por Socket.io.',
+        },
+        {
+          title: 'Precios de referencia desde un dataset público de 4 GB.',
+          body: `Un pipeline de ingesta del catálogo que procesa los dumps por streaming y usa reservoir sampling para sacar medianas de precio resistentes a outliers entre cientos de comercios, con tests unitarios que inyectan un RNG determinístico. ${n(FACTS.catalogProducts)} productos en producción.`,
+        },
+        {
+          title: 'Búsqueda sin base de datos en el camino del request.',
+          body: 'El catálogo se compila a snapshots inmutables y gzipeados en S3 que resuelve el cliente, así que buscar en él nunca consulta DynamoDB.',
         },
         {
           title: 'Una landing que se usa, no solo se lee.',
@@ -273,7 +291,7 @@ export const es: SiteContent = {
         'Un agente de finanzas personales que vive en WhatsApp. Le escribo qué gasté, cobré o debo; Claude lo convierte en filas de un Google Sheet y me avisa antes de cada vencimiento. Unos US$2/mes en AWS.',
       meta: {
         yearLabel: 'Año',
-        year: '2026',
+        year: 'Ene 2026 → hoy',
         roleLabel: 'Rol',
         role: 'Autor',
         stackLabel: 'Stack',
@@ -454,11 +472,60 @@ export const es: SiteContent = {
     },
   ],
 
+  background: {
+    head: { label: 'Perfil', title: 'Skills y formación' },
+    groups: [
+      {
+        label: 'Skills técnicas',
+        rows: [
+          { key: 'Backend', value: 'Node.js, TypeScript, Express, NestJS, APIs REST, C# / .NET' },
+          {
+            key: 'Frontend',
+            value: 'React, Next.js, Redux Toolkit, Zustand, Jotai, Material UI, shadcn/ui',
+          },
+          {
+            key: 'IA / LLM',
+            value:
+              'Claude API, tool calling y loops agénticos, structured outputs (JSON Schema). Trabajo AI-native todos los días con Claude Code, y reviso y me hago cargo de todo lo que entrego.',
+          },
+          {
+            key: 'Cloud (AWS)',
+            value: 'Lambda, API Gateway, S3, DynamoDB, IAM, CloudWatch, AWS SAM (IaC)',
+          },
+          {
+            key: 'Datos e integraciones',
+            value:
+              'PostgreSQL, DynamoDB, Prisma, SQL · ZapSign, Auth0, WhatsApp API, SendGrid, facturación electrónica ARCA',
+          },
+          { key: 'Herramientas', value: 'Git, Docker, Python, tests unitarios y de integración' },
+        ],
+      },
+      {
+        label: 'Formación, certificaciones e idiomas',
+        rows: [
+          {
+            key: 'Formación',
+            value: 'Licenciatura en Economía — Universidad de Buenos Aires (UBA) · 2018 – 2021',
+          },
+          {
+            key: 'Certificaciones',
+            value:
+              'Claude Code in Action — Anthropic · 2026. JavaScript Algorithms & Data Structures — freeCodeCamp · 2022.',
+          },
+          {
+            key: 'Idiomas',
+            value: 'Español (nativo) · Inglés (B2, nivel profesional)',
+          },
+        ],
+      },
+    ],
+  },
+
   contactHead: { label: 'Contacto', title: 'Contacto' },
 
   contact: {
     headline: 'Construyamos algo que funcione un *lunes a la mañana*.',
-    sub: 'Abierto a roles senior de producto / full-stack, remotos.',
+    sub: 'Abierto a roles senior de producto / full-stack, remotos. Vivo en Buenos Aires (UTC-3).',
     links: [
       { key: 'Email', value: EMAIL, href: `mailto:${EMAIL}`, external: false },
       { key: 'GitHub', value: GITHUB_HANDLE, href: GITHUB_URL, external: true },
