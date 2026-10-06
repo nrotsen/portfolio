@@ -24,10 +24,10 @@ export const es: SiteContent = {
   lang: 'es',
 
   meta: {
-    title: `${FULL_NAME} — Product engineer · full-stack`,
+    title: `${FULL_NAME} — Full stack engineer`,
     description:
-      'Product engineer, full-stack. Diseñé, construí y opero Buen Inventario, un SaaS para comercios argentinos. Casos: Buen Inventario, finanzas-agent, software-engineering-drills.',
-    ogImageAlt: `${FULL_NAME} — product engineer, full-stack. Argentina, trabajo remoto.`,
+      'Full stack engineer: Node.js, TypeScript, React y AWS, con features de LLM en producción. Diseñé, construí y opero Buen Inventario, un SaaS para comercios argentinos. Casos: Buen Inventario, finanzas-agent, software-engineering-drills.',
+    ogImageAlt: `${FULL_NAME} — full stack engineer. Argentina, trabajo remoto.`,
     ogLocale: 'es_AR',
   },
 
@@ -35,7 +35,7 @@ export const es: SiteContent = {
 
   nav: {
     markAriaLabel: `${FULL_NAME} — inicio`,
-    markRole: '/ product engineer',
+    markRole: '/ full stack engineer',
     primaryAriaLabel: 'Principal',
     menuLabel: 'Menú',
     links: [
@@ -54,7 +54,7 @@ export const es: SiteContent = {
   },
 
   hero: {
-    eyebrowMain: 'Product engineer · full-stack · Argentina',
+    eyebrowMain: 'Full stack engineer · Argentina',
     eyebrowAside: 'Trabajo remoto',
     headline:
       'Construyo productos de punta a punta: desde la *base de datos* hasta el *botón de checkout*.',
@@ -89,25 +89,33 @@ export const es: SiteContent = {
       plainLead:
         'Una plataforma de contratos que usan inmobiliarias, desarrolladoras, empresas de transporte y equipos legales de Argentina. Arman un documento respondiendo unas preguntas, lo firman con validez jurídica y les avisa antes de que venza — todo desde el navegador.',
       oneLiner:
-        'Trabajo sobre todo el stack: las APIs REST en Node y TypeScript, las interfaces de React que van encima, y las integraciones sobre las que se apoya el producto — firma electrónica, autenticación, propiedades, mails y WhatsApp.',
+        'Trabajo sobre todo el stack: las APIs REST en Node y TypeScript, las interfaces de React y Next.js que van encima, la infraestructura de AWS que va abajo, y las features de LLM y las integraciones sobre las que se apoya el producto — firma electrónica, facturación, autenticación, mails y WhatsApp.',
       meta: {
         yearLabel: 'Año',
         year: 'Jun 2023 → hoy',
         roleLabel: 'Rol',
-        role: 'Full-stack product engineer',
+        role: 'Full stack engineer',
         stackLabel: 'Stack',
         stack: [
           'Node.js',
           'TypeScript',
           'Express',
+          'Next.js',
           'React',
-          'Material UI',
           'Redux Toolkit',
+          'Material UI',
+          'Tailwind',
           'Jotai',
           'DynamoDB',
           'S3',
+          'SES',
+          'Secrets Manager',
+          'CloudWatch',
           'Auth0',
           'ZapSign',
+          'Claude API',
+          'Zod',
+          'Vitest',
           '.NET',
           'SendGrid',
           'WhatsApp API',
@@ -147,12 +155,32 @@ export const es: SiteContent = {
           body: 'Tomo las decisiones técnicas del producto y entrego features de punta a punta, del modelo de datos a la pantalla. También reviso código y atiendo el soporte técnico a clientes.',
         },
         {
+          title: 'Una plataforma de finanzas y facturación, desde cero.',
+          body: 'Planes, contratos, facturación por uso según las firmas, y tableros de resultados y presupuesto, sobre Next.js y DynamoDB, con más de 100 archivos de test. Emite facturas electrónicas por ARCA: web services SOAP, firma con certificado, credenciales en AWS Secrets Manager y los PDF fiscales en S3.',
+        },
+        {
+          title: 'La IA propone, las reglas deciden.',
+          body: 'Un motor de conciliación bancaria donde Claude vincula pagos con facturas y reglas determinísticas revisan cada vínculo: uno que la IA encontró sola nunca puede quedar marcado como de confianza alta. Reintentos, prompt caching y un set de evaluación con umbrales de precisión y recall.',
+        },
+        {
+          title: 'Features de LLM adentro del producto.',
+          body: 'Un analizador de DOCX y un generador de plantillas sobre la API de Claude, transmitidos al navegador por SSE.',
+        },
+        {
           title: 'Prueba que resiste a un auditor.',
-          body: 'Una feature de prevención de lavado de dinero que mete el resultado del chequeo en listas restrictivas adentro del PDF firmado. Quien tiene obligación de reportar se queda con un solo documento a prueba de alteraciones, en vez de un contrato más un informe aparte que nadie puede vincular.',
+          body: 'Una feature de prevención de lavado de dinero que mete el resultado del chequeo en listas restrictivas adentro del PDF firmado. Quien tiene obligación de reportar se queda con un solo documento a prueba de alteraciones, en vez de un contrato más un informe aparte que nadie puede vincular. Alrededor: validación de DNI, alertas de personas expuestas políticamente y un registro de auditoría de cada consulta.',
+        },
+        {
+          title: 'Una API pública para partners.',
+          body: 'Una API REST sobre la que construyen otras empresas: API keys acotadas por empresa, paginación por cursor y documentación en Swagger.',
         },
         {
           title: 'Un fin de semana para sacar un punto único de falla.',
           body: 'El proveedor de la integración de edición de documentos la discontinuó. Escribí un microservicio en `.NET` desde cero para reemplazarla en un fin de semana, y con eso se fue la dependencia de una empresa de afuera.',
+        },
+        {
+          title: 'Control de acceso, reforzado.',
+          body: 'Chequeos de rol y de propiedad en toda la API, y el arreglo de un camino de escalada de privilegios en la gestión de usuarios.',
         },
         {
           title: 'Las integraciones sobre las que se apoya el producto.',
@@ -198,7 +226,7 @@ export const es: SiteContent = {
         yearLabel: 'Año',
         year: '2025 → hoy',
         roleLabel: 'Rol',
-        role: 'Fundador e ingeniero',
+        role: 'Fundador y full stack engineer',
         stackLabel: 'Stack',
         stack: [
           'TypeScript',
@@ -485,23 +513,28 @@ export const es: SiteContent = {
           { key: 'Backend', value: 'Node.js, TypeScript, Express, NestJS, APIs REST, C# / .NET' },
           {
             key: 'Frontend',
-            value: 'React, Next.js, Redux Toolkit, Zustand, Jotai, Material UI, shadcn/ui',
+            value:
+              'React, Next.js, Redux Toolkit, Zustand, Jotai, Material UI, Tailwind, shadcn/ui',
           },
           {
             key: 'IA / LLM',
             value:
-              'Claude API, tool calling y loops agénticos, structured outputs (JSON Schema). Trabajo AI-native todos los días con Claude Code, y reviso y me hago cargo de todo lo que entrego.',
+              'Claude API, tool calling y loops agénticos, structured outputs (JSON Schema), prompt caching, evals. Trabajo AI-native todos los días con Claude Code, y reviso y me hago cargo de todo lo que entrego.',
           },
           {
             key: 'Cloud (AWS)',
-            value: 'Lambda, API Gateway, S3, DynamoDB, IAM, CloudWatch, AWS SAM (IaC)',
+            value:
+              'Lambda, API Gateway, S3, DynamoDB, SES, Secrets Manager, IAM, CloudWatch, AWS SAM (IaC)',
           },
           {
             key: 'Datos e integraciones',
             value:
-              'PostgreSQL, DynamoDB, Prisma, SQL · ZapSign, Auth0, WhatsApp API, SendGrid, facturación electrónica ARCA',
+              'PostgreSQL, DynamoDB, Prisma, SQL, Zod · ZapSign, Auth0, WhatsApp API, SendGrid, facturación electrónica ARCA (SOAP)',
           },
-          { key: 'Herramientas', value: 'Git, Docker, Python, tests unitarios y de integración' },
+          {
+            key: 'Herramientas',
+            value: 'Git, Docker, Python, Vitest, tests unitarios y de integración',
+          },
         ],
       },
       {
@@ -529,7 +562,7 @@ export const es: SiteContent = {
 
   contact: {
     headline: 'Construyamos algo que funcione un *lunes a la mañana*.',
-    sub: 'Abierto a roles senior de producto / full-stack, remotos. Vivo en Buenos Aires (UTC-3).',
+    sub: 'Abierto a roles full stack, backend y de producto, remotos. Vivo en Buenos Aires (UTC-3).',
     links: [
       { key: 'Email', value: EMAIL, href: `mailto:${EMAIL}`, external: false },
       { key: 'GitHub', value: GITHUB_HANDLE, href: GITHUB_URL, external: true },

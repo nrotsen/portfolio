@@ -24,10 +24,10 @@ export const en: SiteContent = {
   lang: 'en',
 
   meta: {
-    title: `${FULL_NAME} — Product engineer · full-stack`,
+    title: `${FULL_NAME} — Full stack engineer`,
     description:
-      'Product engineer, full-stack. I designed, built and run Buen Inventario, a SaaS for small Argentine retailers. Case studies: Buen Inventario, finanzas-agent, software-engineering-drills.',
-    ogImageAlt: `${FULL_NAME} — product engineer, full-stack. Argentina, works remote.`,
+      'Full stack engineer: Node.js, TypeScript, React and AWS, with LLM-powered features in production. I designed, built and run Buen Inventario, a SaaS for small Argentine retailers. Case studies: Buen Inventario, finanzas-agent, software-engineering-drills.',
+    ogImageAlt: `${FULL_NAME} — full stack engineer. Argentina, works remote.`,
     ogLocale: 'en_US',
   },
 
@@ -35,7 +35,7 @@ export const en: SiteContent = {
 
   nav: {
     markAriaLabel: `${FULL_NAME} — home`,
-    markRole: '/ product engineer',
+    markRole: '/ full stack engineer',
     primaryAriaLabel: 'Primary',
     menuLabel: 'Menu',
     links: [
@@ -54,7 +54,7 @@ export const en: SiteContent = {
   },
 
   hero: {
-    eyebrowMain: 'Product engineer · full-stack · Argentina',
+    eyebrowMain: 'Full stack engineer · Argentina',
     eyebrowAside: 'Works remote',
     headline: 'I build products end to end — from the *database* to the *checkout button*.',
     sub: "I'm the main developer on Andes Docs, a contract platform Argentine companies use every day, and I designed, built and run Buen Inventario, a SaaS for small shops. I like the unglamorous parts: idempotent webhooks, honest numbers, tests that guard the architecture.",
@@ -85,25 +85,33 @@ export const en: SiteContent = {
       plainLead:
         'A contract platform used by Argentine real-estate agencies, property developers, transport companies and legal teams. They build a document by answering a few questions, sign it with full legal validity, and get warned before it expires — without leaving the browser.',
       oneLiner:
-        'I work across the whole stack: the REST APIs in Node and TypeScript, the React interfaces on top of them, and the integrations the product leans on — e-signature, authentication, listings, email and WhatsApp.',
+        'I work across the whole stack: the REST APIs in Node and TypeScript, the React and Next.js interfaces on top of them, the AWS infrastructure underneath, and the LLM features and integrations the product leans on — e-signature, tax invoicing, authentication, email and WhatsApp.',
       meta: {
         yearLabel: 'Year',
         year: 'Jun 2023 → today',
         roleLabel: 'Role',
-        role: 'Full-stack product engineer',
+        role: 'Full stack engineer',
         stackLabel: 'Stack',
         stack: [
           'Node.js',
           'TypeScript',
           'Express',
+          'Next.js',
           'React',
-          'Material UI',
           'Redux Toolkit',
+          'Material UI',
+          'Tailwind',
           'Jotai',
           'DynamoDB',
           'S3',
+          'SES',
+          'Secrets Manager',
+          'CloudWatch',
           'Auth0',
           'ZapSign',
+          'Claude API',
+          'Zod',
+          'Vitest',
           '.NET',
           'SendGrid',
           'WhatsApp API',
@@ -143,12 +151,32 @@ export const en: SiteContent = {
           body: 'I own technical decisions across the product and ship features end to end, from the data model to the screen. I also review code and handle technical client support.',
         },
         {
+          title: 'A finance and billing platform, from scratch.',
+          body: "Plans, contracts, usage-based billing per signature, and P&L and budget dashboards, on Next.js and DynamoDB, covered by 100+ test files. It issues electronic invoices through ARCA, Argentina's tax authority: SOAP web services, certificate signing, credentials in AWS Secrets Manager and the fiscal PDFs in S3.",
+        },
+        {
+          title: 'AI proposes, rules decide.',
+          body: 'A bank-reconciliation engine where Claude matches payments to invoices and deterministic rules cross-check every match: one the AI found on its own can never be marked high confidence. Retries, prompt caching, and an eval set with precision and recall thresholds.',
+        },
+        {
+          title: 'LLM features inside the product.',
+          body: 'A DOCX analyzer and a template generator on the Claude API, streamed to the browser over SSE.',
+        },
+        {
           title: 'Proof that stands up to an auditor.',
-          body: 'An anti-money-laundering feature that embeds watchlist-screening results inside the signed PDF itself. Clients with reporting obligations get one tamper-evident document instead of a contract plus a separate report nobody can tie back to it.',
+          body: 'An anti-money-laundering feature that embeds watchlist-screening results inside the signed PDF itself. Clients with reporting obligations get one tamper-evident document instead of a contract plus a separate report nobody can tie back to it. Around it: national ID validation, alerts for politically exposed persons and an audit log of every check.',
+        },
+        {
+          title: 'A public API for partners.',
+          body: 'A REST API other companies build on: API keys scoped per company, cursor pagination and Swagger docs.',
         },
         {
           title: 'A weekend rebuild to remove a single point of failure.',
           body: 'The vendor behind the document-editing integration discontinued it. I wrote a `.NET` microservice from scratch to replace it over a weekend, and the dependency on an outside company went away with it.',
+        },
+        {
+          title: 'Access control, hardened.',
+          body: 'Role and ownership checks across the API, and a fix for a privilege-escalation path in user management.',
         },
         {
           title: 'The integrations the product leans on.',
@@ -194,7 +222,7 @@ export const en: SiteContent = {
         yearLabel: 'Year',
         year: '2025 → today',
         roleLabel: 'Role',
-        role: 'Founder & engineer',
+        role: 'Founder & full stack engineer',
         stackLabel: 'Stack',
         stack: [
           'TypeScript',
@@ -481,23 +509,25 @@ export const en: SiteContent = {
           { key: 'Backend', value: 'Node.js, TypeScript, Express, NestJS, REST APIs, C# / .NET' },
           {
             key: 'Frontend',
-            value: 'React, Next.js, Redux Toolkit, Zustand, Jotai, Material UI, shadcn/ui',
+            value:
+              'React, Next.js, Redux Toolkit, Zustand, Jotai, Material UI, Tailwind, shadcn/ui',
           },
           {
             key: 'AI / LLM',
             value:
-              'Claude API, LLM tool calling and agentic loops, structured outputs (JSON Schema). I work AI-native every day with Claude Code, and I own and review everything I ship.',
+              'Claude API, LLM tool calling and agentic loops, structured outputs (JSON Schema), prompt caching, evals. I work AI-native every day with Claude Code, and I own and review everything I ship.',
           },
           {
             key: 'Cloud (AWS)',
-            value: 'Lambda, API Gateway, S3, DynamoDB, IAM, CloudWatch, AWS SAM (IaC)',
+            value:
+              'Lambda, API Gateway, S3, DynamoDB, SES, Secrets Manager, IAM, CloudWatch, AWS SAM (IaC)',
           },
           {
             key: 'Data & integrations',
             value:
-              'PostgreSQL, DynamoDB, Prisma, SQL · ZapSign, Auth0, WhatsApp API, SendGrid, ARCA e-invoicing',
+              'PostgreSQL, DynamoDB, Prisma, SQL, Zod · ZapSign, Auth0, WhatsApp API, SendGrid, ARCA e-invoicing (SOAP)',
           },
-          { key: 'Tools', value: 'Git, Docker, Python, unit and integration testing' },
+          { key: 'Tools', value: 'Git, Docker, Python, Vitest, unit and integration testing' },
         ],
       },
       {
@@ -525,7 +555,7 @@ export const en: SiteContent = {
 
   contact: {
     headline: "Let's build something that works on a *Monday morning*.",
-    sub: 'Open to senior product / full-stack roles, remote. Based in Buenos Aires (UTC-3).',
+    sub: 'Open to full stack, backend and product engineering roles, remote. Based in Buenos Aires (UTC-3).',
     links: [
       { key: 'Email', value: EMAIL, href: `mailto:${EMAIL}`, external: false },
       { key: 'GitHub', value: GITHUB_HANDLE, href: GITHUB_URL, external: true },

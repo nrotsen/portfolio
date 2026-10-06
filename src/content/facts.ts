@@ -48,7 +48,7 @@ export const ANDESDOCS_URL = 'https://andesdocs.com';
 export const APPLASH_URL = 'https://www.applashsolutions.com';
 
 export const FULL_NAME = 'Néstor Berlanga';
-export const JOB_TITLE = 'Product engineer · full-stack';
+export const JOB_TITLE = 'Full stack engineer';
 
 const LOCALES: Record<Lang, string> = { en: 'en-US', es: 'es-AR' };
 
