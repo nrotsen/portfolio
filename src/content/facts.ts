@@ -45,6 +45,7 @@ export const DRILLS_HANDLE = 'github.com/nrotsen/software-engineering-drills';
 export const DRILLS_APP_URL = 'https://software-engineering-drills.vercel.app';
 export const BUEN_INVENTARIO_URL = 'https://www.bueninventario.com';
 export const ANDESDOCS_URL = 'https://andesdocs.com';
+export const APPLASH_URL = 'https://www.applashsolutions.com';
 
 export const FULL_NAME = 'Néstor Berlanga';
 export const JOB_TITLE = 'Product engineer · full-stack';

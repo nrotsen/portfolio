@@ -176,8 +176,8 @@ export interface AndesDocs extends ProjectBase {
 }
 
 /**
- * Un trabajo anterior, contado en chico: sin stack, sin métricas y sin
- * diagrama, porque no hay nada de eso para mostrar con honestidad.
+ * Un trabajo anterior, contado en chico: sin métricas y sin diagrama, porque
+ * no hay nada de eso para mostrar con honestidad.
  */
 export interface PastRole {
   kicker: string;
@@ -187,6 +187,9 @@ export interface PastRole {
   year: string;
   roleLabel: string;
   role: string;
+  stackLabel: string;
+  stack: readonly string[];
+  ctas: readonly Cta[];
 }
 
 export interface Decision {

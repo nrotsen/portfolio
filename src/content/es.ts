@@ -1,6 +1,7 @@
 import type { SiteContent } from './types';
 import {
   ANDESDOCS_URL,
+  APPLASH_URL,
   BUEN_INVENTARIO_URL,
   DRILLS_APP_URL,
   DRILLS_HANDLE,
@@ -176,11 +177,14 @@ export const es: SiteContent = {
     applash: {
       kicker: 'Puesto anterior · Freelance · 2022 → 2023',
       title: 'Applash Solutions',
-      body: 'Mi primer trabajo profesional como developer: landing pages y sitios responsive para clientes, hechos junto a otros desarrolladores y llevados del diseño a producción.',
+      body: 'Mi primer trabajo profesional como developer, en un estudio de Buenos Aires que hace apps y software a medida. Hice landing pages y sitios responsive para sus clientes, junto a otros desarrolladores, llevando cada uno del diseño a producción.',
       yearLabel: 'Año',
       year: 'Jun 2022 → May 2023',
       roleLabel: 'Rol',
       role: 'Web developer',
+      stackLabel: 'Stack',
+      stack: ['JavaScript', 'React', 'HTML', 'CSS', 'Algo de Node.js'],
+      ctas: [{ label: 'Ver Applash Solutions', href: APPLASH_URL, external: true }],
     },
 
     buenInventario: {
