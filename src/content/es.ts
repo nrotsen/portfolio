@@ -542,7 +542,8 @@ export const es: SiteContent = {
         rows: [
           {
             key: 'Formación',
-            value: 'Licenciatura en Economía — Universidad de Buenos Aires (UBA) · 2018 – 2021',
+            value:
+              'Licenciatura en Economía (incompleta) — Universidad de Buenos Aires (UBA) · 2018 – 2021',
           },
           {
             key: 'Certificaciones',

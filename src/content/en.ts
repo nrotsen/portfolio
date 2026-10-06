@@ -535,7 +535,8 @@ export const en: SiteContent = {
         rows: [
           {
             key: 'Education',
-            value: 'B.A. in Economics — University of Buenos Aires (UBA) · 2018 – 2021',
+            value:
+              'Economics, B.A. coursework (not completed) — University of Buenos Aires (UBA) · 2018 – 2021',
           },
           {
             key: 'Certifications',
