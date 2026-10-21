@@ -24,10 +24,10 @@ export const en: SiteContent = {
   lang: 'en',
 
   meta: {
-    title: `${FULL_NAME} — Full stack engineer`,
+    title: `${FULL_NAME} — Product & forward deployed engineer · full stack`,
     description:
-      'Full stack engineer: Node.js, TypeScript, React and AWS, with LLM-powered features in production. I designed, built and run Buen Inventario, a SaaS for small Argentine retailers. Case studies: Buen Inventario, finanzas-agent, software-engineering-drills.',
-    ogImageAlt: `${FULL_NAME} — full stack engineer. Argentina, works remote.`,
+      'Product and forward deployed engineer, full stack: Node.js, TypeScript, React and AWS, with LLM-powered features in production. I designed, built and run Buen Inventario, a SaaS for small Argentine retailers. Case studies: Buen Inventario, finanzas-agent, software-engineering-drills.',
+    ogImageAlt: `${FULL_NAME} — product and forward deployed engineer, full stack. Argentina, works remote.`,
     ogLocale: 'en_US',
   },
 
@@ -35,7 +35,7 @@ export const en: SiteContent = {
 
   nav: {
     markAriaLabel: `${FULL_NAME} — home`,
-    markRole: '/ full stack engineer',
+    markRole: '/ product engineer',
     primaryAriaLabel: 'Primary',
     menuLabel: 'Menu',
     links: [
@@ -54,7 +54,7 @@ export const en: SiteContent = {
   },
 
   hero: {
-    eyebrowMain: 'Full stack engineer · Argentina',
+    eyebrowMain: 'Product & forward deployed engineer · full stack · Argentina',
     eyebrowAside: 'Works remote',
     headline: 'I build products end to end — from the *database* to the *checkout button*.',
     sub: "I'm the main developer on Andes Docs, a contract platform Argentine companies use every day, and I designed, built and run Buen Inventario, a SaaS for small shops. I like the unglamorous parts: idempotent webhooks, honest numbers, tests that guard the architecture.",
@@ -254,7 +254,11 @@ export const en: SiteContent = {
         },
         {
           title: 'Payments without double charges.',
-          body: 'Mercado Pago payments and subscriptions with webhooks deduplicated by payment id.',
+          body: 'Mercado Pago webhooks deduplicated atomically by order id, which closed a race between two concurrent deliveries approving the same sale.',
+        },
+        {
+          title: "Margins that can't go negative unnoticed.",
+          body: 'Every product falls into one of four cost/price states. Frontend and backend classify it the same way, held together by shared parity fixtures, and the import flags a product priced below cost before it reaches the shelf.',
         },
         {
           title: 'A counter-ready PWA.',
@@ -556,7 +560,7 @@ export const en: SiteContent = {
 
   contact: {
     headline: "Let's build something that works on a *Monday morning*.",
-    sub: 'Open to full stack, backend and product engineering roles, remote. Based in Buenos Aires (UTC-3).',
+    sub: 'Open to forward deployed, product and full stack engineering roles, remote or hybrid. Based in Buenos Aires (UTC-3).',
     links: [
       { key: 'Email', value: EMAIL, href: `mailto:${EMAIL}`, external: false },
       { key: 'GitHub', value: GITHUB_HANDLE, href: GITHUB_URL, external: true },

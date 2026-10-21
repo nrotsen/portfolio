@@ -24,10 +24,10 @@ export const es: SiteContent = {
   lang: 'es',
 
   meta: {
-    title: `${FULL_NAME} — Full stack engineer`,
+    title: `${FULL_NAME} — Product & forward deployed engineer · full stack`,
     description:
-      'Full stack engineer: Node.js, TypeScript, React y AWS, con features de LLM en producción. Diseñé, construí y opero Buen Inventario, un SaaS para comercios argentinos. Casos: Buen Inventario, finanzas-agent, software-engineering-drills.',
-    ogImageAlt: `${FULL_NAME} — full stack engineer. Argentina, trabajo remoto.`,
+      'Product y forward deployed engineer, full stack: Node.js, TypeScript, React y AWS, con features de LLM en producción. Diseñé, construí y opero Buen Inventario, un SaaS para comercios argentinos. Casos: Buen Inventario, finanzas-agent, software-engineering-drills.',
+    ogImageAlt: `${FULL_NAME} — product y forward deployed engineer, full stack. Argentina, trabajo remoto.`,
     ogLocale: 'es_AR',
   },
 
@@ -35,7 +35,7 @@ export const es: SiteContent = {
 
   nav: {
     markAriaLabel: `${FULL_NAME} — inicio`,
-    markRole: '/ full stack engineer',
+    markRole: '/ product engineer',
     primaryAriaLabel: 'Principal',
     menuLabel: 'Menú',
     links: [
@@ -54,7 +54,7 @@ export const es: SiteContent = {
   },
 
   hero: {
-    eyebrowMain: 'Full stack engineer · Argentina',
+    eyebrowMain: 'Product & forward deployed engineer · full stack · Argentina',
     eyebrowAside: 'Trabajo remoto',
     headline:
       'Construyo productos de punta a punta: desde la *base de datos* hasta el *botón de checkout*.',
@@ -258,7 +258,11 @@ export const es: SiteContent = {
         },
         {
           title: 'Pagos sin cobros dobles.',
-          body: 'Pagos y suscripciones con Mercado Pago, con webhooks deduplicados por payment id.',
+          body: 'Webhooks de Mercado Pago deduplicados de forma atómica por id de orden, lo que cerró una carrera entre dos entregas concurrentes que aprobaban la misma venta.',
+        },
+        {
+          title: 'Márgenes que no se vuelven negativos sin que nadie se entere.',
+          body: 'Cada producto cae en uno de cuatro estados de costo y precio. Frontend y backend lo clasifican igual, atados por fixtures de paridad compartidas, y la importación marca un producto con precio por debajo del costo antes de que llegue a la góndola.',
         },
         {
           title: 'Una PWA lista para el mostrador.',
@@ -563,7 +567,7 @@ export const es: SiteContent = {
 
   contact: {
     headline: 'Construyamos algo que funcione un *lunes a la mañana*.',
-    sub: 'Abierto a roles full stack, backend y de producto, remotos. Vivo en Buenos Aires (UTC-3).',
+    sub: 'Abierto a roles de forward deployed, producto y full stack, remotos o híbridos. Vivo en Buenos Aires (UTC-3).',
     links: [
       { key: 'Email', value: EMAIL, href: `mailto:${EMAIL}`, external: false },
       { key: 'GitHub', value: GITHUB_HANDLE, href: GITHUB_URL, external: true },
