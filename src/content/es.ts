@@ -24,10 +24,10 @@ export const es: SiteContent = {
   lang: 'es',
 
   meta: {
-    title: `${FULL_NAME} — Product & forward deployed engineer · full stack`,
+    title: `${FULL_NAME} — Fullstack & forward deployed engineer`,
     description:
-      'Product y forward deployed engineer, full stack: Node.js, TypeScript, React y AWS, con features de LLM en producción. Diseñé, construí y opero Buen Inventario, un SaaS para comercios argentinos. Casos: Buen Inventario, finanzas-agent, software-engineering-drills.',
-    ogImageAlt: `${FULL_NAME} — product y forward deployed engineer, full stack. Argentina, trabajo remoto.`,
+      'Fullstack y forward deployed engineer: Node.js, TypeScript, React y AWS, con features de LLM en producción. Diseñé, construí y opero Buen Inventario, un SaaS para comercios argentinos. Casos: Buen Inventario, finanzas-agent, software-engineering-drills.',
+    ogImageAlt: `${FULL_NAME} — fullstack y forward deployed engineer. Argentina, trabajo remoto.`,
     ogLocale: 'es_AR',
   },
 
@@ -35,7 +35,7 @@ export const es: SiteContent = {
 
   nav: {
     markAriaLabel: `${FULL_NAME} — inicio`,
-    markRole: '/ product engineer',
+    markRole: '/ fullstack & forward deployed engineer',
     primaryAriaLabel: 'Principal',
     menuLabel: 'Menú',
     links: [
@@ -54,7 +54,7 @@ export const es: SiteContent = {
   },
 
   hero: {
-    eyebrowMain: 'Product & forward deployed engineer · full stack · Argentina',
+    eyebrowMain: 'Fullstack & forward deployed engineer · Argentina',
     eyebrowAside: 'Trabajo remoto',
     headline:
       'Construyo productos de punta a punta: desde la *base de datos* hasta el *botón de checkout*.',
